@@ -7,29 +7,69 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/acerca.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Grandstander:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
 
     <!-- Inicio navar -->
-
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <div class="col-5">
+                <a class="navbar-brand" href="">Clic y lava</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <div class="col-5">
+                            <a class="nav-link " aria-current="page" href="#">Nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="#">Contacto</a>
+                    </li>
+            </div>
+            </ul>
+            <a class="nav-link" href="#">Mis Compras
+                <img src="../assets/icons/carrito.webp" alt="Carrito" width="30" height="24">
+            </a>
+        </div>
+        </div>
+    </nav>
     <!-- Fin navar -->
 
     <!-- Inicio de carusel -->
     <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
 
         <div class="carousel-inner">
-            
+
             <div class="carousel-item active">
-                <img src="..." class="d-block w-100" alt="...">
+                <img src="../assets/img/Renta-de-lavadoras.webp" class="d-block w-100" alt="Renta-lavadoras">
             </div>
-            
+
             <div class="carousel-item">
-                <img src="..." class="d-block w-100" alt="...">
+                <img src="../assets/img/Renta-de-lavadoras_ahorra_tiempo_y_espacio.webp" class="d-block w-100"
+                    alt="Ahorro-tiempo">
             </div>
-            
+
             <div class="carousel-item">
-                <img src="..." class="d-block w-100" alt="...">
+                <img src="../assets/img/Renta-de-lavadoras_días_horas_meses.webp" class="d-block w-100"
+                    alt="Dias-horas">
             </div>
 
         </div>
@@ -39,7 +79,7 @@
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
         </button>
-        
+
         <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
             data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
@@ -49,25 +89,28 @@
     </div>
     <!-- Fin de carusel -->
 
-
     <!-- Inicio de Quienes somos -->
     <div class="row">
 
         <div class="col-12 col-md-6 col-lg-8">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">¿Quiénes somos? </h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.</p>
+                    <h5 class="card-title">Acerca de nosotros</h5>
+                    <p class="card-text">Buscamos solucionar la problematica que existe en la falta de equipos
+                        competentes en el area de lavado domestico, ya sean personas con equipos obsoletos que hagan un
+                        gasto excesivo de
+                        energia (agua, electricidad) o personas que no cuenten con un equipo para lavar su ropa. Nuestra
+                        solución es ofrecer renta de equipos a precios accesibles o venta de los mismos y poder así
+                        brindar la oportunidad de realizar algo tan basico como es lavar tú ropa.
+                    </p>
                 </div>
             </div>
         </div>
 
         <div class="col-12 col-md-6 col-lg-4">
-            <div class="card">
+            <div class="card border-0">
                 <div class="card-body">
-                    <img src="" alt="">
+                    <img src="../assets/img/Familia.webp" alt="Familia">
                 </div>
             </div>
         </div>
@@ -77,12 +120,14 @@
 
 
     <!-- Inicio de Servicios -->
+    <br>
+    <br>
     <div class="row">
-        
+
         <div class="col-12 col-md-6 col-lg-4">
-            <div class="card">
+            <div class="card border-0">
                 <div class="card-body">
-                    <img src="" alt="">
+                    <img src="../assets/img/servicios.webp" alt="Servicio">
                 </div>
             </div>
         </div>
@@ -91,113 +136,131 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Servicio</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.</p>
+                    <p class="card-text">Trabajamos los 365 días del año para mejorar la experiencia de nuestros
+                        clientes, contando con domótica en todas nuestras tiendas para asegurar la respuesta rápida ante
+                        cualquier eventualidad.
+                    </p>
                 </div>
             </div>
         </div>
-        
+
     </div>
     <!-- Fin de Servicios -->
 
+    <!-- Inicio de Conoce al Equipo -->
+     <br>
+     <br>
     <div class="container text-center">
         <h3>Conoce al Equipo</h3>
     </div>
-    
-    <!-- Inicio Tarjetas Equipo 1er fila-->
-    <div class="row">
-        <!-- Inicio  -->
-        <div class="col-12 col-md-6 col-lg-3">
-            <div class="card">
-                <div class="front">
-                    <img src="prueba.png" alt="">
-                    <h5 class="card-title">Ana Gabriela García García</h5>
-                    <p class="cart-text">Prueba texto</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-3">
-            <div class="card">
-                <div class="front">
-                    <img src="prueba.png" alt="">
-                    <h5 class="card-title">Anthoni Velázquez Reyes</h5>
-                    <p class="cart-text">Prueba texto</p>
-                </div>
-            </div>
-        </div>
+    <br>
+    <br>
+    <!-- Fin de Conoce al Equipo -->
 
-        <div class="col-12 col-md-6 col-lg-3">
-            <div class="card">
-                <div class="front">
-                    <img src="prueba.png" alt="">
-                    <h5 class="card-title">Eduardo Martínez Juárez</h5>
-                    <p class="cart-text">Prueba texto</p>
-                </div>                
-            </div>
-        </div>
 
-        <div class="col-12 col-md-6 col-lg-3">
-            <div class="card">
-                <div class="front">
-                    <img src="prueba.png" alt="">
-                    <h5 class="card-title">Jesus Galicia Rueda</h5>
-                    <p class="cart-text">Prueba texto</p>
+    <div class="container">
+        <!-- Inicio Tarjetas Equipo 1er fila-->
+        <div class="row">
+            <!-- Inicio  -->
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card">
+                    <div class="front">
+                        <img src="/assets/img/ana.webp" alt="">
+                        <h5 class="card-title">Ana Gabriela García García</h5>
+                        <p class="card-text">Desarrolladora Full Stack Java, con experiencia en la creacion de
+                            aplicaciones web. "Equipo Desarrollo"</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card">
+                    <div class="front">
+                        <img src="/assets/img/anthony.webp" alt="">
+                        <h5 class="card-title">Anthony Velázquez Reyes</h5>
+                        <p class="card-text">Desarrrollador fullstack. Encargado del estudio de campo de las
+                            necesidades y problematicas a solucionar. "Equipo desarrollo"</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card">
+                    <div class="front">
+                        <img src="/assets/img/edu.webp" alt="">
+                        <h5 class="card-title">Eduardo Martínez Juárez</h5>
+                        <p class="card-text">Desarrollador Fullstack con experiencia en la creación y desarrollo de
+                            aplicaciones web. "Equipo desarrollo"</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card">
+                    <div class="front">
+                        <img src="/assets/img/jesus.webp" alt="">
+                        <h5 class="card-title">Jesus Galicia Rueda</h5>
+                        <p class="card-text">Desarrrollador Java Fullstack con experiencia en desarrollo web.
+                            Interesado por la inovación tecnológica "Equipo Desarrrollo"</p>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- Fin Tarjetas Equipo 1er fila-->
+
+        <!-- Inicio Tarjetas Equipo 2da fila-->
+        <div class="row">
+            <!-- Inicio  -->
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card">
+                    <div class="front">
+                        <img src="../assets/img/integrantes/karla.webp" alt="Foto Karla">
+                        <h5 class="card-title">Karla Odeth Ruiz Sánchez</h5>
+                        <p class="card-text">Desarrolladora Java Full Stack, interesada en crear soluciones web
+                            integrales, con pasión por la tecnología y el desarrollo de software.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card">
+                    <div class="front">
+                        <img src="../assets/img/integrantes/ray.webp" alt="Foto Ray">
+                        <h5 class="card-title">Raymundo Mendoza Ramirez</h5>
+                        <p class="card-text">Desarrollador Java Full Stack , con interés en el desarrollo web y
+                            análisis de datos.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card">
+                    <div class="front">
+                        <img src="../assets/img/integrantes/ricardo.webp" alt="Foto Ricardo">
+                        <h5 class="card-title">Ricardo Miguel Raya</h5>
+                        <p class="card-text">Desarrollador Fullstack con experiencia en la creación y desarrollo
+                            de aplicaciones web. Integrante del proyecto.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card">
+                    <div class="front">
+                        <img src="../assets/img/integrantes/sandy.webp" alt="Foto Sandy">
+                        <h5 class="card-title">Sandra De La Sancha Aguilar</h5>
+                        <p class="card-text">Soy Desarrolladora con la carrera de ISC mi rol en el proyecto fue
+                            desarrolladora full Stack.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Fin Tarjetas Equipo 2da fila-->
     </div>
-    <!-- Fin Tarjetas Equipo 1er fila-->
-
-    <!-- Inicio Tarjetas Equipo 2da fila-->
-    <div class="row">
-        <!-- Inicio  -->
-        <div class="col-12 col-md-6 col-lg-3">
-            <div class="card">
-                <div class="front">
-                    <img src="prueba.png" alt="">
-                    <h5 class="card-title">Karla Odeth Ruiz Sánchez</h5>
-                    <p class="cart-text">Prueba texto</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-3">
-            <div class="card">
-                <div class="front">
-                    <img src="prueba.png" alt="">
-                    <h5 class="card-title">Raymundo Mendoza Ramirez</h5>
-                    <p class="cart-text">Prueba texto</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 col-md-6 col-lg-3">
-            <div class="card">
-                <div class="front">
-                    <img src="prueba.png" alt="">
-                    <h5 class="card-title">Eduardo Martínez Juárez</h5>
-                    <p class="cart-text">Prueba texto</p>
-                </div>                
-            </div>
-        </div>
-
-        <div class="col-12 col-md-6 col-lg-3">
-            <div class="card">
-                <div class="front">
-                    <img src="prueba.png" alt="">
-                    <h5 class="card-title">Sandra De La Sancha Aguilar</h5>
-                    <p class="cart-text">Prueba texto</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Fin Tarjetas Equipo 2da fila-->
 
     <!-- Inicio Footer -->
-    
-    
+
+
     <!-- Fin Footer -->
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
         crossorigin="anonymous"></script>
