@@ -83,7 +83,7 @@ const enviarFormContacto = (nombre, email, telefono, mensaje, asunto) => {
     phone: telefono,
     message: mensaje
   }
-  console.log(plantillaParametros); //Para verificar que se envian los parametros correctament
+  
 
   // Envio del email
   emailjs.send(servicioID, plantillaID, plantillaParametros)
