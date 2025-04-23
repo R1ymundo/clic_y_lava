@@ -30,4 +30,6 @@ div.form-check{
 footer{
     background-color: #FEB36D;
     padding: 50px;
+    flex-wrap: wrap;
+    display: flex;
 }
