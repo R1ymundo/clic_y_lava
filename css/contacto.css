@@ -1,0 +1,33 @@
+.logo{
+    width: 200px;
+    height: 200px;
+    text-align: center;
+}
+
+.containerLogo{
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10;
+    padding-bottom: 0;
+}
+
+.mb-3{
+    margin-top: px;
+}
+
+.button{
+    text-align: center;
+    background-color: var(--ft-color);
+}
+
+div.form-check{
+    display: flex;
+    justify-content: center;
+   align-items: center;
+
+}
+
+footer{
+    background-color: #FEB36D;
+    padding: 50px;
+}
