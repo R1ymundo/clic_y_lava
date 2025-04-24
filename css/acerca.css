@@ -1,0 +1,70 @@
+body{
+    background-color: transparent;
+}
+
+html{
+    --bg-color: #F5FDFF;
+    --lt-color: #00375E;
+    --bt-color: #BDDDF4;
+    --ft-color: #FEB36D;
+    --mn-color: #EBE6CE;
+
+    background-color: var(--bg-color);
+}
+
+.navbar-brand {
+    font-family: "Grandstander", cursive;
+    color: #00375E;
+    font-size: 24px;
+}
+
+.navbar-brand:hover {
+    color: var(--bt-color);
+}
+
+.nav-link {
+    font-family: "Inter", sans-serif;
+    color: var(--ft-color);
+    font-size: 20px;
+}
+
+.nav-link:hover {
+    color: var(--bt-color);
+}
+
+.card {
+    background-color: transparent !important;
+    border: none !important;
+    color: var(--lt-color);
+    text-align: center;
+    font-family: "Grandstander", cursive;
+    border-radius: 1rem;
+    padding: 0.5rem; 
+    height: auto;
+}
+
+.card-body img {
+    display: block;
+    margin: 0 auto; 
+    max-width: 100%; 
+}
+
+.front img {
+    width: 150px;
+}
+
+.card-title {
+    font-family: "Grandstander", cursive;
+    font-size: 22px;
+}
+
+.card-text{
+    font-family: "Inter", sans-serif;
+    font-size: 18px;
+}
+
+h3 {
+    color: var(--lt-color);
+    font-family: "Grandstander", cursive;
+    font-size: 24px;
+}
