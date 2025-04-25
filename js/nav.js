@@ -1,5 +1,7 @@
 const navegacion = document.getElementById("navegacion");
-navegacion.insertAdjacentHTML("afterbegin",` 
+navegacion.insertAdjacentHTML(
+  "afterbegin",
+  ` 
      <div class="container-fluid">
             <div class="col-5">
                 <a class="navbar-brand" href="../index.html">Clic y lava</a>
@@ -12,7 +14,7 @@ navegacion.insertAdjacentHTML("afterbegin",`
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <div class="col-5">
-                            <a class="nav-link " aria-current="page" href="../index.html">Nosotros</a>
+                            <a class="nav-link " aria-current="page" href="../paginas/acerca.html">Nosotros</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../paginas/productos.html">Productos</a>

@@ -1,6 +1,8 @@
 const agregarFooter = document.getElementById("agregarFooter");
 
-agregarFooter.insertAdjacentHTML("afterbegin", `
+agregarFooter.insertAdjacentHTML(
+  "afterbegin",
+  `
   <div class="row py-4" style="background-color: #FFB36D; text-align: center; align-items: center;">
     <div class="col-sm-6 mb-4 d-flex flex-column justify-content-center align-items-center">
       <div class="container">
@@ -26,6 +28,5 @@ agregarFooter.insertAdjacentHTML("afterbegin", `
       </div>
     </div>
   </div>
-`);
-
-
+`
+);
