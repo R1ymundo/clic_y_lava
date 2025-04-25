@@ -1,35 +1,26 @@
-.logo{
-    width: 200px;
-    height: 200px;
-    text-align: center;
+.logo {
+  width: 200px;
+  height: 200px;
+  text-align: center;
 }
 
-.containerLogo{
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 10;
-    padding-bottom: 0;
+.containerLogo {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
-.mb-3{
-    margin-top: px;
+.mb-3 {
+  margin-top: 1rem;
 }
 
-.button{
-    text-align: center;
-    background-color: var(--ft-color);
+.button {
+  text-align: center;
+  background-color: var(--ft-color);
 }
 
-div.form-check{
-    display: flex;
-    justify-content: center;
-   align-items: center;
-
+div.form-check {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
-/* footer{
-    background-color: #FEB36D;
-    padding: 50px;
-    flex-wrap: wrap;
-    display: flex;
-} */
