@@ -61,23 +61,23 @@ git merge feature/registro-usuario
 git push origin develop
 ```
 
-- **1. Verifica los cambios locales**
-git status
-- **2. Agrega los archivos modificados**
-git add .
-- **3. Realiza el commit**
-git commit -m "Mensaje del commit"
-- **4. Sube tu rama de trabajo al repositorio remoto (ej. origin)**
-git push origin <nombre_de_tu_rama>
-- **5. Cambia a la rama de destino donde quieres hacer el merge (por ejemplo develop)**
-git checkout develop
-- **6. Asegúrarse de tener la versión más reciente de develop o la rama de trabajo general**
-git pull origin develop
-- **7. Hacer el merge desde tu rama hacia develop o rama de trabajo general**
-git merge <nombre-de-tu-rama>
+- **1. Verifica los cambios locales**:
+    git status
+- **2. Agrega los archivos modificados**:
+    git add .
+- **3. Realiza el commit**:
+    git commit -m "Mensaje del commit"
+- **4. Sube tu rama de trabajo al repositorio remoto (ej. origin)**:
+    git push origin <nombre_de_tu_rama>
+- **5. Cambia a la rama de destino donde quieres hacer el merge (por ejemplo develop)**:
+    git checkout develop
+- **6. Asegúrarse de tener la versión más reciente de develop o la rama de trabajo general**:
+    git pull origin develop
+- **7. Hacer el merge desde tu rama hacia develop o rama de trabajo general**:
+    git merge <nombre-de-tu-rama>
 - **8. Resolver conflictos si es que los hay (En Vs Code se pueden resolver)**
-- **9. Luego del merge exitoso, sube los cambios a la rama principal (ejemplo develop) o rama de trabajo general**
-git push origin develop
+- **9. Luego del merge exitoso, sube los cambios a la rama principal (ejemplo develop) o rama de trabajo general**:
+    git push origin develop
 
 ---
 
