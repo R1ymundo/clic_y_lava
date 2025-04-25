@@ -33,10 +33,10 @@ git checkout -b <tu_rama>
 git pull origin develop
 ```
 
-**git checkout -b <tu_rama>**: ya ubicado en una rama de trabajo general (git checkout <rama>) creada ya por mutuo acuerdo entre todo el equipo, en donde se subirá el codigo de todos de dicha tarea en curso para subir a rama "develop" al final, crea tu sub-rama y te cambia a ella al mismo tiempo con este comando.
-**git pull origin develop**: ya estando en tu sub-rama creada con el anterior comando, se hace el pull desde develop, ya que es la rama principal de desarrollo, para obtener la ultima version del proyecto o de alguna otra rama de la que se quieran traer los ultimos cambios)
+- **git checkout -b <tu_rama>**: ya ubicado en una rama de trabajo general (git checkout <rama>) creada ya por mutuo acuerdo entre todo el equipo, en donde se subirá el codigo de todos de dicha tarea en curso para subir a rama "develop" al final, crea tu sub-rama y te cambia a ella al mismo tiempo con este comando.
+- **git pull origin develop**: ya estando en tu sub-rama creada con el anterior comando, se hace el pull desde develop, ya que es la rama principal de desarrollo, para obtener la ultima version del proyecto o de alguna otra rama de la que se quieran traer los ultimos cambios)
 
-💡 **Sugerencia adicional**:
+- 💡 **Sugerencia adicional**:
 **"git fetch --all"**: descarga los cambios y ramas creadas por otros compañeros desde el repositorio remoto a tu repositorio local, esto si es que alguien ya hizo algun cambio o subio algo antes que cualquiera de los integrantes, solo que no los integra en tus sub-ramas locales que hayas creado si es que creaste una rama antes, ahi se tendria que hacer pull desde la rama en donde se hayan hecho adiciones o modificaciones antes.
 
 ### 📝 Codigo para actualizar el proyecto:
@@ -61,22 +61,22 @@ git merge feature/registro-usuario
 git push origin develop
 ```
 
-**1. Verifica los cambios locales**
+- **1. Verifica los cambios locales**
 git status
-**2. Agrega los archivos modificados**
+- **2. Agrega los archivos modificados**
 git add .
-**3. Realiza el commit**
+- **3. Realiza el commit**
 git commit -m "Mensaje del commit"
-**4. Sube tu rama de trabajo al repositorio remoto (ej. origin)**
+- **4. Sube tu rama de trabajo al repositorio remoto (ej. origin)**
 git push origin <nombre_de_tu_rama>
-**5. Cambia a la rama de destino donde quieres hacer el merge (por ejemplo develop)**
+- **5. Cambia a la rama de destino donde quieres hacer el merge (por ejemplo develop)**
 git checkout develop
-**6. Asegúrarse de tener la versión más reciente de develop o la rama de trabajo general**
+- **6. Asegúrarse de tener la versión más reciente de develop o la rama de trabajo general**
 git pull origin develop
-**7. Hacer el merge desde tu rama hacia develop o rama de trabajo general**
+- **7. Hacer el merge desde tu rama hacia develop o rama de trabajo general**
 git merge <nombre-de-tu-rama>
-**8. Resolver conflictos si es que los hay (En Vs Code se pueden resolver)**
-**9. Luego del merge exitoso, sube los cambios a la rama principal (ejemplo develop) o rama de trabajo general**
+- **8. Resolver conflictos si es que los hay (En Vs Code se pueden resolver)**
+- **9. Luego del merge exitoso, sube los cambios a la rama principal (ejemplo develop) o rama de trabajo general**
 git push origin develop
 
 ---
@@ -96,7 +96,12 @@ git push origin develop
 
 ### ✅ Vista previa del proyecto
 
-> ![N|Solid](https://raw.githubusercontent.com/R1ymundo/clic_y_lava/refs/heads/acercaNosotros/assets/img/acerca1.webp) > ![N|Solid](https://raw.githubusercontent.com/R1ymundo/clic_y_lava/refs/heads/acercaNosotros/assets/img/acerca2.webp) > ![N|Solid](https://raw.githubusercontent.com/R1ymundo/clic_y_lava/refs/heads/acercaNosotros/assets/img/acerca3.webp) > ![N|Solid](https://raw.githubusercontent.com/R1ymundo/clic_y_lava/refs/heads/paginaContacto/assets/img/contactanos.png) > ![N|Solid](https://raw.githubusercontent.com/R1ymundo/clic_y_lava/refs/heads/paginaContacto/assets/img/contactanos.png) > ![N|Solid](https://raw.githubusercontent.com/R1ymundo/clic_y_lava/refs/heads/paginaContacto/assets/img/contactanos3.png)
+> ![N|Solid](https://raw.githubusercontent.com/R1ymundo/clic_y_lava/refs/heads/acercaNosotros/assets/img/acerca1.webp)
+![N|Solid](https://raw.githubusercontent.com/R1ymundo/clic_y_lava/refs/heads/acercaNosotros/assets/img/acerca2.webp)
+![N|Solid](https://raw.githubusercontent.com/R1ymundo/clic_y_lava/refs/heads/acercaNosotros/assets/img/acerca3.webp)
+![N|Solid](https://raw.githubusercontent.com/R1ymundo/clic_y_lava/refs/heads/paginaContacto/assets/img/contactanos.png)
+![N|Solid](https://raw.githubusercontent.com/R1ymundo/clic_y_lava/refs/heads/paginaContacto/assets/img/contactanos.png)
+![N|Solid](https://raw.githubusercontent.com/R1ymundo/clic_y_lava/refs/heads/paginaContacto/assets/img/contactanos3.png)
 
 ---
 
