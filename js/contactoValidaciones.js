@@ -6,25 +6,38 @@ const exampleText = document.getElementById("exampleText");
 const terminosAceptados = document.getElementById("btnRadio");
 const btnEnviar = document.getElementById("btnEnviar");
 const formmulario = document.getElementById("formularioContacto");
+const nombreValidar = document.getElementById("nombreValidar");
+const asuntoValidar = document.getElementById("asuntoValidar");
+const emailValidar = document.getElementById("emailValidar");
+const telefonoValidar = document.getElementById("telefonoValidar");
+const mensajeValidar = document.getElementById("mensajeValidar");
 
-const limpiarAlertElemnto = (elemento) => {
-  elemento.style.border = ""
+const limpiarAlertElemnto = (elementoInput, elementoValidar) => {
+  elementoInput.classList.remove("is-invalid");
+  elementoValidar.classList.remove("invalid-feedback");
+  elementoValidar.classList.add("valid-feedback");
+  elementoValidar.innerText = " ";
 }
 
-const alertElemento = (elemento) => { 
-  elemento.style.border = "solid medium red"
+const alertElemento = (elementoInput, elementoValidar, msg) => {
+  elementoInput.classList.remove("is-valid");
+  elementoInput.classList.add("is-invalid");
+  elementoValidar.classList.remove("valid-feedback");
+  elementoValidar.classList.add("invalid-feedback");
+  elementoValidar.innerText = " ";
+  elementoValidar.innerText = `Por favor ingresa un ${msg}`;
 }
 
 const validarFormContacto = (nombre, email, telefono, mensaje, asunto) => {
   // Validaciones con regexp ->
-  const regexNombre = new RegExp("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]{2,}$");
+  const regexNombre = new RegExp("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]{3,}$");
   const regexAsunto = new RegExp("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]{3,}$");
   const regexEmail = new RegExp("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$");
   const regexTelefono = new RegExp("^[0-9\\-\\+\\s\\(\\)]{7,15}$");
   const regexMensaje = new RegExp("^.{15,50}$");
 
   // Variable para almacenar los errores ->
-  let error = 0;
+  let error = [];
 
   // Validacion si son correctos los campos ->
   // regexNombre.test(nombre) ? nombre : error.push("Nombre invalido");
@@ -32,37 +45,39 @@ const validarFormContacto = (nombre, email, telefono, mensaje, asunto) => {
   // regexTelefono.test(telefono) ? telefono : error.push("Telefono invalido");
   // regexMensaje.test(mensaje) ? mensaje : error.push("Mensaje incorrecto");
 
-  if (!regexNombre.test(nombre)){
-    alertElemento(exampleName);
-    error++;
+  if (!regexNombre.test(nombre)) {
+    alertElemento(exampleName, nombreValidar, "Nombre inválido");
+    error.push("Nombre inválido");
   } else {
-    limpiarAlertElemnto(exampleName);
-  }
-  
-  if (!regexAsunto.test(asunto)){
-    alertElemento(exampleAsunto);
-    error++;
-  } else {
-    limpiarAlertElemnto(exampleAsunto);
+    limpiarAlertElemnto(exampleName, nombreValidar);
   }
 
-  if (!regexEmail.test(email)){
-    alertElemento(exampleMail);
-    error++;    
+  if (!regexAsunto.test(asunto)) {
+    alertElemento(exampleAsunto, asuntoValidar, "Asunto inválido");
+    error.push("Asunto inválido");
   } else {
-    limpiarAlertElemnto(exampleMail);
+    limpiarAlertElemnto(exampleAsunto, asuntoValidar);
   }
 
-  if (!regexTelefono.test(telefono)){
-    alertElemento(exampleTelephone);
-    error++;
+  if (!regexEmail.test(email)) {
+    alertElemento(exampleMail, emailValidar, "Email inválido");
+    error.push("Email inválido");
   } else {
-    limpiarAlertElemnto(exampleTelephone);
+    limpiarAlertElemnto(exampleMail, emailValidar);
   }
 
-  if (!regexMensaje.test(mensaje)){
-    alertElemento(exampleText);
-    error++;
+  if (!regexTelefono.test(telefono)) {
+    alertElemento(exampleTelephone, telefonoValidar, "Telefono inválido");
+    error.push("Telefono inválido");
+  } else {
+    limpiarAlertElemnto(exampleTelephone, telefonoValidar);
+  }
+
+  if (!regexMensaje.test(mensaje)) {
+    alertElemento(exampleText, mensajeValidar, "Mensaje inválido");
+    error.push("Mensaje inválido");
+  } else {
+    limpiarAlertElemnto(exampleText, mensajeValidar);
   }
 
   return error;
@@ -83,7 +98,7 @@ const enviarFormContacto = (nombre, email, telefono, mensaje, asunto) => {
     phone: telefono,
     message: mensaje
   }
-  
+
 
   // Envio del email
   emailjs.send(servicioID, plantillaID, plantillaParametros)
@@ -116,7 +131,7 @@ btnEnviar.addEventListener("click", (event) => {
 
   let error = validarFormContacto(nombre, email, telefono, mensaje, asunto);
 
-  if(!terminosAceptados.checked){
+  if (!terminosAceptados.checked) {
     Swal.fire({
       title: "Debes aceptar los términos y condiciones",
       icon: "warning",
@@ -124,9 +139,10 @@ btnEnviar.addEventListener("click", (event) => {
     return;
   }
 
-  if (error > 0) {
+  if (error.length > 0) {
     Swal.fire({
       title: "Llena correctamente el formulario",
+      html: error.join("<br>"),
       icon: "error",
     });
   } else {
