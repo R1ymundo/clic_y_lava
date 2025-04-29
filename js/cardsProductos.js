@@ -110,3 +110,6 @@ let productos = [
     tecnologiaInverter: "No",
   },
 ];
+
+
+localStorage.setItem("productos", JSON.stringify(productos));
