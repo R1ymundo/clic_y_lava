@@ -1,3 +1,6 @@
+const cardsProduct = document.getElementById("cardsProduct");
+
+
 let productos = [
   {
     id: 1,
@@ -10,6 +13,7 @@ let productos = [
     seguroNinos: "Sí",
     sostenible: "Ahorro de agua",
     tipoCarga: "Carga frontal",
+    imagen: "../assets/img/ImagenesProductos/ImagenesLavadoras/lavadora1.webp",
   },
   {
     id: 2,
@@ -21,6 +25,7 @@ let productos = [
     ajustesTemperatura: 4,
     tipoLavadora: "Automática",
     tecnologiaInverter: "No",
+    imagen: "../assets/img/ImagenesProductos/ImagenesLavadoras/lavadora2.webp",
   },
   {
     id: 3,
@@ -32,6 +37,7 @@ let productos = [
     seguroNinos: "Sí",
     tecnologiaInverter: "Sí",
     tipoCarga: "Carga frontal",
+    imagen: "../assets/img/ImagenesProductos/ImagenesLavadoras/lavadora3.webp",
   },
   {
     id: 4,
@@ -43,6 +49,7 @@ let productos = [
     ajustesTemperatura: 3,
     tipoLavadora: "Automática",
     tecnologiaInverter: "No",
+    imagen: "../assets/img/ImagenesProductos/ImagenesLavadoras/lavadora4.webp",
   },
   {
     id: 5,
@@ -54,6 +61,7 @@ let productos = [
     filtroAtrapaPelusa: "No",
     ajustesTemperatura: 1,
     tipoPanelControl: "Perillas",
+    imagen: "../assets/img/ImagenesProductos/ImagenesLavadoras/lavadora5.webp",
   },
   {
     id: 6,
@@ -66,6 +74,7 @@ let productos = [
     seguroNinos: "Sí",
     tecnologiaInverter: "Sí",
     tipoCarga: "Carga frontal",
+    imagen: "../assets/img/ImagenesProductos/ImagenesLavadoras/lavadora6.webp",
   },
   {
     id: 7,
@@ -77,6 +86,7 @@ let productos = [
     ajustesTemperatura: 6,
     tipoLavadora: "Automática",
     sostenible: "Ahorro de agua",
+    imagen: "../assets/img/ImagenesProductos/ImagenesLavadoras/lavadora7.webp",
   },
   {
     id: 8,
@@ -87,6 +97,7 @@ let productos = [
     filtroAtrapaPelusa: "Sí",
     ajustesTemperatura: 1,
     tipoPanelControl: "Perillas",
+    imagen: "../assets/img/ImagenesProductos/ImagenesLavadoras/lavadora8.webp",
   },
   {
     id: 9,
@@ -97,6 +108,7 @@ let productos = [
     filtroAtrapaPelusa: "No",
     ajustesTemperatura: 4,
     tipoLavadora: "Automática",
+    imagen: "../assets/img/ImagenesProductos/ImagenesLavadoras/lavadora9.webp",
   },
   {
     id: 10,
@@ -108,8 +120,22 @@ let productos = [
     ajustesTemperatura: 6,
     tipoPanelControl: "Digital, botones y perillas",
     tecnologiaInverter: "No",
+    imagen: "../assets/img/ImagenesProductos/ImagenesLavadoras/lavadora10.webp",
   },
 ];
 
 
 localStorage.setItem("productos", JSON.stringify(productos));
+
+cardsProduct.insertAdjacentHTML("beforeend", 
+      `<div class="card" style="width: 18rem;">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">titulo</h5>
+            <h5 class="card-title">marca</h5>
+            <h5 class="card-title">precio</h5>
+            <a href="#" class="btn btn-primary">Ver más detalles..</a>
+          </div>
+      </div>`);
+
+
