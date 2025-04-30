@@ -151,9 +151,9 @@ const fetchingProducts = async () => {
                   <div class="card h-100">
                     <img src="${producto.imagen}" class="card-img-top" alt="...">
                     <div class="card-body">
-                      <p class="card-title">${producto.modelo}</p>
-                      <p class="card-title">Marca ${producto.marca}</p>
-                      <p class="card-title">Renta $<strong>${producto.precioRenta}</strong></p>
+                      <p class="card-title principal">${producto.modelo}</p>
+                      <p class="card-title detalle">Marca: ${producto.marca}</p>
+                      <p class="card-precio">Renta: $${producto.precioRenta}</p>
                       <a href="" class="btn btn-primary">Ver más detalles..</a>
                     </div>
                   </div> 
