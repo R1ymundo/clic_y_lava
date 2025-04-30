@@ -10,7 +10,8 @@
       integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="../css/acerca.css" />
+    <link rel="stylesheet" href="../css/acerca.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" type="img/jpg" href="../assets/icons/favicon.jpg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -24,7 +25,8 @@
       href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/cardsProductos.css" />
+
   </head>
 
   <body>
@@ -36,6 +38,12 @@
       <!-- Inicio Encabezado -->
       <div class="container" id="encabezado"></div>
       <!-- Fin Encabezado -->
+
+      <!-- Aquí empiezan las cards de productos y alert de error de obtencion de datos (se puede cambiar por sweetalert2) -->
+      <div id="alertData"></div>
+        <div class="row g-4" id="cardsProduct"></div>
+      </div>
+      <!-- Aquí terminan las cards de  y alert de error -->
     </main>
 
     <!-- Inicio Footer -->
@@ -49,8 +57,9 @@
       integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
       crossorigin="anonymous"
     ></script>
+    <script src="../js/cardsProductos.js"></script>
     <script src="../js/nav.js"></script>
-    <script src="../js/scriptEncabezado.js"></script>
+   // <script src="../js/scriptEncabezado.js"></script>
     <script src="../js/scriptFooter.js"></script>
   </body>
 </html>

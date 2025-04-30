@@ -1,0 +1,82 @@
+/* Espaciado general del contenedor */
+#cardsProduct {
+    margin-top: 30px;
+  }
+  
+  /* Fuentes personalizadas */
+  h1, h2, h3, h4, h5, h6, p {
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .card-title.principal {
+    font-family: 'Grandstander', cursive;
+    font-size: 20px;
+    font-weight: 500;
+    color: #1d3557;
+    margin-bottom: 10px;
+  }
+  
+  .card-title.detalle {
+    font-size: 15px;
+    color: #343a40;
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  
+  .card-precio {
+    font-size: 16px;
+    color: #2a9d8f;
+    font-weight: bold;
+    margin-bottom: 12px;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  /* Estilo base para cada tarjeta */
+  .card {
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px #9132321a;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    background-color: #ffffffbd;
+  }
+  
+  /* Efecto al pasar el mouse */
+  .card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 20px #7fbff3fa;
+  }
+  
+  /* Imágenes iguales en todas las tarjetas */
+  .card-img-top {
+    height: 230px;
+    object-fit: center;
+    width: 100%;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+  }
+  
+  /* Contenido de la tarjeta */
+  .card-body {
+    padding: 0.5rem;
+    background-color: #BDDDF4;
+    text-align: center;
+  }
+  
+  /* Estilos generales para texto dentro de card */
+  .card-title {
+    font-size: 0.95rem;
+    color: #333;
+    margin-bottom: 8px;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  /* Botón personalizado */
+  .card .btn-primary {
+    background-color: #FD8F3E;
+    border: none;
+    font-size: 0.9rem;
+    padding: 6px 14px;
+    font-weight: 500;
+    transition: background-color
+  }  
