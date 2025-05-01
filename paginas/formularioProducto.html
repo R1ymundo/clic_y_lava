@@ -16,6 +16,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Grandstander&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/formularioProductos.css">
   </head>
 
   <body>
@@ -25,13 +27,13 @@
 
     <main class="container">
       <!-- Inicio Encabezado -->
-      <div class="container" id="encabezado"></div>
       <!-- Fin Encabezado -->
       
-      <div class="text-center my-4">
-        <h5>Formulario de Productos</h5>
-        <img src="../assets/icons/logo_clic_lava.png" alt="Logo clic y lava" class="logo" style="max-width: 150px" />
-      </div>
+      <div class="containerLogo">
+        <h5>Sube un nuevo producto</h5>
+        <img class="logo" src="../assets/icons/logo_clic_lava.png" class="d-block w-100" alt="Logo clic y lava" />
+        <h6>Ingresa la información en los campos para agregar tu producto</h6>
+    </div>
 
       <!-- Formulario -->
       <form action="">
@@ -54,7 +56,7 @@
             <div class="col-md-4">
               <label class="form-label">Categoría</label>
               <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn btnDos btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Selecciona una categoría
                 </button>
                 <ul class="dropdown-menu w-100">
@@ -67,7 +69,7 @@
             <div class="col-md-4">
               <label class="form-label">Marca</label>
               <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Selecciona una marca
                 </button>
                 <ul class="dropdown-menu w-100">

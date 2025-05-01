@@ -1,0 +1,47 @@
+
+.containerLogo {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+.btn {
+    background-color: #FD8F3E;
+    border: none;
+    font-size: 0.9rem;
+    padding: 6px 14px;
+    font-weight: 500;
+    transition: background-color
+    
+  }  
+
+.btn:hover{
+    background-color: #FFEA8B;
+    color: #00375e;
+}
+
+.btn.dropdown-toggle:active{
+    background-color: #FFEA8B;
+    color: #00375e;
+    box-shadow: none;
+}
+
+.btn.show{
+    background-color: #FFEA8B;
+    color: #00375e;
+
+}
+
+.dropdown-item:hover{
+    background-color: #FFEA8B;
+    color: #00375e;
+}
+
+.btn.btn-warning{
+    color: #ffffff;
+}
+.btn.btn-warning:hover{
+    color: #00375e;
+}
+
+  
