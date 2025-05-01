@@ -154,7 +154,7 @@ const fetchingProducts = async () => {
                       <p class="card-title principal">${producto.modelo}</p>
                       <p class="card-title detalle">Marca: ${producto.marca}</p>
                       <p class="card-precio">Renta: $${producto.precioRenta}</p>
-                      <a href="" class="btn btn-primary">Ver más detalles..</a>
+                      <a href="../paginas/detalleProducto.html?id=${producto.id}&categoria=${producto.id}" class="btn btn-primary">Ver más detalles..</a>
                     </div>
                   </div> 
                 </div>
