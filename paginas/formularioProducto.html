@@ -84,12 +84,11 @@
         </div>
 
         <!-- Imagen principal -->
-        <div class="row mb-4">
-          <div class="col-md-12 ">
-            <label for="imagenPrincipal" class="form-label">Imagen principal</label>
-            <input type="file" class="form-control border-primary" id="imagenPrincipal" accept="image/*">
-          </div>
+        <div class="input-group mb-3">
+          <button class="btn btn-outline-secondary" type="button" id="btn-archivo">Imagen principal</button>
+          <input type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
         </div>
+       <img id="img-product">
 
         <!-- Imágenes complementarias -->
         <div class="row mb-4">
@@ -136,6 +135,7 @@
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script><!--Script cloudinary-->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
