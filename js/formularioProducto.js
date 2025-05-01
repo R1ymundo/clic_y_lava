@@ -2,10 +2,87 @@ const nombreProducto = document.getElementById("nombreProducto");
 const stock = document.getElementById("stock");
 const precio = document.getElementById("precio");
 const listaCategoria = document.getElementById("listaCategoria");
+const listaMarca = document.getElementById("listaMarca");
+const descripcion = document.getElementById("descripcion");
+const caracteristica1 = document.getElementById("caracteristica1");
+const caracteristica2 = document.getElementById("caracteristica2");
+const btnEnviar = document.getElementById("btnEnviar");
+
 
 listaCategoria.addEventListener("change", function(event){
     let idCategoria = this.value;
-    console.log(idCategoria);
+}); //listaCategoria
+
+
+listaMarca.addEventListener("change", function(event){
+    let idMarca = this.value;
+}); //listaMarca
+
+const validarNumero = (num) => {
+    let error = 1;
+    
+    if(!(num.value.trim().length < 1)){
+        return error = -1;
+    }
+
+    if(!(isNaN(num.value))){
+        return error = -1;
+    }
+
+    if (!(Number(num.value) > -1)){
+        return error = -1;
+    }
+
+    return error = 1;
+
+} //validarNumero
+
+const validarFormProducto = (nombreProducto, caracteristica1, caracteristica2, descripcion) => {
+    const regexNombreProducto = new RegExp("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]{5,}$");
+    const regexDescripcion = new RegExp("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]{20,}$");
+    const regexCaract1 = new RegExp("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]{3,20}$");
+    const regexCaract2 = new RegExp("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]{3,20}$");
+
+    let error = [];
+
+    if(!regexNombreProducto.test(nombreProducto)){
+        error.push("Nombre del producto inválido");
+    }else{
+
+    }
+
+    if(!regexDescripcion.test(descripcion)){
+        error.push("Descripción demasiado corta");
+    }else{
+        
+    }
+
+    if(!regexCaract1.test(caracteristica1)){
+        error.push("Característica principal demasiada larga");
+    }else{
+        
+    }
+
+    if(!regexCaract2.test(caracteristica2)){
+        error.push("Característica secundaria demasiada larga");
+    }else{
+        
+    }
+
+    return error;
+} //validarFormProducto
+
+
+btnEnviar.addEventListener("click", function(event){
+    event.preventDefault();
+
+    const nomProducto = nombreProducto.value.trim();
+    const caractPrincipal = caracteristica1.value.trim();
+    const caractSecendaria = caracteristica2.value.trim();
+    const description = descripcion.value.trim();
+
+    let errores = validarFormProducto(nomProducto, caractPrincipal, caractSecendaria, description);
+
+    console.log(errores)
+
 });
-
-
