@@ -350,8 +350,11 @@ let productData = {
   ],
 };
 
-// Se almacenan los productos en localStorage (comentar o descomentar para pruebas de error) ->
-localStorage.setItem("productData", JSON.stringify(productData));
+// Verificar si existe localStorage, sino cargar la data por defecto
+const storedData = localStorage.getItem("productData");
+if (!storedData) {
+  localStorage.setItem("productData", JSON.stringify(productData));
+}
 
 // Promesa para productos ->
 const getData = async () => {
@@ -366,7 +369,7 @@ const getData = async () => {
 };
 
 // Funcion para hacer fetch de los datos ocapturar errores con funcion asincrona ->
-const fetchingProducts = async () => {
+window.fetchingProducts = async () => {
   let alertError = `
           <div class="alert alert-danger d-flex" role="alert">
               <svg xmlns="http://www.w3.org/2000/svg" class="bi flex-shrink-0 me-2" width="50px" viewBox="0 0 16 16" role="img" aria-label="Warning:">

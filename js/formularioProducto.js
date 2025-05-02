@@ -138,26 +138,61 @@ function validarFormularioCompleto() {
 }
 
 // Funciones para crear y guardar producto
-function crearProducto() {
-    return {
-        "nombre": nombreProducto.value.trim(),
-        "stock": stock.value.trim(),
-        "precio": precio.value.trim(),
-        "categoria": listaCategoria.value,
-        "marca": listaMarca.value,
-        "descripcion": descripcion.value.trim(),
-        "caracteristica1": caracteristica1.value.trim(),
-        "caracteristica2": caracteristica2.value.trim(),
-        "imagenPrincipal": "https://upload-widget.cloudinary.com"
+function guardarProducto() {
+    // Obtener los datos existentes
+    let data = JSON.parse(localStorage.getItem("productData"));
+    if (!data) {
+        // Si no hay datos, inicializar la estructura
+        data = {
+            categorias: [
+                { id: 1, nombre: "Lavadora", slug: "lavadora" },
+                { id: 2, nombre: "Secadora", slug: "secadora" },
+                { id: 3, nombre: "Centro de lavado", slug: "centro-de-lavado" }
+            ],
+            productos: []
+        };
+    }
+
+    // Obtener la categoría seleccionada
+    const categoriaId = parseInt(listaCategoria.value);
+    const categoriaSeleccionada = data.categorias.find(cat => cat.id === categoriaId) || {
+        id: categoriaId,
+        nombre: listaCategoria.options[listaCategoria.selectedIndex].text,
+        slug: listaCategoria.options[listaCategoria.selectedIndex].text.toLowerCase().replace(/\s+/g, '-')
     };
-}
 
-function guardarProducto(producto) {
-    let productosGuardados = JSON.parse(localStorage.getItem("newProduct")) || [];
-    productosGuardados.push(producto);
-    localStorage.setItem("newProduct", JSON.stringify(productosGuardados));
-}
+    // Crear el nuevo producto con todos los campos
+    const nuevoProducto = {
+        id: data.productos.length > 0 ? Math.max(...data.productos.map(p => p.id)) + 1 : 1,
+        marca: listaMarca.options[listaMarca.selectedIndex].text,
+        precios: {
+            precioHora: Number(precio.value.trim()),
+            precioDia: Number(precio.value.trim()) * 2.2, // Valores aproximados basados en el patrón que observé
+            precioSemana: Number(precio.value.trim()) * 3.8
+        },
+        modelo: nombreProducto.value.trim(),
+        imagenes: {
+            imagenPricipal: imgProduct.src,
+            imagenAdicional1: "",
+            imagenAdicional2: "",
+            imagenAdicional3: ""
+        },
+        stock: Number(stock.value.trim()),
+        descripcion: descripcion.value.trim(),
+        categoria: categoriaSeleccionada,
+        caracteristicas: {
+            caracteristica1: caracteristica1.value.trim(),
+            caracteristica2: caracteristica2.value.trim()
+        }
+    };
 
+    // Agregar el producto y guardar
+    data.productos.push(nuevoProducto);
+    localStorage.setItem("productData", JSON.stringify(data));
+    
+    console.log("Producto guardado:", nuevoProducto);
+    return true;
+}
 
 btnEnviar.addEventListener("click", async function(event){
     event.preventDefault();
@@ -222,17 +257,34 @@ btnEnviar.addEventListener("click", async function(event){
     
     // Validación completa de formato
     if(validarFormularioCompleto()) {
-        await Swal.fire({
-            title: '¡Éxito!',
-            text: 'El producto se ha registrado correctamente',
-            icon: 'success',
-            confirmButtonText: 'Aceptar'
-        });
-        
-        guardarProducto(crearProducto());
-        document.querySelector("form").reset();
-        imgProduct.src = "";
-        imgProduct.style.display = 'none';
+         // Guardamos el producto
+        if(guardarProducto()) {
+            // Limpiamos el formulario
+            document.querySelector("form").reset();
+            imgProduct.src = "";
+            imgProduct.style.display = 'none';
+            
+            // Quitamos las clases de validación
+            document.querySelectorAll('.is-invalid, .is-valid').forEach(el => {
+                el.classList.remove('is-invalid', 'is-valid');
+            });
+            
+            // Actualizamos las cards si estamos en la página de productos
+            if (typeof window.fetchingProducts === 'function') {
+                try {
+                    window.fetchingProducts();
+                } catch (error) {
+                    console.error('Error al actualizar productos:', error);
+                }
+            }
+
+            await Swal.fire({
+                title: '¡Éxito!',
+                text: 'El producto se ha registrado correctamente',
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            });
+        }
     } else {
         await Swal.fire({
             title: 'Error de validación',
