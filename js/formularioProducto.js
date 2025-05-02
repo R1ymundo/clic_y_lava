@@ -145,7 +145,7 @@ function validarFormularioCompleto() {
   return valido;
 }
 
-// Funciones para crear y guardar producto
+// Guardar producto
 function guardarProducto() {
   // Obtener los datos existentes
   let data = JSON.parse(localStorage.getItem("productData"));

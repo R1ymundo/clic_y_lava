@@ -384,7 +384,7 @@ if (!localStoredData) {
   }
 }
 
-// Promesa para productos ->
+// Promesa para productos
 const getData = async () => {
   return new Promise((resolve, reject) => {
     const getProducts = JSON.parse(localStorage.getItem("productData"));
