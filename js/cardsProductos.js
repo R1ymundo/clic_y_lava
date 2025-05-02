@@ -350,13 +350,12 @@ let productData = {
   ],
 };
 
-// Verificar si existe localStorage, sino cargar la data por defecto
 const storedData = localStorage.getItem("productData");
 if (!storedData) {
   localStorage.setItem("productData", JSON.stringify(productData));
 }
 
-// Promesa para productos ->
+// Promesa para productos
 const getData = async () => {
   return new Promise((resolve, reject) => {
     const getProducts = JSON.parse(localStorage.getItem("productData"));

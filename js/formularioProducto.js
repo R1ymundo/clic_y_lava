@@ -137,12 +137,11 @@ function validarFormularioCompleto() {
     return valido;
 }
 
-// Funciones para crear y guardar producto
+// Guardar producto
 function guardarProducto() {
     // Obtener los datos existentes
     let data = JSON.parse(localStorage.getItem("productData"));
     if (!data) {
-        // Si no hay datos, inicializar la estructura
         data = {
             categorias: [
                 { id: 1, nombre: "Lavadora", slug: "lavadora" },
@@ -153,7 +152,6 @@ function guardarProducto() {
         };
     }
 
-    // Obtener la categoría seleccionada
     const categoriaId = parseInt(listaCategoria.value);
     const categoriaSeleccionada = data.categorias.find(cat => cat.id === categoriaId) || {
         id: categoriaId,
@@ -161,13 +159,12 @@ function guardarProducto() {
         slug: listaCategoria.options[listaCategoria.selectedIndex].text.toLowerCase().replace(/\s+/g, '-')
     };
 
-    // Crear el nuevo producto con todos los campos
     const nuevoProducto = {
         id: data.productos.length > 0 ? Math.max(...data.productos.map(p => p.id)) + 1 : 1,
         marca: listaMarca.options[listaMarca.selectedIndex].text,
         precios: {
             precioHora: Number(precio.value.trim()),
-            precioDia: Number(precio.value.trim()) * 2.2, // Valores aproximados basados en el patrón que observé
+            precioDia: Number(precio.value.trim()) * 2.2, 
             precioSemana: Number(precio.value.trim()) * 3.8
         },
         modelo: nombreProducto.value.trim(),
@@ -189,9 +186,6 @@ function guardarProducto() {
     // Agregar el producto y guardar
     data.productos.push(nuevoProducto);
     localStorage.setItem("productData", JSON.stringify(data));
-    
-    console.log("Producto guardado:", nuevoProducto);
-    return true;
 }
 
 btnEnviar.addEventListener("click", async function(event){
@@ -257,19 +251,17 @@ btnEnviar.addEventListener("click", async function(event){
     
     // Validación completa de formato
     if(validarFormularioCompleto()) {
-         // Guardamos el producto
         if(guardarProducto()) {
-            // Limpiamos el formulario
             document.querySelector("form").reset();
             imgProduct.src = "";
             imgProduct.style.display = 'none';
             
-            // Quitamos las clases de validación
+            // Quitamos la validación
             document.querySelectorAll('.is-invalid, .is-valid').forEach(el => {
                 el.classList.remove('is-invalid', 'is-valid');
             });
             
-            // Actualizamos las cards si estamos en la página de productos
+            // Actualizamos las cards
             if (typeof window.fetchingProducts === 'function') {
                 try {
                     window.fetchingProducts();
