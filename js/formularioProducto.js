@@ -148,7 +148,7 @@ function crearProducto() {
         "descripcion": descripcion.value.trim(),
         "caracteristica1": caracteristica1.value.trim(),
         "caracteristica2": caracteristica2.value.trim(),
-        "imagenPrincipal": imgProduct.src || ''
+        "imagenPrincipal": "https://upload-widget.cloudinary.com"
     };
 }
 
