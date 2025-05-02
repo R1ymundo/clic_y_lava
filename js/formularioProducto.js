@@ -1,7 +1,6 @@
-
+// Selección de elementos del DOM
 const btnArchivo = document.querySelector('#btn-archivo');
 const imgProduct = document.querySelector('#img-product');
-
 const nombreProducto = document.getElementById("nombreProducto");
 const stock = document.getElementById("stock");
 const precio = document.getElementById("precio");
@@ -12,89 +11,167 @@ const caracteristica1 = document.getElementById("caracteristica1");
 const caracteristica2 = document.getElementById("caracteristica2");
 const btnEnviar = document.getElementById("btnEnviar");
 
-
-listaCategoria.addEventListener("change", function(event){
-    let idCategoria = this.value;
-}); //listaCategoria
-
-
-listaMarca.addEventListener("change", function(event){
-    let idMarca = this.value;
-}); //listaMarca
+// Expresiones regulares para validaciones
+const regex = {
+    nombre: /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s\-\.]{5,50}$/,
+    descripcion: /^[\w\sáéíóúÁÉÍÓÚñÑ.,;:¡!¿?()\-'"]{20,500}$/,
+    caracteristica: /^[\w\sáéíóúÁÉÍÓÚñÑ.,;:¡!¿?()\-'"]{3,100}$/,
+    imagen: /\.(jpg|jpeg|png|gif|webp)$/i
+};
 
 
 let widget_cloudinary = cloudinary.createUploadWidget({
     cloudName: "deppn8ze4", 
     uploadPreset: 'clic_test'
+}, (err, result) => {
+    if(!err && result && result.event === 'success'){
+        console.log('Imagen subida con éxito', result.info);
+        imgProduct.src = result.info.secure_url;
+        imgProduct.style.display = 'block';
+    }
+});
 
-
-}, (err, result) =>{
-   if(!err && result && result.event === 'success'){
-     console.log('Imagen subida con exito', result.info);
-     imgProduct.src = result.info.secure_url;
-   }//if
-
-});//widgetCloudinary que viene por defecto
-
-btnArchivo.addEventListener('click',() =>{
-   widget_cloudinary.open();
-
-}, false); //boton_foto
-
-const validarNumero = (num) => {
-    let error = 1;
+// Función para mostrar errores
+function mostrarError(elemento, mensaje) {
+    const grupo = elemento.closest('.mb-3') || elemento.parentElement;
+    const errorExistente = grupo.querySelector('.text-danger');
     
-    if(!(num.value.trim().length < 1)){
-        return error = -1;
-    }
-
-    if(!(isNaN(num.value))){
-        return error = -1;
-    }
-
-    if (!(Number(num.value) > -1)){
-        return error = -1;
-    }
-
-    return error = 1;
-
-} //validarNumero
-
-const validarFormProducto = (nombreProducto, caracteristica1, caracteristica2, descripcion) => {
-    const regexNombreProducto = new RegExp("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]{5,}$");
-    const regexDescripcion = new RegExp("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]{20,}$");
-    const regexCaract1 = new RegExp("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]{3,20}$");
-    const regexCaract2 = new RegExp("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]{3,20}$");
-
-    let error = [];
-
-    if(!regexNombreProducto.test(nombreProducto)){
-        error.push("Nombre del producto inválido");
-    }else{
-
-    }
-
-    if(!regexDescripcion.test(descripcion)){
-        error.push("Descripción demasiado corta");
-    }else{
+    if(errorExistente) errorExistente.remove();
+    
+    if(mensaje) {
+        const errorElement = document.createElement('div');
+        errorElement.className = 'text-danger mt-1';
+        errorElement.textContent = mensaje;
+        grupo.appendChild(errorElement);
         
+        elemento.classList.add('is-invalid');
+        elemento.classList.remove('is-valid');
+    } else {
+        elemento.classList.remove('is-invalid');
+        elemento.classList.add('is-valid');
     }
+}
 
-    if(!regexCaract1.test(caracteristica1)){
-        error.push("Característica principal demasiada larga");
-    }else{
+// Funciones de validación
+function validarNumero(num, esStock = false) {
+    const valor = num.value.trim();
+    
+    if(valor === "") return "Este campo es obligatorio";
+    if(isNaN(valor)) return "Debe ser un número válido";
+    
+    if(esStock) {
+        if(!/^\d+$/.test(valor) || Number(valor) < 0) {
+            return "El stock debe ser un número entero positivo";
+        }
+    } else {
+        if(!/^\d+(\.\d{1,2})?$/.test(valor)) {
+            return "El precio debe tener máximo 2 decimales";
+        }
+        if(Number(valor) <= 0) return "El precio debe ser mayor a 0";
+    }
+    
+    return null;
+}
+
+function validarSelect(select) {
+    if(!select.value || select.selectedIndex <= 0) {
+        return "Debes seleccionar una opción";
+    }
+    return null;
+}
+
+function validarTexto(texto, tipo) {
+    const valor = texto.value.trim();
+    
+    if(valor === "") return "Este campo es obligatorio";
+    
+    switch(tipo) {
+        case 'nombre':
+            if(!regex.nombre.test(valor)) return "El nombre debe tener entre 5-50 caracteres";
+            break;
+        case 'descripcion':
+            if(!regex.descripcion.test(valor)) return "La descripción debe tener entre 20-500 caracteres";
+            break;
+        case 'caracteristica':
+            if(!regex.caracteristica.test(valor)) return "La característica debe tener entre 3-100 caracteres";
+            break;
+    }
+    
+    return null;
+}
+
+// Validación completa del formulario
+function validarFormularioCompleto() {
+    let valido = true;
+    
+    mostrarError(nombreProducto, validarTexto(nombreProducto, 'nombre'));
+    mostrarError(descripcion, validarTexto(descripcion, 'descripcion'));
+    mostrarError(caracteristica1, validarTexto(caracteristica1, 'caracteristica'));
+    mostrarError(caracteristica2, validarTexto(caracteristica2, 'caracteristica'));
+    mostrarError(stock, validarNumero(stock, true));
+    mostrarError(precio, validarNumero(precio));
+    mostrarError(listaCategoria, validarSelect(listaCategoria));
+    mostrarError(listaMarca, validarSelect(listaMarca));
+    
+    // Validar imagen
+    if(!imgProduct.src) {
+        const grupo = btnArchivo.closest('.mb-3') || btnArchivo.parentElement;
+        const errorExistente = grupo.querySelector('.text-danger');
+        if(errorExistente) errorExistente.remove();
         
+        const errorElement = document.createElement('div');
+        errorElement.className = 'text-danger mt-1';
+        errorElement.textContent = "Debes subir una imagen principal";
+        grupo.appendChild(errorElement);
+        valido = false;
     }
+    
+    return valido;
+}
 
-    if(!regexCaract2.test(caracteristica2)){
-        error.push("Característica secundaria demasiada larga");
-    }else{
-        
+// Función para marcar campos faltantes
+function marcarCamposFaltantes() {
+    let camposFaltantes = [];
+    let mensajesError = [];
+    
+    const campos = [
+        { element: nombreProducto, name: "Nombre del producto" },
+        { element: stock, name: "Stock" },
+        { element: precio, name: "Precio" },
+        { element: listaCategoria, name: "Categoría" },
+        { element: listaMarca, name: "Marca" },
+        { element: descripcion, name: "Descripción" },
+        { element: caracteristica1, name: "Característica 1" },
+        { element: caracteristica2, name: "Característica 2" }
+    ];
+    
+    campos.forEach(campo => {
+        const value = campo.element.value ? campo.element.value.trim() : '';
+        if(!value) {
+            mostrarError(campo.element, "Este campo es obligatorio");
+            camposFaltantes.push(campo.element);
+            mensajesError.push(campo.name);
+        }
+    });
+    
+    if(!imgProduct.src) {
+        mensajesError.push("Imagen principal");
+        camposFaltantes.push(btnArchivo);
     }
+    
+    if(camposFaltantes.length > 0) {
+        camposFaltantes[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        camposFaltantes.forEach(campo => {
+            campo.classList.add('campo-faltante');
+            setTimeout(() => campo.classList.remove('campo-faltante'), 1000);
+        });
+        return { valido: false, mensajes: mensajesError };
+    }
+    
+    return { valido: true, mensajes: [] };
+}
 
-    return error;
-} //validarFormProducto
-
+// Funciones para crear y guardar producto
 function crearProducto() {
     return {
         "nombre": nombreProducto.value.trim(),
@@ -102,36 +179,100 @@ function crearProducto() {
         "precio": precio.value.trim(),
         "categoria": listaCategoria.value,
         "marca": listaMarca.value,
-        "descripción": descripcion.value.trim(),
+        "descripcion": descripcion.value.trim(),
         "caracteristica1": caracteristica1.value.trim(),
-        "caracteristica2": caracteristica2.value.trim()
+        "caracteristica2": caracteristica2.value.trim(),
+        "imagenPrincipal": imgProduct.src || ''
     };
-} // crearProducto
+}
 
 function guardarProducto(producto) {
     let productosGuardados = JSON.parse(localStorage.getItem("newProduct")) || [];
     productosGuardados.push(producto);
     localStorage.setItem("newProduct", JSON.stringify(productosGuardados));
-} // guardarProducto
+}
 
-btnEnviar.addEventListener("click", function(event){
-    event.preventDefault();
 
-    const nomProducto = nombreProducto.value.trim();
-    const caractPrincipal = caracteristica1.value.trim();
-    const caractSecendaria = caracteristica2.value.trim();
-    const description = descripcion.value.trim();
+function inicializarEventListeners() {
+    nombreProducto.addEventListener('blur', () => mostrarError(nombreProducto, validarTexto(nombreProducto, 'nombre')));
+    stock.addEventListener('blur', () => mostrarError(stock, validarNumero(stock, true)));
+    precio.addEventListener('blur', () => mostrarError(precio, validarNumero(precio)));
+    listaCategoria.addEventListener('change', () => mostrarError(listaCategoria, validarSelect(listaCategoria)));
+    listaMarca.addEventListener('change', () => mostrarError(listaMarca, validarSelect(listaMarca)));
+    caracteristica1.addEventListener('blur', () => mostrarError(caracteristica1, validarTexto(caracteristica1, 'caracteristica')));
+    caracteristica2.addEventListener('blur', () => mostrarError(caracteristica2, validarTexto(caracteristica2, 'caracteristica')));
+    descripcion.addEventListener('blur', () => mostrarError(descripcion, validarTexto(descripcion, 'descripcion')));
+    btnArchivo.addEventListener('click', () => widget_cloudinary.open());
+    
+    btnEnviar.addEventListener("click", async function(event){
+        event.preventDefault();
+        
+        
+        const validacionCampos = marcarCamposFaltantes();
+        
+        if(!validacionCampos.valido) {
+            await Swal.fire({
+                title: '¡Campos incompletos!',
+                html: `
+                    <div style="text-align: left;">
+                        <p>Por favor completa los siguientes campos obligatorios:</p>
+                        <ul style="margin-left: 20px;">
+                            ${validacionCampos.mensajes.map(mensaje => `<li>${mensaje}</li>`).join('')}
+                        </ul>
+                    </div>
+                `,
+                icon: 'error',
+                confirmButtonText: 'Entendido',
+                customClass: { popup: 'swal-wide' }
+            });
+            return;
+        }
+        
+       
+        if(validarFormularioCompleto()) {
+            await Swal.fire({
+                title: '¡Éxito!',
+                text: 'El producto se ha registrado correctamente',
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            });
+            
+            guardarProducto(crearProducto());
+            document.querySelector("form").reset();
+            imgProduct.src = "";
+            imgProduct.style.display = 'none';
+            
+            
+            document.querySelectorAll('.is-invalid, .is-valid').forEach(el => {
+                el.classList.remove('is-invalid', 'is-valid');
+            });
+        } else {
+            await Swal.fire({
+                title: 'Error de validación',
+                html: `
+                    <div style="text-align: left;">
+                        <p>Por favor corrige los siguientes errores:</p>
+                        <ul style="margin-left: 20px;">
+                            ${Array.from(document.querySelectorAll('.is-invalid'))
+                                .map(el => {
+                                    const label = document.querySelector(`label[for="${el.id}"]`);
+                                    const fieldName = label ? label.textContent.replace(':', '') : 'Campo';
+                                    const errorMsg = el.parentElement.querySelector('.text-danger');
+                                    return `<li><strong>${fieldName}:</strong> ${errorMsg?.textContent || 'Dato inválido'}</li>`;
+                                })
+                                .join('')}
+                        </ul>
+                    </div>
+                `,
+                icon: 'error',
+                confirmButtonText: 'Entendido',
+                customClass: { popup: 'swal-wide' }
+            });
+        }
+    });
+}
 
-    let errores = validarFormProducto(nomProducto, caractPrincipal, caractSecendaria, description);
-
-    console.log(errores)
-
-    // Crear JSON y guardar en localStorage
-    let producto = crearProducto();
-    guardarProducto(producto);
-
-    // Limpiamos formulario y regresamos al primer campo del formulario
-    document.querySelector("form").reset();
-    nombreProducto.focus();
-
+// Inicializar cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', function() {
+    inicializarEventListeners();
 });

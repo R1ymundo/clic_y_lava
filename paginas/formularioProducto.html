@@ -7,8 +7,15 @@
   <link rel="icon" type="img/jpg" href="../assets/icons/logo_clic_lava.png" />
   <title>Formulario Productos</title>
 
+  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous" />
+  
+  
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+
   <link rel="stylesheet" href="../css/acerca.css" />
   <link rel="stylesheet" href="../css/contacto.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -25,9 +32,6 @@
   <!-- Fin navar -->
 
   <main class="container">
-    <!-- Inicio Encabezado -->
-    <!-- Fin Encabezado -->
-
     <div class="containerLogo">
       <h5>Sube un nuevo producto</h5>
       <img class="logo" src="../assets/icons/logo_clic_lava.png" class="d-block w-100" alt="Logo clic y lava" />
@@ -38,105 +42,108 @@
     <form action="">
       <div class="container my-4">
 
-        <!-- Nombre y stock -->
+        
         <div class="row mb-4">
           <div class="col-md-6">
             <label for="nombreProducto" class="form-label">Nombre del producto</label>
-            <input type="text" class="form-control border-primary" id="nombreProducto"
-              placeholder="Ej. Lavadora automática">
+            <input type="text" class="form-control" id="nombreProducto" placeholder="Ej. Lavadora automática">
+            <div class="invalid-feedback"></div>
           </div>
           <div class="col-md-3">
             <label for="stock" class="form-label">Stock</label>
-            <input type="number" class="form-control border-primary" id="stock" placeholder="Ej. 10">
+            <input type="number" class="form-control" id="stock" placeholder="Ej. 10">
+            <div class="invalid-feedback"></div>
           </div>
 
-          <!-- Precio -->
-
-          <div class="col-md-3 ">
+          
+          <div class="col-md-3">
             <label for="precio" class="form-label">Precio</label>
-            <input type="number" class="form-control border-primary" id="precio" placeholder="Ej. 250.00">
+            <input type="number" class="form-control" id="precio" placeholder="Ej. 250.00">
+            <div class="invalid-feedback"></div>
           </div>
-
         </div>
 
-        <!-- Categoría y marca -->
+       
         <div class="row mb-4 text-center justify-content-center">
-
           <div class="col-md-6">
             <label class="form-label">Categoría</label>
-            <select class="form-select btnDos btn" aria-label="Default select" aria-expanded="false" id="listaCategoria">
+            <select class="form-select" aria-label="Default select" id="listaCategoria">
               <option selected>Selecciona una categoría</option>
-              <option value="1" class="optionColor">Lavadora</option>
-              <option value="2" class="optionColor">Secadora</option>
-              <option value="3" class="optionColor">Centro de lavado</option>
+              <option value="1">Lavadora</option>
+              <option value="2">Secadora</option>
+              <option value="3">Centro de lavado</option>
             </select>
+            <div class="invalid-feedback"></div>
           </div>
           <div class="col-md-6">
             <label class="form-label">Marca</label>
-            <select class="form-select btnDos btn" aria-label="Default select" aria-expanded="false" id="listaMarca">
+            <select class="form-select" aria-label="Default select" id="listaMarca">
               <option selected>Selecciona una marca</option>
-              <option value="1" class="optionColor">LG</option>
-              <option value="2" class="optionColor">Samsung</option>
-              <option value="3" class="optionColor">Whirlpool</option>
+              <option value="1">LG</option>
+              <option value="2">Samsung</option>
+              <option value="3">Whirlpool</option>
             </select>
+            <div class="invalid-feedback"></div>
           </div>
-
         </div>
 
-        <!-- Imagen principal -->
-        <div class="input-group mb-3">
-          <button class="btn btn-outline-secondary" type="button" id="btn-archivo">Imagen principal</button>
-          <input type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+        
+        <div class="mb-3">
+          <label class="form-label">Imagen principal</label>
+          <div class="input-group">
+            <button class="btn btn-outline-secondary" type="button" id="btn-archivo">Seleccionar imagen</button>
+            <input type="text" class="form-control" placeholder="Ningún archivo seleccionado" readonly>
+          </div>
+          <div class="invalid-feedback"></div>
+          <img id="img-product" class="mt-2" style="display: none; max-width: 200px;">
         </div>
-       <img id="img-product">
 
-        <!-- Imágenes complementarias -->
+      
         <div class="row mb-4">
-          <div class="col-md-12 ">
+          <div class="col-md-12">
             <label for="imagenesComplementarias" class="form-label">Imágenes complementarias</label>
-            <input type="file" class="form-control border-primary" id="imagenesComplementarias" multiple
-              accept="image/*">
+            <input type="file" class="form-control" id="imagenesComplementarias" multiple accept="image/*">
+            <div class="invalid-feedback"></div>
           </div>
         </div>
 
-        <!-- Características -->
+        
         <div class="row mb-4">
           <div class="col-md-6">
             <label for="caracteristica1" class="form-label">Característica Principal</label>
-            <input type="text" class="form-control border-primary" id="caracteristica1" placeholder="Ej. Carga frontal">
+            <input type="text" class="form-control" id="caracteristica1" placeholder="Ej. Carga frontal">
+            <div class="invalid-feedback"></div>
           </div>
           <div class="col-md-6">
             <label for="caracteristica2" class="form-label">Característica Secundaria</label>
-            <input type="text" class="form-control border-primary" id="caracteristica2"
-              placeholder="Ej. Ahorro de agua">
+            <input type="text" class="form-control" id="caracteristica2" placeholder="Ej. Ahorro de agua">
+            <div class="invalid-feedback"></div>
           </div>
         </div>
 
-        <!-- Descripción -->
+        
         <div class="mb-4">
           <label for="descripcion" class="form-label">Acerca del producto (descripción)</label>
-          <textarea class="form-control border-primary" id="descripcion" rows="3"
-            placeholder="Describe tu producto aquí"></textarea>
+          <textarea class="form-control" id="descripcion" rows="3" placeholder="Describe tu producto aquí"></textarea>
+          <div class="invalid-feedback"></div>
         </div>
 
-        <!-- Botón -->
+       
         <div class="text-center">
           <button type="button" id="btnEnviar" class="btn btn-warning">Agregar</button>
         </div>
-
       </div>
     </form>
   </main>
 
-  <!-- Footer -->
+  
   <footer class="site-footer mt-5">
     <div id="agregarFooter"></div>
   </footer>
 
-  <!-- Scripts -->
+  
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script><!--Script cloudinary-->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
     crossorigin="anonymous"></script>
