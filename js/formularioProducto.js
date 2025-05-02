@@ -1,4 +1,3 @@
-// Selección de elementos del DOM
 const btnArchivo = document.querySelector('#btn-archivo');
 const imgProduct = document.querySelector('#img-product');
 const nombreProducto = document.getElementById("nombreProducto");
@@ -104,16 +103,20 @@ function validarTexto(texto, tipo) {
 function validarFormularioCompleto() {
     let valido = true;
     
+   
     mostrarError(nombreProducto, validarTexto(nombreProducto, 'nombre'));
     mostrarError(descripcion, validarTexto(descripcion, 'descripcion'));
     mostrarError(caracteristica1, validarTexto(caracteristica1, 'caracteristica'));
     mostrarError(caracteristica2, validarTexto(caracteristica2, 'caracteristica'));
+    
+   
     mostrarError(stock, validarNumero(stock, true));
     mostrarError(precio, validarNumero(precio));
+    
     mostrarError(listaCategoria, validarSelect(listaCategoria));
     mostrarError(listaMarca, validarSelect(listaMarca));
     
-    // Validar imagen
+    
     if(!imgProduct.src) {
         const grupo = btnArchivo.closest('.mb-3') || btnArchivo.parentElement;
         const errorExistente = grupo.querySelector('.text-danger');
@@ -126,49 +129,12 @@ function validarFormularioCompleto() {
         valido = false;
     }
     
-    return valido;
-}
-
-// Función para marcar campos faltantes
-function marcarCamposFaltantes() {
-    let camposFaltantes = [];
-    let mensajesError = [];
-    
-    const campos = [
-        { element: nombreProducto, name: "Nombre del producto" },
-        { element: stock, name: "Stock" },
-        { element: precio, name: "Precio" },
-        { element: listaCategoria, name: "Categoría" },
-        { element: listaMarca, name: "Marca" },
-        { element: descripcion, name: "Descripción" },
-        { element: caracteristica1, name: "Característica 1" },
-        { element: caracteristica2, name: "Característica 2" }
-    ];
-    
-    campos.forEach(campo => {
-        const value = campo.element.value ? campo.element.value.trim() : '';
-        if(!value) {
-            mostrarError(campo.element, "Este campo es obligatorio");
-            camposFaltantes.push(campo.element);
-            mensajesError.push(campo.name);
-        }
+    // Verificar si hay errores
+    document.querySelectorAll('.is-invalid').forEach(el => {
+        if(el.classList.contains('is-invalid')) valido = false;
     });
     
-    if(!imgProduct.src) {
-        mensajesError.push("Imagen principal");
-        camposFaltantes.push(btnArchivo);
-    }
-    
-    if(camposFaltantes.length > 0) {
-        camposFaltantes[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
-        camposFaltantes.forEach(campo => {
-            campo.classList.add('campo-faltante');
-            setTimeout(() => campo.classList.remove('campo-faltante'), 1000);
-        });
-        return { valido: false, mensajes: mensajesError };
-    }
-    
-    return { valido: true, mensajes: [] };
+    return valido;
 }
 
 // Funciones para crear y guardar producto
@@ -193,86 +159,106 @@ function guardarProducto(producto) {
 }
 
 
-function inicializarEventListeners() {
-    nombreProducto.addEventListener('blur', () => mostrarError(nombreProducto, validarTexto(nombreProducto, 'nombre')));
-    stock.addEventListener('blur', () => mostrarError(stock, validarNumero(stock, true)));
-    precio.addEventListener('blur', () => mostrarError(precio, validarNumero(precio)));
-    listaCategoria.addEventListener('change', () => mostrarError(listaCategoria, validarSelect(listaCategoria)));
-    listaMarca.addEventListener('change', () => mostrarError(listaMarca, validarSelect(listaMarca)));
-    caracteristica1.addEventListener('blur', () => mostrarError(caracteristica1, validarTexto(caracteristica1, 'caracteristica')));
-    caracteristica2.addEventListener('blur', () => mostrarError(caracteristica2, validarTexto(caracteristica2, 'caracteristica')));
-    descripcion.addEventListener('blur', () => mostrarError(descripcion, validarTexto(descripcion, 'descripcion')));
-    btnArchivo.addEventListener('click', () => widget_cloudinary.open());
+btnEnviar.addEventListener("click", async function(event){
+    event.preventDefault();
     
-    btnEnviar.addEventListener("click", async function(event){
-        event.preventDefault();
-        
-        
-        const validacionCampos = marcarCamposFaltantes();
-        
-        if(!validacionCampos.valido) {
-            await Swal.fire({
-                title: '¡Campos incompletos!',
-                html: `
-                    <div style="text-align: left;">
-                        <p>Por favor completa los siguientes campos obligatorios:</p>
-                        <ul style="margin-left: 20px;">
-                            ${validacionCampos.mensajes.map(mensaje => `<li>${mensaje}</li>`).join('')}
-                        </ul>
-                    </div>
-                `,
-                icon: 'error',
-                confirmButtonText: 'Entendido',
-                customClass: { popup: 'swal-wide' }
-            });
-            return;
-        }
-        
-       
-        if(validarFormularioCompleto()) {
-            await Swal.fire({
-                title: '¡Éxito!',
-                text: 'El producto se ha registrado correctamente',
-                icon: 'success',
-                confirmButtonText: 'Aceptar'
-            });
-            
-            guardarProducto(crearProducto());
-            document.querySelector("form").reset();
-            imgProduct.src = "";
-            imgProduct.style.display = 'none';
-            
-            
-            document.querySelectorAll('.is-invalid, .is-valid').forEach(el => {
-                el.classList.remove('is-invalid', 'is-valid');
-            });
-        } else {
-            await Swal.fire({
-                title: 'Error de validación',
-                html: `
-                    <div style="text-align: left;">
-                        <p>Por favor corrige los siguientes errores:</p>
-                        <ul style="margin-left: 20px;">
-                            ${Array.from(document.querySelectorAll('.is-invalid'))
-                                .map(el => {
-                                    const label = document.querySelector(`label[for="${el.id}"]`);
-                                    const fieldName = label ? label.textContent.replace(':', '') : 'Campo';
-                                    const errorMsg = el.parentElement.querySelector('.text-danger');
-                                    return `<li><strong>${fieldName}:</strong> ${errorMsg?.textContent || 'Dato inválido'}</li>`;
-                                })
-                                .join('')}
-                        </ul>
-                    </div>
-                `,
-                icon: 'error',
-                confirmButtonText: 'Entendido',
-                customClass: { popup: 'swal-wide' }
-            });
+    // Limpiar validaciones previas
+    document.querySelectorAll('.is-invalid, .is-valid').forEach(el => {
+        el.classList.remove('is-invalid', 'is-valid');
+    });
+    
+    
+    const campos = [
+        { element: nombreProducto, name: "Nombre del producto" },
+        { element: stock, name: "Stock" },
+        { element: precio, name: "Precio" },
+        { element: listaCategoria, name: "Categoría" },
+        { element: listaMarca, name: "Marca" },
+        { element: descripcion, name: "Descripción" },
+        { element: caracteristica1, name: "Característica 1" },
+        { element: caracteristica2, name: "Característica 2" }
+    ];
+    
+    let camposFaltantes = [];
+    let mensajesError = [];
+    
+    campos.forEach(campo => {
+        const value = campo.element.value ? campo.element.value.trim() : '';
+        if(!value) {
+            mostrarError(campo.element, "Este campo es obligatorio");
+            camposFaltantes.push(campo.element);
+            mensajesError.push(campo.name);
         }
     });
-}
+    
+    if(!imgProduct.src) {
+        mensajesError.push("Imagen principal");
+        camposFaltantes.push(btnArchivo);
+    }
+    
+    if(camposFaltantes.length > 0) {
+        camposFaltantes[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        camposFaltantes.forEach(campo => {
+            campo.classList.add('campo-faltante');
+            setTimeout(() => campo.classList.remove('campo-faltante'), 1000);
+        });
+        
+        await Swal.fire({
+            title: '¡Campos incompletos!',
+            html: `
+                <div style="text-align: left;">
+                    <p>Por favor completa los siguientes campos obligatorios:</p>
+                    <ul style="margin-left: 20px;">
+                        ${mensajesError.map(mensaje => `<li>${mensaje}</li>`).join('')}
+                    </ul>
+                </div>
+            `,
+            icon: 'error',
+            confirmButtonText: 'Entendido',
+            customClass: { popup: 'swal-wide' }
+        });
+        return;
+    }
+    
+    // Validación completa de formato
+    if(validarFormularioCompleto()) {
+        await Swal.fire({
+            title: '¡Éxito!',
+            text: 'El producto se ha registrado correctamente',
+            icon: 'success',
+            confirmButtonText: 'Aceptar'
+        });
+        
+        guardarProducto(crearProducto());
+        document.querySelector("form").reset();
+        imgProduct.src = "";
+        imgProduct.style.display = 'none';
+    } else {
+        await Swal.fire({
+            title: 'Error de validación',
+            html: `
+                <div style="text-align: left;">
+                    <p>Por favor corrige los siguientes errores:</p>
+                    <ul style="margin-left: 20px;">
+                        ${Array.from(document.querySelectorAll('.is-invalid'))
+                            .map(el => {
+                                const label = document.querySelector(`label[for="${el.id}"]`);
+                                const fieldName = label ? label.textContent.replace(':', '') : 'Campo';
+                                const errorMsg = el.parentElement.querySelector('.text-danger');
+                                return `<li><strong>${fieldName}:</strong> ${errorMsg?.textContent || 'Dato inválido'}</li>`;
+                            })
+                            .join('')}
+                    </ul>
+                </div>
+            `,
+            icon: 'error',
+            confirmButtonText: 'Entendido',
+            customClass: { popup: 'swal-wide' }
+        });
+    }
+});
 
-// Inicializar cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', function() {
-    inicializarEventListeners();
+
+btnArchivo.addEventListener('click', () => {
+    widget_cloudinary.open();
 });
