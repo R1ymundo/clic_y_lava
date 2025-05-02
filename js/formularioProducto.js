@@ -1,3 +1,7 @@
+
+const btnArchivo = document.querySelector('#btn-archivo');
+const imgProduct = document.querySelector('#img-product');
+
 const nombreProducto = document.getElementById("nombreProducto");
 const stock = document.getElementById("stock");
 const precio = document.getElementById("precio");
@@ -17,6 +21,25 @@ listaCategoria.addEventListener("change", function(event){
 listaMarca.addEventListener("change", function(event){
     let idMarca = this.value;
 }); //listaMarca
+
+
+let widget_cloudinary = cloudinary.createUploadWidget({
+    cloudName: "deppn8ze4", 
+    uploadPreset: 'clic_test'
+
+
+}, (err, result) =>{
+   if(!err && result && result.event === 'success'){
+     console.log('Imagen subida con exito', result.info);
+     imgProduct.src = result.info.secure_url;
+   }//if
+
+});//widgetCloudinary que viene por defecto
+
+btnArchivo.addEventListener('click',() =>{
+   widget_cloudinary.open();
+
+}, false); //boton_foto
 
 const validarNumero = (num) => {
     let error = 1;

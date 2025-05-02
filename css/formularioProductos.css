@@ -7,6 +7,7 @@
 
 .btn {
     background-color: #FD8F3E;
+    color: #fafafa;
     border: none;
     font-size: 0.9rem;
     padding: 6px 14px;
@@ -32,11 +33,6 @@
 
 }
 
-.dropdown-item:hover{
-    background-color: #FFEA8B;
-    color: #00375e;
-}
-
 .btn.btn-warning{
     color: #ffffff;
 }
@@ -44,4 +40,19 @@
     color: #00375e;
 }
 
-  
+/**/
+
+.optionColor.selected{
+    background-color: #FFEA8B;
+    color: #ffffff;
+}
+
+.optionColor:hover{
+    background-color: #FD8F3E;
+    color: #ffffff;
+}
+
+.form-select:focus{
+    background-color: #FD8F3E;
+    color: #fafafa;
+}
