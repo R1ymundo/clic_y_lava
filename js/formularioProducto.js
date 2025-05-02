@@ -72,6 +72,24 @@ const validarFormProducto = (nombreProducto, caracteristica1, caracteristica2, d
     return error;
 } //validarFormProducto
 
+function crearProducto() {
+    return {
+        "nombre": nombreProducto.value.trim(),
+        "stock": stock.value.trim(),
+        "precio": precio.value.trim(),
+        "categoria": listaCategoria.value,
+        "marca": listaMarca.value,
+        "descripción": descripcion.value.trim(),
+        "caracteristica1": caracteristica1.value.trim(),
+        "caracteristica2": caracteristica2.value.trim()
+    };
+} // crearProducto
+
+function guardarProducto(producto) {
+    let productosGuardados = JSON.parse(localStorage.getItem("newProduct")) || [];
+    productosGuardados.push(producto);
+    localStorage.setItem("newProduct", JSON.stringify(productosGuardados));
+} // guardarProducto
 
 btnEnviar.addEventListener("click", function(event){
     event.preventDefault();
@@ -84,5 +102,13 @@ btnEnviar.addEventListener("click", function(event){
     let errores = validarFormProducto(nomProducto, caractPrincipal, caractSecendaria, description);
 
     console.log(errores)
+
+    // Crear JSON y guardar en localStorage
+    let producto = crearProducto();
+    guardarProducto(producto);
+
+    // Limpiamos formulario y regresamos al primer campo del formulario
+    document.querySelector("form").reset();
+    nombreProducto.focus();
 
 });
