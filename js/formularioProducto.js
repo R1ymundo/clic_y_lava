@@ -39,6 +39,9 @@ function mostrarError(elemento, mensaje) {
 
   if (errorExistente) errorExistente.remove();
 
+  //Remover la clase is-invalid con la de is-valid
+  elemento.classList.remove("is-invalid", "is-valid");
+
   if (mensaje) {
     const errorElement = document.createElement("div");
     errorElement.className = "text-danger mt-1";
@@ -46,10 +49,10 @@ function mostrarError(elemento, mensaje) {
     grupo.appendChild(errorElement);
 
     elemento.classList.add("is-invalid");
-    elemento.classList.remove("is-valid");
+  
   } else {
     elemento.classList.remove("is-invalid");
-    elemento.classList.add("is-valid");
+    
   }
 }
 
@@ -65,10 +68,12 @@ function validarNumero(num, esStock = false) {
       return "El stock debe ser un número entero positivo";
     }
   } else {
+    if (Number(valor) < 0) return "El precio debe ser mayor a 0";
+
     if (!/^\d+(\.\d{1,2})?$/.test(valor)) {
       return "El precio debe tener máximo 2 decimales";
     }
-    if (Number(valor) <= 0) return "El precio debe ser mayor a 0";
+    
   }
 
   return null;
@@ -225,8 +230,8 @@ btnEnviar.addEventListener("click", async (event) => {
     { element: listaCategoria, name: "Categoría" },
     { element: listaMarca, name: "Marca" },
     { element: descripcion, name: "Descripción" },
-    { element: caracteristica1, name: "Característica 1" },
-    { element: caracteristica2, name: "Característica 2" },
+    { element: caracteristica1, name: "Característica Principal" },
+    { element: caracteristica2, name: "Característica Secundaria" },
   ];
 
   let camposFaltantes = [];
