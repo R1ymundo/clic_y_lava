@@ -1,0 +1,19 @@
+.imagen-circular {
+    width: 70px;
+    height: 70px;
+    border-radius: 50% !important;
+    object-fit: cover;
+    border: 2px solid #FF9800 !important;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.btn-amarillo {
+    background-color: #FFD966 !important;
+    color: #333 !important;
+    border: none !important;
+}
+
+.btn-amarillo:hover {
+    background-color: #FFC107 !important;
+}
