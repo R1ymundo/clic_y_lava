@@ -1,4 +1,98 @@
-.imagen-circular {
+/* TIPOGRAFÍA Y TAMAÑOS SEGÚN GUÍA */
+h1 {
+    font-family: 'Grandstander', cursive;
+    font-size: 36px;
+  }
+  
+  h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: 34px;
+  }
+  
+  h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 32px;
+  }
+  
+  h4 {
+    font-family: 'Inter', sans-serif;
+    font-size: 30px;
+  }
+  
+  h5 {
+    font-family: 'Inter', sans-serif;
+    font-size: 28px;
+  }
+  
+  h6 {
+    font-family: 'Inter', sans-serif;
+    font-size: 26px;
+  }
+  
+  p {
+    font-family: 'Inter', sans-serif;
+    font-size: 28px;
+  }
+  
+  .p1 {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+  }
+  
+  /* ESTILO GENERAL */
+  body {
+    background-color: #f9f9f9;
+    font-family: 'Inter', sans-serif;
+    color: #333;
+  }
+  
+  /* CONTENEDOR IMAGEN PRINCIPAL */
+  #imgLavadora {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+  }
+  
+  /* PRECIO Y TIEMPO DESTACADOS */
+  #precio, #tiempo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #145b87;
+  }
+  
+  /* BOTÓN PERSONALIZADO AMARILLO */
+  .btn-amarillo {
+    background-color: #FFD966 !important;
+    color: #333 !important;
+    border: none !important;
+    font-weight: bold;
+    padding: 12px 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: 1rem;
+    border-radius: 30px;
+  }
+  
+  .btn-amarillo:hover {
+    background-color: #FFC107 !important;
+    color: #fff !important;
+  }
+  
+  /* CARACTERÍSTICAS DEL PRODUCTO */
+  #caracteristicas1, #caracteristicas2 {
+    color: #555;
+    font-size: 1rem;
+    margin-top: 10px;
+  }
+  
+  /* ICONOS DE CARACTERÍSTICAS */
+  .img-fluid {
+    max-width: 60px;
+    margin: 0 auto;
+  }
+  
+  /* IMAGENES CIRCULARES */
+  .imagen-circular {
     width: 70px;
     height: 70px;
     border-radius: 50% !important;
@@ -6,14 +100,38 @@
     border: 2px solid #FF9800 !important;
     cursor: pointer;
     margin: 0 5px;
-}
-
-.btn-amarillo {
-    background-color: #FFD966 !important;
-    color: #333 !important;
-    border: none !important;
-}
-
-.btn-amarillo:hover {
-    background-color: #FFC107 !important;
-}
+  }
+  
+  /* SECCIÓN DE IMÁGENES COMPLEMENTARIAS */
+  #imgComplementarias {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  /* DESCRIPCIÓN DEL PRODUCTO */
+  #descripcion {
+    max-width: 900px;
+    margin: 0 auto;
+    color: #555;
+    line-height: 1.6;
+  }
+  
+  
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    #precio, #tiempo {
+      font-size: 1.4rem;
+    }
+  
+    .btn-amarillo {
+      font-size: 0.9rem;
+    }
+  
+    #imgComplementarias img {
+      max-width: 120px;
+    }
+  }
+  
