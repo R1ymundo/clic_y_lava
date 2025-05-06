@@ -20,6 +20,7 @@
     />
     <!-- Hojas de estilo -->
     <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/formularioRegistro.css">
 </head>
 <body>
 
@@ -27,65 +28,68 @@
     <nav id="navegacion" class="navbar navbar-expand-lg bg-body-tertiary"></nav>
 
     <main class="container">
-        <!-- Inicio formulario -->
+        <div class="d-flex flex-column align-items-center justify-content-center min-vh-100">
+            <!-- Inicio formulario -->
          
         <div class="containerLogo">
             <img class="logo" src="../assets/icons/logo_clic_lava.png" class="d-block w-100" alt="Logo clic y lava" />
-            <h5>Regístrate</h5>
         </div>
+
+        <h5>Regístrate</h5>
         
-        <form action="">
-            <div class="container my-5">
-                <div class="md-6">
-                    <label for="Nombre" class="form-label">Nombre</label>
-                        <input type="text" class="form-control border-primary" id="Nombre"
-                            placeholder="Ingresa tu nombre aquí">
-                        <div class="valid-feedback" id="nombreValidar"></div>
-                </div>
-
-                <div class="md-6">
-                    <label for="apellidos" class="form-label">Apellidos</label>
-                    <input type="text" class="form-control border-primary" id="apellidos"
-                            placeholder="Ingresa tus apellidos aquí">
-                    <div class="valid-feedback" id="emailValidar"></div>
-                </div>
-
-                <div class="md-6">
-                    <label for="correo" class="form-label">Correo Electrónico</label>
-                        <input type="email" class="form-control border-primary" id="correo"
-                            placeholder="Ingresa tu correo electrónico aquí">
-                        <div class="valid-feedback" id="nombreValidar"></div>
-                </div>
-
-                <div class="md-6">
-                    <label for="contraseña" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control border-primary" id="contraseña"
-                            placeholder="*************************">
-                    <div class="valid-feedback" id="emailValidar"></div>
-                </div>
-
-                <div class="md-6">
-                    <label for="confirmarCont" class="form-label">Confirmar contraseña</label>
-                        <input type="password" class="form-control border-primary" id="confirmarCont"
-                            placeholder="*************************">
-                        <div class="valid-feedback" id="nombreValidar"></div>
-                </div>
-
-                <div class="md-6">
-                    <label for="direccion" class="form-label">Dirección</label>
-                    <input type="text" class="form-control border-primary" id="direccion"
-                            placeholder="Ingresa tu dirección aquí">
-                    <div class="valid-feedback" id="emailValidar"></div>
-                </div>
-  
-                <!-- Inicio botón-->
-                    <br>
-                    <button type="button" id="btnEnviar" class="btn btn-warning button">Registrar</button>
-                <!-- Fin botón-->
-
-                <!-- Fin formulario -->
+        <form class="w-100" style="max-width: 50%">
+            <div class="mb-3">
+                <label for="Nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control border-primary" id="Nombre"
+                        placeholder="Ingresa tu nombre aquí">
+                    <div class="valid-feedback" id="nombreValidar"></div>
             </div>
+
+            <div class="mb-3">
+                <label for="apellidos" class="form-label">Apellidos</label>
+                <input type="text" class="form-control border-primary" id="apellidos"
+                        placeholder="Ingresa tus apellidos aquí">
+                <div class="valid-feedback" id="emailValidar"></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Correo Electrónico</label>
+                    <input type="email" class="form-control border-primary" id="email"
+                        placeholder="Ingresa tu correo electrónico aquí">
+                    <div class="valid-feedback" id="correoValidar"></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="contraseña" class="form-label">Contraseña</label>
+                <input type="password" class="form-control border-primary" id="contraseña"
+                        placeholder="*************************">
+                <div class="valid-feedback" id="contraseñaValidar"></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="confirmarCont" class="form-label">Confirmar contraseña</label>
+                    <input type="password" class="form-control border-primary" id="confirmarCont"
+                        placeholder="*************************">
+                    <div class="valid-feedback" id="confirmarContValidar"></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="direccion" class="form-label">Dirección</label>
+                <input type="text" class="form-control border-primary" id="direccion"
+                        placeholder="Ingresa tu dirección aquí">
+                <div class="valid-feedback" id="direccionValidar"></div>
+            </div>
+
+            <!-- Inicio botón-->
+             <div class="text-center">
+                <br>
+                <button type="button" id="btnEnviar" class="btn btn-warning button btn-md">Registrar</button>
+             </div>
+            <!-- Fin botón-->
+
+            <!-- Fin formulario -->
         </form>
+        </div>
     </main>
 
     <!-- Pie de página -->
