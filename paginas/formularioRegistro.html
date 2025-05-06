@@ -1,27 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulsrio Registro</title>
+    <title>Formulario Registro</title>
     <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
-      crossorigin="anonymous"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous" />
     <!-- Google Fonts (combinadas en una sola solicitud) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Grandstander:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-      rel="stylesheet"
-    />
+        href="https://fonts.googleapis.com/css2?family=Grandstander:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet" />
     <!-- Hojas de estilo -->
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/formularioRegistro.css">
 </head>
+
 <body>
 
     <!-- Barra de navegación -->
@@ -30,72 +27,73 @@
     <main class="container">
         <div class="d-flex flex-column align-items-center justify-content-center min-vh-100">
             <!-- Inicio formulario -->
-         
-        <div class="containerLogo">
-            <img class="logo" src="../assets/icons/logo_clic_lava.png" class="d-block w-100" alt="Logo clic y lava" />
-        </div>
 
-        <h5>Regístrate</h5>
-        
-        <form class="w-100" style="max-width: 50%">
-            <div class="mb-3">
-                <label for="Nombre" class="form-label">Nombre</label>
+            <div class="containerLogo">
+                <img class="logo d-block w-100" src="../assets/icons/logo_clic_lava.png"
+                    alt="Logo clic y lava" />
+            </div>
+
+            <h5>Regístrate</h5>
+
+            <form class="w-100" style="max-width: 50%">
+                <div class="mb-3">
+                    <label for="Nombre" class="form-label">Nombre</label>
                     <input type="text" class="form-control border-primary" id="Nombre"
                         placeholder="Ingresa tu nombre aquí">
                     <div class="valid-feedback" id="nombreValidar"></div>
-            </div>
+                </div>
 
-            <div class="mb-3">
-                <label for="apellidos" class="form-label">Apellidos</label>
-                <input type="text" class="form-control border-primary" id="apellidos"
+                <div class="mb-3">
+                    <label for="apellidos" class="form-label">Apellidos</label>
+                    <input type="text" class="form-control border-primary" id="apellidos"
                         placeholder="Ingresa tus apellidos aquí">
-                <div class="valid-feedback" id="emailValidar"></div>
-            </div>
+                    <div class="valid-feedback" id="apellidosValidar"></div>
+                </div>
 
-            <div class="mb-3">
-                <label for="email" class="form-label">Correo Electrónico</label>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Correo Electrónico</label>
                     <input type="email" class="form-control border-primary" id="email"
                         placeholder="Ej. clic&lava@gmail.com">
                     <div class="valid-feedback" id="correoValidar"></div>
-            </div>
+                </div>
 
-            <div class="mb-3">
-                <label for="telefono" class="form-label">Telefono</label>
-                    <input type="number" class="form-control border-primary" id="telefono"
-                        placeholder="Ej. 55-1234-5678">
+                <div class="mb-3">
+                    <label for="telefono" class="form-label">Teléfono</label>
+                    <input type="text" class="form-control border-primary" id="telefono"
+                        placeholder="Ej. 5512345678">
                     <div class="valid-feedback" id="telefonoValidar"></div>
-            </div>
+                </div>
 
-            <div class="mb-3">
-                <label for="contraseña" class="form-label">Contraseña</label>
-                <input type="password" class="form-control border-primary" id="contraseña"
+                <div class="mb-3">
+                    <label for="contraseña" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control border-primary" id="contraseña"
                         placeholder="*************************">
-                <div class="valid-feedback" id="contraseñaValidar"></div>
-            </div>
+                    <div class="valid-feedback" id="contraseñaValidar"></div>
+                </div>
 
-            <div class="mb-3">
-                <label for="confirmarCont" class="form-label">Confirmar contraseña</label>
+                <div class="mb-3">
+                    <label for="confirmarCont" class="form-label">Confirmar contraseña</label>
                     <input type="password" class="form-control border-primary" id="confirmarCont"
                         placeholder="*************************">
                     <div class="valid-feedback" id="confirmarContValidar"></div>
-            </div>
+                </div>
 
-            <div class="mb-3">
-                <label for="direccion" class="form-label">Dirección</label>
-                <input type="text" class="form-control border-primary" id="direccion"
+                <div class="mb-3">
+                    <label for="direccion" class="form-label">Dirección</label>
+                    <input type="text" class="form-control border-primary" id="direccion"
                         placeholder="Ingresa tu dirección aquí">
-                <div class="valid-feedback" id="direccionValidar"></div>
-            </div>
+                    <div class="valid-feedback" id="direccionValidar"></div>
+                </div>
 
-            <!-- Inicio botón-->
-             <div class="text-center">
-                <br>
-                <button type="button" id="btnEnviar" class="btn btn-warning button btn-md">Registrar</button>
-             </div>
-            <!-- Fin botón-->
+                <!-- Inicio botón-->
+                <div class="text-center">
+                    <br>
+                    <button type="button" id="btnEnviar" class="btn btn-warning button btn-md">Registrar</button>
+                </div>
+                <!-- Fin botón-->
 
-            <!-- Fin formulario -->
-        </form>
+                <!-- Fin formulario -->
+            </form>
         </div>
     </main>
 
@@ -104,14 +102,13 @@
         <div id="agregarFooter"></div>
     </footer>
     <!-- Bootstrap JS -->
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
-        crossorigin="anonymous"
-    ></script>
+        crossorigin="anonymous"></script>
     <!-- Scripts locales -->
     <script src="../js/nav.js"></script>
     <script src="../js/scriptFooter.js"></script>
     <script src="../js/registroValidaciones.js"></script>
 </body>
+
 </html>
