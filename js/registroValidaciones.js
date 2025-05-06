@@ -1,3 +1,4 @@
+// Se obtiene los elementos de entrada
 const Nombre = document.getElementById("Nombre");
 const apellidos = document.getElementById("apellidos");
 const email = document.getElementById("email");
@@ -6,71 +7,158 @@ const contraseña = document.getElementById("contraseña");
 const confirmarCont = document.getElementById("confirmarCont");
 const direccion = document.getElementById("direccion");
 
+// Obtener elementos de validación
+const nombreValidar = document.getElementById("nombreValidar");
+const apellidosValidar = document.getElementById("apellidosValidar");
+const correoValidar = document.getElementById("correoValidar");
+const telefonoValidar = document.getElementById("telefonoValidar");
+const contraseñaValidar = document.getElementById("contraseñaValidar");
+const confirmarContValidar = document.getElementById("confirmarContValidar");
+const direccionValidar = document.getElementById("direccionValidar");
 
-const btn = document.getElementById ("btnEnviar");
+const btn = document.getElementById("btnEnviar");
 
-btn.addEventListener("click", function () {
-    
-    const nombreValidar = Nombre.value;
-    const apellidosValidar = apellidos.value;
-    const emailValidar = email.value;
-    const telefonoValidar = telefono.value;
-    const contraseñaValidar = contraseña.value;
-    const confirmarContValidar = confirmarCont.value;
-    const direccionValidar = direccion.value;
-  
-    let erroresVal =  validarFormulario(nombreValidar, apellidosValidar, emailValidar, telefonoValidar,
-        contraseñaValidar, confirmarContValidar, direccionValidar);
+// Función para mostrar mensaje de error
+const alertElemento = (elementoInput, elementoValidar, msg) => {
+    elementoInput.classList.remove("is-valid");
+    elementoInput.classList.add("is-invalid");
+    elementoValidar.classList.remove("valid-feedback");
+    elementoValidar.classList.add("invalid-feedback");
+    elementoValidar.innerText = " ";
+    elementoValidar.innerText = msg;
+}
 
-    alert (erroresVal);
-});
+// Función para limpiar mensaje de error
+const limpiarAlertElemnto = (elementoInput, elementoValidar) => {
+    elementoInput.classList.remove("is-invalid");
+    elementoInput.classList.add("is-valid");
+    elementoValidar.classList.remove("invalid-feedback");
+    elementoValidar.classList.add("valid-feedback");
+    elementoValidar.innerText = " ";
+}
 
-function validarFormulario (nombreValidar, apellidosValidar, emailValidar, telefonoValidar,
-    contraseñaValidar, confirmarContValidar, direccionValidar){
-    
+// Función para validar formulario
+function validarFormulario(nombreVal, apellidosVal, emailVal, telefonoVal,
+    contraseñaVal, confirmarContVal, direccionVal) {
 
     let errores = [];
 
-
     //Validar nombre
     const nombreRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,}$/;
-    if (!nombreRegex.test(nombreValidar)){
-    errores.push("Solo acepta letras y mínimo dos caracteres");
-    }//fin validar nombre
+    if (!nombreRegex.test(nombreVal)) {
+        errores.push("Solo acepta letras y mínimo dos caracteres");
+        alertElemento(Nombre, nombreValidar, "Solo acepta letras y mínimo dos caracteres");
+    } else {
+        limpiarAlertElemnto(Nombre, nombreValidar);
+    }
 
     //Validar apellidos
     const apellidosRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,}$/;
-    if (!apellidosRegex.test(apellidosValidar)){
-    errores.push("Solo acepta letras y mínimo dos caracteres");
-    }//fin validar apellidos
+    if (!apellidosRegex.test(apellidosVal)) {
+        errores.push("Solo acepta letras y mínimo dos caracteres");
+        alertElemento(apellidos, apellidosValidar, "Solo acepta letras y mínimo dos caracteres");
+    } else {
+        limpiarAlertElemnto(apellidos, apellidosValidar);
+    }
 
     //Validar email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(emailValidar)){
-    errores.push("Ingresa un correo electrónico válido");
+    if (!emailRegex.test(emailVal)) {
+        errores.push("Ingresa un correo electrónico válido");
+        alertElemento(email, correoValidar, "Ingresa un correo electrónico válido"); 
+    } else {
+        limpiarAlertElemnto(email, correoValidar);
     }//fin validar email
 
     //Validar telefono
     const telefonoRegex = /^\d{10}$/;
-    if (!telefonoRegex.test(telefonoValidar)){
-    errores.push("Ingresa un número de teléfono válido");
-    }//fin validar telefono
+    if (!telefonoRegex.test(telefonoVal)) {
+        errores.push("Ingresa un número de teléfono válido");
+        alertElemento(telefono, telefonoValidar, "Ingresa un número de teléfono válido");
+    } else {
+        limpiarAlertElemnto(telefono, telefonoValidar); 
+    }
+    //fin validar telefono
 
-    //Validar contraseña y cont
-    const contraseñaRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
-    if (!contraseñaRegex.test(contraseñaValidar)){
-        errores.push("La contraseña debe incluir 6 caracteres y un número.")
-    } 
-    if (contraseñaValidar !==confirmarContValidar){
-        errores.push("las contraseñas no coinciden.");
-    } //Validar formulario
+    // Validar contraseña
+    if (!contraseñaVal.trim()) {
+        // Caso específico cuando no se ingresa nada
+        errores.push("La contraseña no puede estar vacía");
+        alertElemento(contraseña, contraseñaValidar, "La contraseña no puede estar vacía");
+    } else if (contraseñaVal.length < 6) {
+        // Caso específico para cuando la contraseña es demasiado corta
+        errores.push("La contraseña debe tener al menos 6 caracteres");
+        alertElemento(contraseña, contraseñaValidar, "La contraseña debe tener al menos 6 caracteres");
+    } else {
+        // Validación completa con regex para contraseñas con la longitud adecuada
+        const contraseñaRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+        if (!contraseñaRegex.test(contraseñaVal)) {
+            errores.push("La contraseña debe incluir letras y al menos un número");
+            alertElemento(contraseña, contraseñaValidar, "La contraseña debe incluir letras y al menos un número");
+        } else {
+            limpiarAlertElemnto(contraseña, contraseñaValidar);
+        }
+    }
+
+    // Validar confirmación de contraseña
+    if (!confirmarContVal.trim()) {
+        // Caso específico cuando no se ingresa nada en la confirmación
+        errores.push("Debes confirmar tu contraseña");
+        alertElemento(confirmarCont, confirmarContValidar, "Debes confirmar tu contraseña");
+    } else if (contraseñaVal !== confirmarContVal) {
+        // Las contraseñas no coinciden
+        errores.push("Las contraseñas no coinciden");
+        alertElemento(confirmarCont, confirmarContValidar, "Las contraseñas no coinciden");
+    } else {
+        limpiarAlertElemnto(confirmarCont, confirmarContValidar);
+    }
 
     //Validar dirección
     const direccionRegex = /[A-Za-zÁÉÍÓÚáéíóúÑñ]+.*\d+/;
-    if (!direccionRegex.test(direccionValidar)){
-    errores.push("Ingresa una dirección válida que contenga una palabra y un número");
-    }//fin validar telefono
- 
+    if (!direccionRegex.test(direccionVal)) {
+        errores.push("Ingresa una dirección válida que contenga una palabra y un número");
+        alertElemento(direccion, direccionValidar, "Ingresa una dirección válida que contenga una palabra y un número");
+    } else {
+        limpiarAlertElemnto(direccion, direccionValidar);
+    }//fin validar dirección
+
     return errores;
 }
-//Validar dirección
+
+// Evento para el botón de enviar
+btn.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    const nombreVal = Nombre.value.trim();
+    const apellidosVal = apellidos.value.trim();
+    const emailVal = email.value.trim();
+    const telefonoVal = telefono.value.trim();
+    const contraseñaVal = contraseña.value.trim();
+    const confirmarContVal = confirmarCont.value.trim();
+    const direccionVal = direccion.value.trim();
+
+    let erroresVal = validarFormulario(nombreVal, apellidosVal, emailVal, telefonoVal,
+        contraseñaVal, confirmarContVal, direccionVal);
+
+    if (erroresVal.length > 0) {
+        Swal.fire({
+            title: "Llena correctamente el formulario",
+            html: erroresVal.join("<br>"),
+            icon: "error",
+        });
+    } else {
+        Swal.fire({
+            title: "¡Éxito!",
+            text: "Se ha registrado correctamente",
+            icon: "success",
+        }).then(() => {
+            Nombre.value = "";
+            apellidos.value = "";
+            email.value = "";
+            telefono.value = "";
+            contraseña.value = "";
+            confirmarCont.value = "";
+            direccion.value = "";
+        });
+    }
+});
