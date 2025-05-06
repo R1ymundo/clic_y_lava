@@ -3,6 +3,7 @@ const searchParams = new URLSearchParams(paramsString);
 const id = searchParams.get("id")
 
 const imgLavadora = document.getElementById("imgLavadora");
+const imgComplementarias = document.getElementById("imgComplementarias");
 const tituloLavadora = document.getElementById("tituloLavadora");
 const sku = document.getElementById("sku");
 const precio = document.getElementById("precio");
@@ -20,11 +21,18 @@ let productos = productData.productos;
 // Buscar el producto por ID
 const producto = productos.find(p => p.id === Number(id));
 
+let imgs = "";
+for (let i = 1; i < 4; i++) {
+    imgs += `<img src="${producto.imagenes['imagenAdicional' + i]}" alt="Lavadora" class="img-fluid imagen-circular shadow-sm"><br/>`;
+}
+
 if (producto) {
-    
-    imgLavadora.insertAdjacentHTML("afterbegin", 
+
+    imgLavadora.insertAdjacentHTML("afterbegin",
         `<img src="${producto.imagenes.imagenPricipal}" alt="Lavadora" class="img-fluid"></img>`);
-    
+
+    imgComplementarias.insertAdjacentHTML("afterbegin", imgs);
+
     tituloLavadora.innerText = producto.modelo;
     sku.innerText = `SKU: ${producto.stock}`;
     precio.innerText = `$${producto.precios.precioDia} por día`
