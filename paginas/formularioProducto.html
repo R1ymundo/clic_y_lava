@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="img/jpg" href="../assets/icons/logo_clic_lava.png" />
+    <title>Formulario Productos</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
+          crossorigin="anonymous" />
+    <link rel="stylesheet" href="../css/acerca.css" />
+    <link rel="stylesheet" href="../css/contacto.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Grandstander&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
+  </head>
+
+  <body>
+    <!-- Inicio navar -->
+    <nav id="navegacion" class="navbar navbar-expand-lg bg-body-tertiary"></nav>
+    <!-- Fin navar -->
+
+    <main class="container">
+      <!-- Inicio Encabezado -->
+      <div class="container" id="encabezado"></div>
+      <!-- Fin Encabezado -->
+      
+      <div class="text-center my-4">
+        <h5>Formulario de Productos</h5>
+        <img src="../assets/icons/logo_clic_lava.png" alt="Logo clic y lava" class="logo" style="max-width: 150px" />
+      </div>
+
+      <!-- Formulario -->
+      <form action="">
+        <div class="container my-4">
+
+          <!-- Nombre y stock -->
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <label for="nombreProducto" class="form-label">Nombre del producto</label>
+              <input type="text" class="form-control border-primary" id="nombreProducto" placeholder="Ej. Lavadora automática">
+            </div>
+            <div class="col-md-6">
+              <label for="stock" class="form-label">Stock</label>
+              <input type="number" class="form-control border-primary" id="stock" placeholder="Ej. 10">
+            </div>
+          </div>
+
+          <!-- Categoría y marca -->
+          <div class="row mb-4 text-center justify-content-center">
+            <div class="col-md-4">
+              <label class="form-label">Categoría</label>
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Selecciona una categoría
+                </button>
+                <ul class="dropdown-menu w-100">
+                  <li><a class="dropdown-item" href="#">Lavadora</a></li>
+                  <li><a class="dropdown-item" href="#">Secadora</a></li>
+                  <li><a class="dropdown-item" href="#">Centro de lavado</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Marca</label>
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Selecciona una marca
+                </button>
+                <ul class="dropdown-menu w-100">
+                  <li><a class="dropdown-item" href="#">LG</a></li>
+                  <li><a class="dropdown-item" href="#">Samsung</a></li>
+                  <li><a class="dropdown-item" href="#">Whirlpool</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Precio -->
+          <div class="row mb-4">
+            <div class="col-md-6 offset-md-3">
+              <label for="precio" class="form-label">Precio</label>
+              <input type="number" class="form-control border-primary" id="precio" placeholder="Ej. 250.00">
+            </div>
+          </div>
+
+          <!-- Imagen principal -->
+          <div class="row mb-4">
+            <div class="col-md-6 offset-md-3">
+              <label for="imagenPrincipal" class="form-label">Imagen principal</label>
+              <input type="file" class="form-control border-primary" id="imagenPrincipal" accept="image/*">
+            </div>
+          </div>
+
+          <!-- Imágenes complementarias -->
+          <div class="row mb-4">
+            <div class="col-md-6 offset-md-3">
+              <label for="imagenesComplementarias" class="form-label">Imágenes complementarias</label>
+              <input type="file" class="form-control border-primary" id="imagenesComplementarias" multiple accept="image/*">
+            </div>
+          </div>
+
+          <!-- Características -->
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <label for="caracteristica1" class="form-label">Característica Principal</label>
+              <input type="text" class="form-control border-primary" id="caracteristica1" placeholder="Ej. Carga frontal">
+            </div>
+            <div class="col-md-6">
+              <label for="caracteristica2" class="form-label">Característica Secundaria</label>
+              <input type="text" class="form-control border-primary" id="caracteristica2" placeholder="Ej. Ahorro de agua">
+            </div>
+          </div>
+
+          <!-- Descripción -->
+          <div class="mb-4">
+            <label for="descripcion" class="form-label">Acerca del producto (descripción)</label>
+            <textarea class="form-control border-primary" id="descripcion" rows="3" placeholder="Describe tu producto aquí"></textarea>
+          </div>
+
+          <!-- Botón -->
+          <div class="text-center">
+            <button type="button" id="btnEnviar" class="btn btn-warning">Agregar</button>
+          </div>
+
+        </div>
+      </form>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer mt-5">
+      <div id="agregarFooter"></div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+            crossorigin="anonymous"></script>
+    <script src="../js/nav.js"></script>
+    <script src="../js/scriptEncabezado.js"></script>
+    <script src="../js/scriptFooter.js"></script>
+    <script src="../js/contactoValidaciones.js"></script>
+  </body>
+</html>
