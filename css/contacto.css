@@ -19,6 +19,8 @@
 }
 
 .button {
+  border: #feb36d;
+  background-color: #feb36d;
   text-align: center;
   color: #00375e;
   font-family: "Inter", sans-serif;
