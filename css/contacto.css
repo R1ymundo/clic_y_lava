@@ -10,17 +10,32 @@
   margin-bottom: 10px;
 }
 
+#encabezado1, #encabezado2 {
+  font-family: "Grandstander", cursive;
+}
+
 .mb-3 {
   margin-top: 1rem;
 }
 
 .button {
   text-align: center;
-  background-color: var(--ft-color);
+  color: #00375e;
+  font-family: "Inter", sans-serif;
 }
 
 div.form-check {
+  font-family: "Inter", sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.form-check-input {
+  border: 0.25px solid #00375e;
+}
+
+.col-md-6, .mb-4 {
+  font-family: "Inter", sans-serif;
+  color: #00375e !important;
 }
