@@ -69,11 +69,11 @@ function validarNumero(num, esStock = false) {
   if (isNaN(valor)) return "Debe ser un número válido";
 
   if (esStock) {
-    if (!/^\d+$/.test(valor) || Number(valor) < 0) {
-      return "El stock debe ser un número entero positivo";
+    if (!/^\d+$/.test(valor) || Number(valor) < 1) {
+      return "En el stock debe haber al menos un producto";
     }
   } else {
-    if (Number(valor) < 0) return "El precio debe ser mayor a 0";
+    if (Number(valor) < 1) return "El precio debe ser mayor a 0";
 
     if (!/^\d+(\.\d{1,2})?$/.test(valor)) {
       return "El precio debe tener máximo 2 decimales";
