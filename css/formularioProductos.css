@@ -1,0 +1,92 @@
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+.containerLogo {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+h5, h6 {
+  font-family: "Grandstander", cursive;
+  color: #00375E;
+}
+
+.mb-3 {
+  color: #00375e;
+  font-family: "Inter";
+}
+
+#btn-archivo {
+  color: #00375e;
+  font-family: "Inter";
+}
+
+.btn {
+    background-color: #FD8F3E;
+    color: #00375e;
+    border: none;
+    font-size: 0.9rem;
+    padding: 6px 14px;
+    font-weight: 500;
+    transition: background-color;
+    font-family: "Inter";
+  }  
+
+.btn:hover{
+    background-color: #ffd700;
+    color: #00375e;
+}
+
+.btn.dropdown-toggle:active{
+    background-color: #FFEA8B;
+    color: #00375e;
+    box-shadow: none;
+}
+
+.btn.show{
+    background-color: #FFEA8B;
+    color: #00375e;
+
+}
+
+.btn.btn-warning{
+    color: #00375e;
+}
+.btn.btn-warning:hover{
+    color: #00375e;
+}
+
+/**/
+
+.optionColor.selected{
+    background-color: #FFEA8B;
+    color: #ffffff;
+}
+
+.optionColor:hover{
+    background-color: #FD8F3E;
+    color: #ffffff;
+}
+
+.form-select:focus{
+    background-color: #FD8F3E;
+    color: #fafafa;
+}
+.campo-faltante {
+    animation: shake 0.5s;
+    border-color: #dc3545 !important;
+  }
+  
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
+  }
+  
+  .swal-wide {
+    width: 600px !important;
+    max-width: 80% !important;
+  }
