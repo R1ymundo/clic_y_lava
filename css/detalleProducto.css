@@ -1,87 +1,147 @@
-/* CONTENEDOR GENERAL */
-main {
-  background-color: #f5f5f5;
-  padding: 2rem;
+/* FUENTE GENERAL */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #fff;
+  color: #003049;
 }
 
-/* TARJETA DE IMAGEN PRINCIPAL */
-#imgLavadora {
+/* ENCABEZADO */
+header {
+  background-color: #FFB882;
+  padding: 15px 30px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #003049;
+  text-align: left;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
   display: flex;
   align-items: center;
-  justify-content: center;
-  height: 400px;
-  background-color: #ffffff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  gap: 10px;
 }
 
-/* TITULO Y SKU */
-#tituloLavadora {
-  font-family: 'Grandstander', cursive;
-  font-size: 36px;
-  margin-bottom: 0.5rem;
+/* CONTENIDO PRINCIPAL */
+.contenido {
+  padding: 40px 20px;
+  text-align: center;
+  max-width: 900px;
+  margin: auto;
 }
 
-#sku {
-  font-family: 'Inter', sans-serif;
-  font-size: 20px;
-  color: #555;
-  margin-bottom: 1rem;
+.titulo {
+  font-size: 30px;
+  margin-bottom: 5px;
 }
+
+.sku {
+  font-size: 16px;
+  color: #6c757d;
+}
+
+/* IMAGEN PRINCIPAL */
+.imagen-principal {
+  margin: 30px auto;
+  width: 320px;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 0 15px rgba(255, 183, 3, 0.6), 
+              0 0 25px rgba(255, 183, 3, 0.5), 
+              0 0 35px rgba(255, 183, 3, 0.4);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  display: block;
+}
+
+/* .imagen-principal:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 200, 0, 0.8),
+              0 0 30px rgba(255, 200, 0, 0.6),
+              0 0 40px rgba(255, 200, 0, 0.4);
+} */
+
 
 /* PRECIO Y TIEMPO */
-#precio,
-#tiempo {
-  font-size: 28px;
+.precio-carrito {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin: 15px 0 25px;
+  font-size: 22px;
   font-weight: bold;
-  color: #2c3e50;
+  color: #003049;
 }
 
-/* BOTÓN AGREGAR AL CARRITO */
-#btnAgregarCarrito {
-  background-color: #ffc107; /* Amarillo Bootstrap */
+/* BOTÓN DINÁMICO */
+.boton-dinamico {
+  background-color: #FD8F3E;
   border: none;
-  color: #000;
-  font-weight: 600;
+  padding: 14px 35px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 30px;
+  cursor: pointer;
+  color: hsl(0, 0%, 100%);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
   transition: all 0.3s ease;
 }
-
-#btnAgregarCarrito:hover {
-  background-color: #e0a800;
+.boton-dinamico:hover {
+  background-color: #FD8F3E;
   transform: scale(1.05);
-}
-
-/* CARACTERÍSTICAS */
-#caracteristicas1,
-#caracteristicas2 {
-  font-size: 18px;
-  color: #333;
-  font-family: 'Inter', sans-serif;
-}
-
-/* ICONOS DE CARACTERÍSTICAS */
-img[alt="lavadoraIcono"] {
-  max-width: 60px;
-}
-
-/* IMÁGENES COMPLEMENTARIAS */
-#imgComplementarias {
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-/* DESCRIPCIÓN DEL ARTÍCULO */
-#descripcion {
-  font-size: 18px;
-  color: #444;
-  font-family: 'Inter', sans-serif;
-  padding: 1rem 2rem;
-}
-
-/* FOOTER */
-.site-footer {
-  background-color: #333;
   color: #fff;
-  padding: 2rem 1rem;
+}
+
+/* SECCIÓN DE CARACTERÍSTICAS */
+.subtitulo {
+  font-size: 22px;
+  margin-top: 35px;
+  color: #003049;
+}
+
+.caracteristicas {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 15px;
+}
+
+.imagen-circular {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid orange;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.imagen-circular:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 10px rgba(255, 123, 0, 0.4);
+}
+
+/* DESCRIPCIÓN */
+.descripcion {
+  margin-top: 40px;
+  font-size: 18px;
+  background-color: #f7f7f7;
+  padding: 25px;
+  border-radius: 15px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 4px 10px #3836360d;
+}
+.descripcion h4 {
+  margin-bottom: 10px;
+  color: #003049;
+}
+
+/* PIE DE PÁGINA */
+footer {
+  background-color: #FFB882;
+  padding: 25px;
   text-align: center;
-  font-size: 14px;
+  font-size: 16px;
+  margin-top: 50px;
+  color: #003049;
 }
