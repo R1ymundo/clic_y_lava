@@ -423,17 +423,10 @@ window.fetchingProducts = async () => {
                   <div class="card h-100">
                     <img src="${product.imagenes.imagenPricipal}" class="card-img-top" alt="...">
                     <div class="card-body">
-<<<<<<< HEAD
                       <p class="card-title principal">${producto.modelo}</p>
                       <p class="card-title detalle">Marca: ${producto.marca}</p>
                       <p class="card-precio">Renta: $${producto.precioRenta}</p>
                       <a href="../paginas/detalleProducto.html?id=${producto.id}&categoria=${producto.id}" class="btn btn-primary">Ver más detalles..</a>
-=======
-                      <p class="card-title principal">${product.modelo}</p>
-                      <p class="card-title detalle">Marca: ${product.marca}</p>
-                      <p class="card-precio">Renta/hora: $${product.precios.precioHora}</p>
-                      <a href="" class="btn btn-primary">Ver más detalles..</a>
->>>>>>> formularioProducto
                     </div>
                   </div> 
                 </div>
