@@ -28,6 +28,11 @@ let widget_cloudinary = cloudinary.createUploadWidget(
       console.log("Imagen subida con éxito", result.info);
       imgProduct.src = result.info.secure_url;
       imgProduct.style.display = "block";
+      
+      // Limpiar error de imagen si existe
+      const grupo = btnArchivo.closest(".mb-3") || btnArchivo.parentElement;
+      const errorExistente = grupo.querySelector(".text-danger");
+      if (errorExistente) errorExistente.remove();
     }
   }
 );
@@ -39,6 +44,9 @@ function mostrarError(elemento, mensaje) {
 
   if (errorExistente) errorExistente.remove();
 
+  //Remover la clase is-invalid con la de is-valid
+  elemento.classList.remove("is-invalid", "is-valid");
+
   if (mensaje) {
     const errorElement = document.createElement("div");
     errorElement.className = "text-danger mt-1";
@@ -46,10 +54,10 @@ function mostrarError(elemento, mensaje) {
     grupo.appendChild(errorElement);
 
     elemento.classList.add("is-invalid");
-    elemento.classList.remove("is-valid");
+  
   } else {
     elemento.classList.remove("is-invalid");
-    elemento.classList.add("is-valid");
+    
   }
 }
 
@@ -65,10 +73,12 @@ function validarNumero(num, esStock = false) {
       return "El stock debe ser un número entero positivo";
     }
   } else {
+    if (Number(valor) < 0) return "El precio debe ser mayor a 0";
+
     if (!/^\d+(\.\d{1,2})?$/.test(valor)) {
       return "El precio debe tener máximo 2 decimales";
     }
-    if (Number(valor) <= 0) return "El precio debe ser mayor a 0";
+    
   }
 
   return null;
@@ -210,6 +220,57 @@ function guardarProducto() {
   return true;
 }
 
+//Validaciones
+
+nombreProducto.addEventListener('input', () => {
+  const error = validarTexto(nombreProducto, 'nombre');
+  mostrarError(nombreProducto, error);
+  if (!error) nombreProducto.classList.add('is-valid');
+});
+
+stock.addEventListener('input', () => {
+  const error = validarNumero(stock, true);
+  mostrarError(stock, error);
+  if (!error) stock.classList.add('is-valid');
+});
+
+precio.addEventListener('input', () => {
+  const error = validarNumero(precio);
+  mostrarError(precio, error);
+  if (!error) precio.classList.add('is-valid');
+});
+
+listaCategoria.addEventListener('change', () => {
+  const error = validarSelect(listaCategoria);
+  mostrarError(listaCategoria, error);
+  if (!error) listaCategoria.classList.add('is-valid');
+});
+
+listaMarca.addEventListener('change', () => {
+  const error = validarSelect(listaMarca);
+  mostrarError(listaMarca, error);
+  if (!error) listaMarca.classList.add('is-valid');
+});
+
+descripcion.addEventListener('input', () => {
+  const error = validarTexto(descripcion, 'descripcion');
+  mostrarError(descripcion, error);
+  if (!error) descripcion.classList.add('is-valid');
+});
+
+caracteristica1.addEventListener('input', () => {
+  const error = validarTexto(caracteristica1, 'caracteristica');
+  mostrarError(caracteristica1, error);
+  if (!error) caracteristica1.classList.add('is-valid');
+});
+
+caracteristica2.addEventListener('input', () => {
+  const error = validarTexto(caracteristica2, 'caracteristica');
+  mostrarError(caracteristica2, error);
+  if (!error) caracteristica2.classList.add('is-valid');
+});
+
+
 btnEnviar.addEventListener("click", async (event) => {
   event.preventDefault();
 
@@ -225,8 +286,8 @@ btnEnviar.addEventListener("click", async (event) => {
     { element: listaCategoria, name: "Categoría" },
     { element: listaMarca, name: "Marca" },
     { element: descripcion, name: "Descripción" },
-    { element: caracteristica1, name: "Característica 1" },
-    { element: caracteristica2, name: "Característica 2" },
+    { element: caracteristica1, name: "Característica Principal" },
+    { element: caracteristica2, name: "Característica Secundaria" },
   ];
 
   let camposFaltantes = [];
@@ -249,8 +310,8 @@ btnEnviar.addEventListener("click", async (event) => {
   if (camposFaltantes.length > 0) {
     camposFaltantes[0].scrollIntoView({ behavior: "smooth", block: "center" });
     camposFaltantes.forEach((campo) => {
-      campo.classList.add("campo-faltante");
-      setTimeout(() => campo.classList.remove("campo-faltante"), 1000);
+      campo.classList.add("campoFaltante");
+      setTimeout(() => campo.classList.remove("campoFaltante"), 1000);
     });
 
     await Swal.fire({
