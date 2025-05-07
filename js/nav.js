@@ -24,6 +24,7 @@ navegacion.insertAdjacentHTML(
                     </li>
             </div>
             </ul>
+            <a class="nav-link" href="../paginas/inicioSesion.html" style="margin-right: 1rem;">Iniciar sesion</a>
             <a class="nav-link" href="../paginas/compras.html">Mis Compras
                 <img src="../assets/icons/carrito.webp" alt="Carrito" width="30" height="24">
             </a>
