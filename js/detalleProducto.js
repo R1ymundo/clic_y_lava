@@ -28,11 +28,9 @@ for (let i = 1; i < 4; i++) {
 
 if (producto) {
 
-    
-    
     imgLavadora.insertAdjacentHTML("afterbegin",
-            `<img src="${producto.imagenes.imagenPrincipal}" alt="Lavadora" class="img-fluid">`);
-          
+        `<img src="${producto.imagenes.imagenPricipal}" alt="Lavadora" class="img-fluid imagen-principal"></img>`);
+
     imgComplementarias.insertAdjacentHTML("afterbegin", imgs);
 
     tituloLavadora.innerText = producto.modelo;
