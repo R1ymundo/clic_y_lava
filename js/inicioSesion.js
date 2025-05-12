@@ -82,6 +82,16 @@ btnInicioSesion.addEventListener("click", function (event) {
     return;
   }
 
+   if (usuarioExistente.password !== contraseñaVal) {
+    alertElemento(password, contraseñaValidar, "Contraseña incorrecta");
+    Swal.fire({
+      title: "Error",
+      text: "Contraseña incorrecta",
+      icon: "error",
+    });
+    return;
+  }
+
   // Si todo está correcto, guardar estado de sesión
   localStorage.setItem("sesionIniciada", "true");
   localStorage.setItem("usuarioActivo", JSON.stringify(usuarioExistente));
