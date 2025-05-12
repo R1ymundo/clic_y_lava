@@ -13,7 +13,7 @@ html {
   --lt-color: #00375e;
   --bt-color: #bdddf4;
   --ft-color: #feb36d;
-  --mn-color: #ebe6ce;
+  --mn-color: #ffc107;
 
   background-color: var(--bg-color);
   height: 100%;
@@ -60,8 +60,9 @@ h6 {
 p {
     font-family: "Inter", sans-serif;
     color: #00375E;
-    font-size: 24px;
+    font-size: 16px;
 }
+
 
 .navbar-brand {
   font-family: "Grandstander", cursive;
