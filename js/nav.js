@@ -1,4 +1,13 @@
 const navegacion = document.getElementById("navegacion");
+const sesion = localStorage.getItem("sesionIniciada");
+const inicioSesion = document.getElementById ("inicioSesion");
+const cerrarSesion = document.getElementById ("cerrarSesion");
+
+if (sesion === "true"){
+    inicioSesion.style.display = "none";
+    cerrarSesion.style.display = "inline";
+
+}
 navegacion.insertAdjacentHTML(
   "afterbegin",
   ` 
