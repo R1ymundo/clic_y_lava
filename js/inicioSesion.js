@@ -2,9 +2,6 @@
 const email = document.getElementById("email");
 const password = document.getElementById("password");
 const btnInicioSesion = document.getElementById("btnInicioSesion");
-const inicioSesion = document.getElementById ("inicioSesion");
-const cerrarSesion = document.getElementById ("cerrarSesion");
-
 
 // Obtener elementos de validación
 const correoValidar = document.getElementById("correoValidar");
@@ -98,5 +95,4 @@ btnInicioSesion.addEventListener("click", function (event) {
     // Redirigir al usuario o realizar otras acciones
     window.location.href = "acerca.html";
   });
-}
-);
+});
