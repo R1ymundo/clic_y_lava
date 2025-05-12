@@ -426,7 +426,7 @@ window.fetchingProducts = async () => {
                       <p class="card-title principal">${product.modelo}</p>
                       <p class="card-title detalle">Marca: ${product.marca}</p>
                       <p class="card-precio">Renta/hora: $${product.precios.precioHora}</p>
-                      <a href="" class="btn btn-primary">Ver más detalles..</a>
+                      <a href="../paginas/detalleProducto.html?id=${product.id}" class="btn btn-primary">Ver más detalles..</a>
                     </div>
                   </div> 
                 </div>
