@@ -13,13 +13,56 @@ html {
   --lt-color: #00375e;
   --bt-color: #bdddf4;
   --ft-color: #feb36d;
-  --mn-color: #ebe6ce;
+  --mn-color: #ffc107;
 
   background-color: var(--bg-color);
   height: 100%;
   margin: 0;
   padding: 0;
 }
+
+h1 {
+    font-family: "Grandstander", cursive;
+    color: #00375E;
+    font-size: 36px;
+}
+
+h2 {
+    font-family: "Inter", sans-serif;
+    color: #00375E;
+    font-size: 34px;
+}
+
+h3 {
+    font-family: "Inter", sans-serif;
+    color: #00375E;
+    font-size: 32px;
+}
+
+h4 {
+    font-family: "Inter", sans-serif;
+    color: #00375E;
+    font-size: 30px;
+}
+
+h5 {
+    font-family: "Inter", sans-serif;
+    color: #00375E;
+    font-size: 28px;
+}
+
+h6 {
+    font-family: "Inter", sans-serif;
+    color: #00375E;
+    font-size: 24px;
+}
+
+p {
+    font-family: "Inter", sans-serif;
+    color: #00375E;
+    font-size: 16px;
+}
+
 
 .navbar-brand {
   font-family: "Grandstander", cursive;
