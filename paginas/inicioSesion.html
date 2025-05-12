@@ -59,6 +59,7 @@
               placeholder="tucorreo@gmail.com"
               required
             />
+            <div class="valid-feedback" id="correoValidar"></div>
           </div>
           <div class="mb-3">
             <label for="password" class="form-label">Contraseña</label>
@@ -69,17 +70,18 @@
               placeholder="************"
               required
             />
+            <div class="valid-feedback" id="contraseñaValidar"></div>
           </div>
           <div class="d-grid mb-3">
-            <button type="submit" class="btn btn-primary mt-2">
+            <button type="submit" id="btnInicioSesion" class="btn btn-primary mt-2">
               Iniciar sesión
             </button>
           </div>
           <div class="text-center">
-            <p>
+            <!-- <p>
               ¿Olvidaste tu contraseña?
               <a href="#" style="text-decoration: none">Clic aquí</a>
-            </p>
+            </p> -->
             <a href="./formularioRegistro.html" style="text-decoration: none">Crear nueva cuenta</a>
           </div>
         </form>
@@ -101,5 +103,7 @@
     ></script>
     <script src="../js/nav.js"></script>
     <script src="../js/scriptFooter.js"></script>
+    <script src="../js/inicioSesion.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </body>
 </html>

@@ -4,3 +4,22 @@
   text-align: center;
 }
 
+.btn{
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  background-color: #feb36d;
+  border: none;
+}
+
+.btn:hover{
+  background-color: #ffc107;
+}
+
+.btn:active{
+  background-color: #ffc107;
+}
+
+.btn:focus{
+  background-color: #ffc107;
+}
