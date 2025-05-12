@@ -22,8 +22,31 @@ const limpiarAlertElemnto = (elementoInput, elementoValidar) => {
   elementoInput.classList.add("is-valid");
   elementoValidar.classList.remove("invalid-feedback");
   elementoValidar.classList.add("valid-feedback");
-  elementoValidar.innerText = "✓ Campo válido";
+  elementoValidar.innerText = "";
 };
+
+email.addEventListener("input", () => {
+  const emailVal = email.value.trim();
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!emailRegex.test(emailVal)) {
+    alertElemento(email, correoValidar, "Ingresa un correo electrónico válido");
+  } else {
+    limpiarAlertElemnto(email, correoValidar);
+  }
+});
+
+password.addEventListener("input", () => {
+  const contraseñaVal = password.value.trim();
+
+  if (!contraseñaVal) {
+    alertElemento(password, contraseñaValidar, "La contraseña no puede estar vacía");
+  } else if (contraseñaVal.length < 6) {
+    alertElemento(password, contraseñaValidar, "La contraseña debe tener al menos 6 caracteres");
+  } else {
+    limpiarAlertElemnto(password, contraseñaValidar);
+  }
+});
 
 // Función para validar formulario
 function validarFormulario(emailVal, contraseñaVal) {
