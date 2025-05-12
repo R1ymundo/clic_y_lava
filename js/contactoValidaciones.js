@@ -46,36 +46,36 @@ const validarFormContacto = (nombre, email, telefono, mensaje, asunto) => {
   // regexMensaje.test(mensaje) ? mensaje : error.push("Mensaje incorrecto");
 
   if (!regexNombre.test(nombre)) {
-    alertElemento(exampleName, nombreValidar, "Nombre inválido");
-    error.push("Nombre inválido");
+    alertElemento(exampleName, nombreValidar, "Nombre válido.");
+    error.push("Nombre inválido.");
   } else {
     limpiarAlertElemnto(exampleName, nombreValidar);
   }
 
   if (!regexAsunto.test(asunto)) {
-    alertElemento(exampleAsunto, asuntoValidar, "Asunto inválido");
-    error.push("Asunto inválido");
+    alertElemento(exampleAsunto, asuntoValidar, "Asunto válido.");
+    error.push("Asunto inválido.");
   } else {
     limpiarAlertElemnto(exampleAsunto, asuntoValidar);
   }
 
   if (!regexEmail.test(email)) {
-    alertElemento(exampleMail, emailValidar, "Email inválido");
+    alertElemento(exampleMail, emailValidar, "Email válido.");
     error.push("Email inválido");
   } else {
     limpiarAlertElemnto(exampleMail, emailValidar);
   }
 
   if (!regexTelefono.test(telefono)) {
-    alertElemento(exampleTelephone, telefonoValidar, "Telefono inválido");
-    error.push("Telefono inválido");
+    alertElemento(exampleTelephone, telefonoValidar, "Telefono válido.");
+    error.push("Telefono inválido.");
   } else {
     limpiarAlertElemnto(exampleTelephone, telefonoValidar);
   }
 
   if (!regexMensaje.test(mensaje)) {
-    alertElemento(exampleText, mensajeValidar, "Mensaje inválido");
-    error.push("Mensaje inválido");
+    alertElemento(exampleText, mensajeValidar, "mensaje válido,debe contener al menos 15 caracteres.");
+    error.push("El mensaje debe contener al menos 15 caracteres.");
   } else {
     limpiarAlertElemnto(exampleText, mensajeValidar);
   }
@@ -155,4 +155,13 @@ btnEnviar.addEventListener("click", (event) => {
     terminosAceptados.checked = false;
   }
 });
+
+////limpia alerts
+exampleName.addEventListener('input',() =>{
+ let error = validarFormContacto(nombre);
+  if (!error) enviarFormContacto.classList.add('is-valid');
+});
+
+
+
 
