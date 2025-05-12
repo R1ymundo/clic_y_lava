@@ -28,6 +28,32 @@ const alertElemento = (elementoInput, elementoValidar, msg) => {
   elementoValidar.innerText = `Por favor ingresa un ${msg}`;
 }
 
+exampleName.addEventListener("input", () =>{
+  const nameVal = exampleName.value.trim();
+  const regexNombre = new RegExp("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]{3,}$");
+
+  if (!regexNombre.test(nameVal)) {
+    alertElemento(exampleName, nombreValidar, "Nombre válido.");
+    error.push("Nombre inválido.");
+  } else {
+    limpiarAlertElemnto(exampleName, nombreValidar);
+  }
+
+});
+
+exampleAsunto.addEventListener("input", () =>{
+  const asuntoVal = exampleAsunto.value.trim();
+  const regexAsunto = new RegExp("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]{3,}$");
+
+  if (!regexAsunto.test(asuntoVal)) {
+    alertElemento(exampleAsunto, asuntoValidar, "Asunto válido.");
+    error.push("Asunto inválido.");
+  } else {
+    limpiarAlertElemnto(exampleAsunto, asuntoValidar);
+  }
+  
+});
+
 const validarFormContacto = (nombre, email, telefono, mensaje, asunto) => {
   // Validaciones con regexp ->
   const regexNombre = new RegExp("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]{3,}$");
