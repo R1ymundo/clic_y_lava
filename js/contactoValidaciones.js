@@ -28,6 +28,9 @@ const alertElemento = (elementoInput, elementoValidar, msg) => {
   elementoValidar.innerText = `Por favor ingresa un ${msg}`;
 }
 
+
+///////////////////////VALIDACIONES para limpiar las alertas////////////////////////////////////
+
 exampleName.addEventListener("input", () =>{
   const nameVal = exampleName.value.trim();
   const regexNombre = new RegExp("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]{3,}$");
@@ -38,7 +41,6 @@ exampleName.addEventListener("input", () =>{
   } else {
     limpiarAlertElemnto(exampleName, nombreValidar);
   }
-
 });
 
 exampleAsunto.addEventListener("input", () =>{
@@ -50,8 +52,42 @@ exampleAsunto.addEventListener("input", () =>{
     error.push("Asunto inválido.");
   } else {
     limpiarAlertElemnto(exampleAsunto, asuntoValidar);
+  } 
+});
+
+exampleMail.addEventListener("input", () => {
+  const email= exampleMail.value.trim();
+  const regexEmail = new RegExp("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$");
+
+if (!regexEmail.test(email)) {
+    alertElemento(exampleMail, emailValidar, "Email válido.");
+    error.push("Email inválido");
+  } else {
+    limpiarAlertElemnto(exampleMail, emailValidar);
   }
-  
+});
+
+exampleTelephone.addEventListener("input", ()=>{
+  const telefono= exampleTelephone.value.trim();
+   const regexTelefono = new RegExp("^[0-9\\-\\+\\s\\(\\)]{7,15}$");
+     if (!regexTelefono.test(telefono)) {
+    alertElemento(exampleTelephone, telefonoValidar, "Telefono válido.");
+    error.push("Telefono inválido.");
+  } else {
+    limpiarAlertElemnto(exampleTelephone, telefonoValidar);
+  }
+});
+
+exampleText.addEventListener("input", ()=>{
+const mensaje = exampleText.value.trim();
+const regexMensaje = new RegExp("^.{15,50}$");
+if (!regexMensaje.test(mensaje)) {
+    alertElemento(exampleText, mensajeValidar, "mensaje válido,debe contener al menos 15 caracteres.");
+    error.push("El mensaje debe contener al menos 15 caracteres.");
+  } else {
+    limpiarAlertElemnto(exampleText, mensajeValidar);
+  }return error;
+
 });
 
 const validarFormContacto = (nombre, email, telefono, mensaje, asunto) => {
