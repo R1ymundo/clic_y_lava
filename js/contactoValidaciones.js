@@ -28,6 +28,68 @@ const alertElemento = (elementoInput, elementoValidar, msg) => {
   elementoValidar.innerText = `Por favor ingresa un ${msg}`;
 }
 
+
+///////////////////////VALIDACIONES para limpiar las alertas////////////////////////////////////
+
+exampleName.addEventListener("input", () =>{
+  const nameVal = exampleName.value.trim();
+  const regexNombre = new RegExp("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]{3,}$");
+
+  if (!regexNombre.test(nameVal)) {
+    alertElemento(exampleName, nombreValidar, "Nombre válido.");
+    error.push("Nombre inválido.");
+  } else {
+    limpiarAlertElemnto(exampleName, nombreValidar);
+  }
+});
+
+exampleAsunto.addEventListener("input", () =>{
+  const asuntoVal = exampleAsunto.value.trim();
+  const regexAsunto = new RegExp("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]{3,}$");
+
+  if (!regexAsunto.test(asuntoVal)) {
+    alertElemento(exampleAsunto, asuntoValidar, "Asunto válido.");
+    error.push("Asunto inválido.");
+  } else {
+    limpiarAlertElemnto(exampleAsunto, asuntoValidar);
+  } 
+});
+
+exampleMail.addEventListener("input", () => {
+  const email= exampleMail.value.trim();
+  const regexEmail = new RegExp("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$");
+
+if (!regexEmail.test(email)) {
+    alertElemento(exampleMail, emailValidar, "Email válido.");
+    error.push("Email inválido");
+  } else {
+    limpiarAlertElemnto(exampleMail, emailValidar);
+  }
+});
+
+exampleTelephone.addEventListener("input", ()=>{
+  const telefono= exampleTelephone.value.trim();
+   const regexTelefono = new RegExp("^[0-9\\-\\+\\s\\(\\)]{7,15}$");
+     if (!regexTelefono.test(telefono)) {
+    alertElemento(exampleTelephone, telefonoValidar, "Telefono válido.");
+    error.push("Telefono inválido.");
+  } else {
+    limpiarAlertElemnto(exampleTelephone, telefonoValidar);
+  }
+});
+
+exampleText.addEventListener("input", ()=>{
+const mensaje = exampleText.value.trim();
+const regexMensaje = new RegExp("^.{15,50}$");
+if (!regexMensaje.test(mensaje)) {
+    alertElemento(exampleText, mensajeValidar, "mensaje válido,debe contener al menos 15 caracteres.");
+    error.push("El mensaje debe contener al menos 15 caracteres.");
+  } else {
+    limpiarAlertElemnto(exampleText, mensajeValidar);
+  }return error;
+
+});
+
 const validarFormContacto = (nombre, email, telefono, mensaje, asunto) => {
   // Validaciones con regexp ->
   const regexNombre = new RegExp("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]{3,}$");
@@ -46,36 +108,36 @@ const validarFormContacto = (nombre, email, telefono, mensaje, asunto) => {
   // regexMensaje.test(mensaje) ? mensaje : error.push("Mensaje incorrecto");
 
   if (!regexNombre.test(nombre)) {
-    alertElemento(exampleName, nombreValidar, "Nombre inválido");
-    error.push("Nombre inválido");
+    alertElemento(exampleName, nombreValidar, "Nombre válido.");
+    error.push("Nombre inválido.");
   } else {
     limpiarAlertElemnto(exampleName, nombreValidar);
   }
 
   if (!regexAsunto.test(asunto)) {
-    alertElemento(exampleAsunto, asuntoValidar, "Asunto inválido");
-    error.push("Asunto inválido");
+    alertElemento(exampleAsunto, asuntoValidar, "Asunto válido.");
+    error.push("Asunto inválido.");
   } else {
     limpiarAlertElemnto(exampleAsunto, asuntoValidar);
   }
 
   if (!regexEmail.test(email)) {
-    alertElemento(exampleMail, emailValidar, "Email inválido");
+    alertElemento(exampleMail, emailValidar, "Email válido.");
     error.push("Email inválido");
   } else {
     limpiarAlertElemnto(exampleMail, emailValidar);
   }
 
   if (!regexTelefono.test(telefono)) {
-    alertElemento(exampleTelephone, telefonoValidar, "Telefono inválido");
-    error.push("Telefono inválido");
+    alertElemento(exampleTelephone, telefonoValidar, "Telefono válido.");
+    error.push("Telefono inválido.");
   } else {
     limpiarAlertElemnto(exampleTelephone, telefonoValidar);
   }
 
   if (!regexMensaje.test(mensaje)) {
-    alertElemento(exampleText, mensajeValidar, "Mensaje inválido");
-    error.push("Mensaje inválido");
+    alertElemento(exampleText, mensajeValidar, "mensaje válido,debe contener al menos 15 caracteres.");
+    error.push("El mensaje debe contener al menos 15 caracteres.");
   } else {
     limpiarAlertElemnto(exampleText, mensajeValidar);
   }
@@ -155,4 +217,13 @@ btnEnviar.addEventListener("click", (event) => {
     terminosAceptados.checked = false;
   }
 });
+
+////limpia alerts
+exampleName.addEventListener('input',() =>{
+ let error = validarFormContacto(nombre);
+  if (!error) enviarFormContacto.classList.add('is-valid');
+});
+
+
+
 
