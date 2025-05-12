@@ -1,4 +1,13 @@
 const navegacion = document.getElementById("navegacion");
+const sesion = localStorage.getItem("sesionIniciada");
+const inicioSesion = document.getElementById ("inicioSesion");
+const cerrarSesion = document.getElementById ("cerrarSesion");
+
+if (sesion === "true"){
+    inicioSesion.style.display = "none";
+    cerrarSesion.style.display = "inline";
+
+}
 navegacion.insertAdjacentHTML(
   "afterbegin",
   ` 
@@ -24,10 +33,19 @@ navegacion.insertAdjacentHTML(
                     </li>
             </div>
             </ul>
-            <a class="nav-link" href="../paginas/inicioSesion.html" style="margin-right: 1rem;">Iniciar sesion</a>
-            <a class="nav-link" href="../paginas/compras.html">Mis Compras
-                <img src="../assets/icons/carrito.webp" alt="Carrito" width="30" height="24">
+            <a class="nav-link" href="../paginas/inicioSesion.html" style="margin-right: 1rem; display:none">Iniciar sesión
+                <img src="../assets/icons/login.png" alt="login" width="24" height="24">
             </a>
+            
+            <a class="nav-link" href="../paginas/compras.html" style="margin-right: 1rem;">Mis Compras
+                <img src="../assets/icons/carrito.webp" alt="Carrito" width="24" height="24">
+            </a>
+
+            <a class="nav-link" href="../paginas/inicioSesion.html" style="margin-right: 1rem; display:inline">Cerrar sesión
+                <img src="../assets/icons/out.png" alt="salir" width="24" height="24">
+            </a>
+
+            
         </div>  
     `
 );

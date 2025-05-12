@@ -350,10 +350,41 @@ let productData = {
   ],
 };
 
-// Se almacenan los productos en localStorage (comentar o descomentar para pruebas de error) ->
-localStorage.setItem("productData", JSON.stringify(productData));
+/* *** logica provisional ***
+-> basicamente en el siguiente bloque se esta haciendo que, si no hay productos en localStorage, almacene el array inicial (productData),
+ahora, si la longitud de productData cambia, es decir, si se agrega un producto, lo agregue al array productData y 
+muestre la longitud del array mas el nuev elemento agregado, solo que al borrar el localStorage y actualizar, se borra
+ese nuevo o nuevos elementos que se agregaron y se vuelve a mostrar el array productData, se tiene que volver a agregar
+el producto, con esto podemos partir y realizar pruebas y modificar la logica para que se comporte como se debe, pero banda
+de momento es lo que pude hacer, para la tarea xD, pero tenemos muchas cosas por cambiar en todo el codigo ....... <-
+Nota: una vez leido este mensaje, destruirlo, si gustan xD
+*/
+const localStoredData = localStorage.getItem("productData");
 
-// Promesa para productos ->
+if (!localStoredData) {
+  localStorage.setItem("productData", JSON.stringify(productData));
+} else {
+  const newDataProduct = JSON.parse(localStoredData);
+
+  if (newDataProduct.productos.length !== productData.productos.length) {
+    const addProducts = [
+      ...productData.productos,
+      ...newDataProduct.productos.filter(
+        (product) =>
+          !productData.productos.some((op) => op.modelo === product.modelo)
+      ),
+    ];
+
+    const updatedProductData = {
+      categorias: productData.categorias,
+      productos: addProducts,
+    };
+
+    localStorage.setItem("productData", JSON.stringify(updatedProductData));
+  }
+}
+
+// Promesa para productos
 const getData = async () => {
   return new Promise((resolve, reject) => {
     const getProducts = JSON.parse(localStorage.getItem("productData"));
@@ -366,7 +397,7 @@ const getData = async () => {
 };
 
 // Funcion para hacer fetch de los datos ocapturar errores con funcion asincrona ->
-const fetchingProducts = async () => {
+window.fetchingProducts = async () => {
   let alertError = `
           <div class="alert alert-danger d-flex" role="alert">
               <svg xmlns="http://www.w3.org/2000/svg" class="bi flex-shrink-0 me-2" width="50px" viewBox="0 0 16 16" role="img" aria-label="Warning:">
