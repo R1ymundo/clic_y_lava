@@ -82,7 +82,7 @@ btnInicioSesion.addEventListener("click", function (event) {
     return;
   }
 
-   if (usuarioExistente.password !== contraseñaVal) {
+   if (usuarioExistente.contraseña !== contraseñaVal) {
     alertElemento(password, contraseñaValidar, "Contraseña incorrecta");
     Swal.fire({
       title: "Error",
