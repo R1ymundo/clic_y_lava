@@ -85,7 +85,7 @@ function validarFormulario(
   } //fin validar email
 
   //Validar telefono
-  const telefonoRegex = /^\d{10}$/;
+  const telefonoRegex = /^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,6}$/;
   if (!telefonoRegex.test(telefonoVal)) {
     errores.push("Ingresa un número de teléfono válido");
     alertElemento(
@@ -306,6 +306,8 @@ btnEnviar.addEventListener("click", function (event) {
       direccion.value = "";
 
       limpiarValidacionesTotal();
+
+      window.location.href = "inicioSesion.html";
     });
   }
 });
