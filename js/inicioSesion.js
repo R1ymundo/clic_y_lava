@@ -82,14 +82,18 @@ btnInicioSesion.addEventListener("click", function (event) {
     return;
   }
 
-    // Inicio de sesión exitoso
-    Swal.fire({
-      title: "¡Éxito!",
-      text: "Has iniciado sesión correctamente",
-      icon: "success",
-    }).then(() => {
-      // Redirigir al usuario o realizar otras acciones
-      window.location.href = "acerca.html"; 
-    });
-  }
+  // Si todo está correcto, guardar estado de sesión
+  localStorage.setItem("sesionIniciada", "true");
+  localStorage.setItem("usuarioActivo", JSON.stringify(usuarioExistente));
+
+  // Inicio de sesión exitoso
+  Swal.fire({
+    title: "¡Éxito!",
+    text: "Has iniciado sesión correctamente",
+    icon: "success",
+  }).then(() => {
+    // Redirigir al usuario o realizar otras acciones
+    window.location.href = "acerca.html";
+  });
+}
 );
