@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>formularioClientes</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulario de Clientes</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/acerca.css">
@@ -18,47 +17,129 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
         rel="stylesheet">
-</head>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
+      crossorigin="anonymous"
+    />
+    <!-- Google Fonts (combinadas en una sola solicitud) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Grandstander:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Hojas de estilo -->
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/formularioRegistro.css" />
+  </head>
 
-<body>
+  <body>
+    <!-- Barra de navegación -->
+    <nav id="navegacion" class="navbar navbar-expand-lg bg-body-tertiary"></nav>
 
-    <main class="container-fluid">
-        <!-- Inicio navar -->
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-                <div class="col-5">
-                    <a class="navbar-brand" href="">Clic y lava</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                </div>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <div class="col-5">
-                                <a class="nav-link " aria-current="page" href="#">Nosotros</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Productos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " href="#">Contacto</a>
-                        </li>
-                </div>
-                </ul>
-                <a class="nav-link" href="#">Mis Compras
-                    <img src="../assets/icons/carrito.webp" alt="Carrito" width="30" height="24">
-                </a>
-            </div>
-        </nav>
-        <!-- Fin navar -->
+    <main class="container">
+      <div
+        class="d-flex flex-column align-items-center justify-content-center min-vh-100"
+      >
+        <!-- Inicio formulario -->
 
+        <div class="containerLogo">
+          <img
+            class="logo d-block w-100"
+            src="../assets/icons/logo_clic_lava.png"
+            alt="Logo clic y lava"
+          />
+        </div>
+
+        <h5>Regístrate</h5>
+
+     <form class="w-100" style="max-width: 600px">
+  <!-- Datos del usuario -->
+  <fieldset class="mb-4">
+    <legend class="text-center fw-bold mb-3">Dato del usuario</legend>
+
+    <div class="mb-3">
+      <label class="form-label">Nombre o Nombres</label>
+      <input type="text" class="form-control" placeholder="Ej. Marco Antonio" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Apellido Paterno</label>
+      <input type="text" class="form-control" placeholder="Ej. Fabrizio" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Apellido Materno</label>
+      <input type="text" class="form-control" placeholder="Ej. Hernández" />
+    </div>
+  </fieldset>
+
+  <!-- Dirección -->
+  <fieldset class="mb-4">
+    <legend class="text-center fw-bold mb-3">Dirección</legend>
+
+    <div class="mb-3">
+      <label class="form-label">Código Postal</label>
+      <input type="text" class="form-control" placeholder="Ej. 12345" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Calle y Número</label>
+      <input type="text" class="form-control" placeholder="Ej. Avenida Siempre Viva #35" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Alcaldía / Municipio</label>
+      <input type="text" class="form-control" placeholder="Ej. Milpa Alta" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Estado</label>
+      <input type="text" class="form-control" placeholder="Ej. Estado de México" />
+    </div>
+  </fieldset>
+
+  <!-- Medios de contacto -->
+  <fieldset class="mb-4">
+    <legend class="text-center fw-bold mb-3">Medios de Contacto</legend>
+
+    <div class="mb-3">
+      <label class="form-label">Teléfono</label>
+      <input type="text" class="form-control" placeholder="Ej. 55 - xxxx - xxxx" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Correo Electrónico</label>
+      <input type="email" class="form-control" placeholder="Ejemplo@gmail.com" />
+    </div>
+  </fieldset>
+
+  <!-- Botón -->
+  <div class="text-center">
+    <button type="submit" class="btn btn-warning px-5">Enviar</button>
+  </div>
+</form>
+
+      </div>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
-        crossorigin="anonymous"></script>
-</body>
-
+    <!-- Pie de página -->
+    <footer class="site-footer mt-5">
+      <div id="agregarFooter"></div>
+    </footer>
+    <!-- Bootstrap JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Scripts locales -->
+    <script src="../js/nav.js"></script>
+    <script src="../js/scriptFooter.js"></script>
+    <script src="../js/registroValidaciones.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </body>
 </html>
