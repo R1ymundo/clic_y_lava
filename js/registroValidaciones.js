@@ -77,7 +77,7 @@ const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
 telefono.addEventListener("input",() =>{
   let errores = [];
 const telefonoVal= telefono.value.trim();
-const telefonoRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+const telefonoRegex = /^(?!.*^(\d)\1{6,}$)[\+]?[(]?\d{3}[)]?[-\s\.]?\d{3}[-\s\.]?\d{4,6}$/;
     if (!telefonoRegex.test(telefonoVal)) {
         errores.push("Ingresa un número de teléfono válido");
         alertElemento(telefono, telefonoValidar, "Ingresa un número de teléfono válido");
@@ -185,7 +185,7 @@ function validarFormulario(
   } //fin validar email   
 
   //Validar telefono
-  const telefonoRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+  const telefonoRegex = /^(?!.*^(\d)\1{6,}$)[\+]?[(]?\d{3}[)]?[-\s\.]?\d{3}[-\s\.]?\d{4,6}$/;
   if (!telefonoRegex.test(telefonoVal)) {
     errores.push("Ingresa un número de teléfono válido");
     alertElemento(
