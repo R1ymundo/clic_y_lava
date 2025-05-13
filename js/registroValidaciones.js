@@ -37,6 +37,106 @@ const limpiarAlertElemnto = (elementoInput, elementoValidar) => {
   elementoValidar.innerText = " ";
 };
 
+/////////////////limpia alerts////////////////////
+Nombre.addEventListener("input",() =>{
+  let errores = [];
+const nombreVal= Nombre.value.trim();
+ const nombreRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,}$/;
+     if (!nombreRegex.test(nombreVal)) {
+        errores.push("Solo acepta letras y mínimo dos caracteres");
+        alertElemento(Nombre, nombreValidar, "Solo acepta letras y mínimo dos caracteres");
+    } else {
+        limpiarAlertElemnto(Nombre, nombreValidar);
+    }   
+});
+
+apellidos.addEventListener("input",() =>{
+  let errores = [];
+const apellidosVal = apellidos.value.trim();
+const apellidosRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,}$/;
+    if (!apellidosRegex.test(apellidosVal)) {
+        errores.push("Solo acepta letras y mínimo dos caracteres");
+        alertElemento(apellidos, apellidosValidar, "Solo acepta letras y mínimo dos caracteres");
+    } else {
+        limpiarAlertElemnto(apellidos, apellidosValidar);
+    }
+});
+
+email.addEventListener("input",() =>{
+  let errores = [];
+const emailVal = email.value.trim();
+const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
+    if (!emailRegex.test(emailVal)) {
+        errores.push("Ingresa un correo electrónico válido");
+        alertElemento(email, correoValidar, "Ingresa un correo electrónico válido"); 
+    } else {
+        limpiarAlertElemnto(email, correoValidar);
+    }
+});
+
+telefono.addEventListener("input",() =>{
+  let errores = [];
+const telefonoVal= telefono.value.trim();
+const telefonoRegex = /^(?!.*^(\d)\1{6,}$)[\+]?[(]?\d{3}[)]?[-\s\.]?\d{3}[-\s\.]?\d{4,6}$/;
+    if (!telefonoRegex.test(telefonoVal)) {
+        errores.push("Ingresa un número de teléfono válido");
+        alertElemento(telefono, telefonoValidar, "Ingresa un número de teléfono válido");
+    } else {
+        limpiarAlertElemnto(telefono, telefonoValidar); 
+    }
+});
+
+
+direccion.addEventListener("input", ()=>{
+  let errores = [];
+    const direccionVal = direccion.value.trim();
+const direccionRegex = /[A-Za-zÁÉÍÓÚáéíóúÑñ]+.*\d+/;
+    if (!direccionRegex.test(direccionVal)) {
+        errores.push("Ingresa una dirección válida que contenga una palabra y un número");
+        alertElemento(direccion, direccionValidar, "Ingresa una dirección válida que contenga una palabra y un número");
+    } else {
+        limpiarAlertElemnto(direccion, direccionValidar);
+    }
+
+});
+
+contraseña.addEventListener("input", () => {
+  let errores = [];
+    const contraseñaVal = contraseña.value.trim();
+    
+    if (!contraseñaVal) {
+        errores.push("La contraseña no puede estar vacía");
+        alertElemento(contraseña, contraseñaValidar, "La contraseña no puede estar vacía");
+    } else if (contraseñaVal.length < 6) {
+        errores.push("La contraseña debe tener al menos 6 caracteres");
+        alertElemento(contraseña, contraseñaValidar, "La contraseña debe tener al menos 6 caracteres");
+    } else {
+        const contraseñaRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+        if (!contraseñaRegex.test(contraseñaVal)) {
+            errores.push("La contraseña debe incluir letras y al menos un número");
+            alertElemento(contraseña, contraseñaValidar, "La contraseña debe incluir letras y al menos un número");
+        } else {
+            limpiarAlertElemnto(contraseña, contraseñaValidar);
+        }
+    }
+});
+
+confirmarCont.addEventListener("input", () => {
+  let errores = [];
+    const confirmarContVal = confirmarCont.value.trim();
+    const contraseñaVal = contraseña.value.trim();
+
+    if (!confirmarContVal) {
+        errores.push("Debes confirmar tu contraseña");
+        alertElemento(confirmarCont, confirmarContValidar, "Debes confirmar tu contraseña");
+    } else if (confirmarContVal !== contraseñaVal) {
+        errores.push("Las contraseñas no coinciden");
+        alertElemento(confirmarCont, confirmarContValidar, "Las contraseñas no coinciden");
+    } else {
+        limpiarAlertElemnto(confirmarCont, confirmarContValidar);
+    }
+});
+
 // Función para validar formulario
 function validarFormulario(
   nombreVal,
@@ -76,16 +176,16 @@ function validarFormulario(
   }
 
   //Validar email
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
   if (!emailRegex.test(emailVal)) {
     errores.push("Ingresa un correo electrónico válido");
     alertElemento(email, correoValidar, "Ingresa un correo electrónico válido");
   } else {
     limpiarAlertElemnto(email, correoValidar);
-  } //fin validar email
+  } //fin validar email   
 
   //Validar telefono
-  const telefonoRegex = /^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,6}$/;
+  const telefonoRegex = /^(?!.*^(\d)\1{6,}$)[\+]?[(]?\d{3}[)]?[-\s\.]?\d{3}[-\s\.]?\d{4,6}$/;
   if (!telefonoRegex.test(telefonoVal)) {
     errores.push("Ingresa un número de teléfono válido");
     alertElemento(
@@ -166,7 +266,40 @@ function validarFormulario(
     limpiarAlertElemnto(direccion, direccionValidar);
   } //fin validar dirección
 
-  return errores;
+
+    // Validar contraseña
+    if (!contraseñaVal.trim()) {
+        // Caso específico cuando no se ingresa nada
+        errores.push("La contraseña no puede estar vacía");
+        alertElemento(contraseña, contraseñaValidar, "La contraseña no puede estar vacía, debe tener al menos 6 caracteres y almenos incluir 1 numero");
+    } else if (contraseñaVal.length < 6) {
+        // Caso específico para cuando la contraseña es demasiado corta
+        errores.push("La contraseña debe tener al menos 6 caracteres");
+        alertElemento(contraseña, contraseñaValidar, "La contraseña debe tener al menos 6 caracteres");
+    } else {
+        // Validación completa con regex para contraseñas con la longitud adecuada
+        const contraseñaRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+        if (!contraseñaRegex.test(contraseñaVal)) {
+            errores.push("La contraseña debe incluir letras y al menos un número");
+            alertElemento(contraseña, contraseñaValidar, "La contraseña debe incluir letras y al menos un número");
+        } else {
+            limpiarAlertElemnto(contraseña, contraseñaValidar);
+        }
+    }
+    // Validar confirmación de contraseña
+    if (!confirmarContVal.trim()) {
+        // Caso específico cuando no se ingresa nada en la confirmación
+        errores.push("Debes confirmar tu contraseña");
+        alertElemento(confirmarCont, confirmarContValidar, "Debes confirmar tu contraseña");
+    } else if (contraseñaVal !== confirmarContVal) {
+        // Las contraseñas no coinciden
+        errores.push("Las contraseñas no coinciden");
+        alertElemento(confirmarCont, confirmarContValidar, "Las contraseñas no coinciden");
+    } else {
+        limpiarAlertElemnto(confirmarCont, confirmarContValidar);
+    }
+
+    return errores;
 }
 
 const limpiarValidacionesTotal = () => {
