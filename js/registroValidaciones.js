@@ -39,6 +39,7 @@ const limpiarAlertElemnto = (elementoInput, elementoValidar) => {
 
 /////////////////limpia alerts////////////////////
 Nombre.addEventListener("input",() =>{
+  let errores = [];
 const nombreVal= Nombre.value.trim();
  const nombreRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,}$/;
      if (!nombreRegex.test(nombreVal)) {
@@ -50,6 +51,7 @@ const nombreVal= Nombre.value.trim();
 });
 
 apellidos.addEventListener("input",() =>{
+  let errores = [];
 const apellidosVal = apellidos.value.trim();
 const apellidosRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,}$/;
     if (!apellidosRegex.test(apellidosVal)) {
@@ -61,8 +63,9 @@ const apellidosRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,}$/;
 });
 
 email.addEventListener("input",() =>{
+  let errores = [];
 const emailVal = email.value.trim();
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
     if (!emailRegex.test(emailVal)) {
         errores.push("Ingresa un correo electrónico válido");
         alertElemento(email, correoValidar, "Ingresa un correo electrónico válido"); 
@@ -72,8 +75,9 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 });
 
 telefono.addEventListener("input",() =>{
+  let errores = [];
 const telefonoVal= telefono.value.trim();
-const telefonoRegex = /^\d{10}$/;
+const telefonoRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
     if (!telefonoRegex.test(telefonoVal)) {
         errores.push("Ingresa un número de teléfono válido");
         alertElemento(telefono, telefonoValidar, "Ingresa un número de teléfono válido");
@@ -84,6 +88,7 @@ const telefonoRegex = /^\d{10}$/;
 
 
 direccion.addEventListener("input", ()=>{
+  let errores = [];
     const direccionVal = direccion.value.trim();
 const direccionRegex = /[A-Za-zÁÉÍÓÚáéíóúÑñ]+.*\d+/;
     if (!direccionRegex.test(direccionVal)) {
@@ -96,6 +101,7 @@ const direccionRegex = /[A-Za-zÁÉÍÓÚáéíóúÑñ]+.*\d+/;
 });
 
 contraseña.addEventListener("input", () => {
+  let errores = [];
     const contraseñaVal = contraseña.value.trim();
     
     if (!contraseñaVal) {
@@ -116,6 +122,7 @@ contraseña.addEventListener("input", () => {
 });
 
 confirmarCont.addEventListener("input", () => {
+  let errores = [];
     const confirmarContVal = confirmarCont.value.trim();
     const contraseñaVal = contraseña.value.trim();
 
@@ -169,16 +176,16 @@ function validarFormulario(
   }
 
   //Validar email
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
   if (!emailRegex.test(emailVal)) {
     errores.push("Ingresa un correo electrónico válido");
     alertElemento(email, correoValidar, "Ingresa un correo electrónico válido");
   } else {
     limpiarAlertElemnto(email, correoValidar);
-  } //fin validar email
+  } //fin validar email   
 
   //Validar telefono
-  const telefonoRegex = /^\d{10}$/;
+  const telefonoRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
   if (!telefonoRegex.test(telefonoVal)) {
     errores.push("Ingresa un número de teléfono válido");
     alertElemento(
