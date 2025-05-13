@@ -260,16 +260,6 @@ function validarFormulario(
   } //fin validar dirección
 
 
-    //Validar telefono
-    const telefonoRegex = /^\d{10}$/;
-    if (!telefonoRegex.test(telefonoVal)) {
-        errores.push("Ingresa un número de teléfono válido");
-        alertElemento(telefono, telefonoValidar, "Ingresa un número de teléfono válido");
-    } else {
-        limpiarAlertElemnto(telefono, telefonoValidar); 
-    }
-    //fin validar telefono
-
     // Validar contraseña
     if (!contraseñaVal.trim()) {
         // Caso específico cuando no se ingresa nada
@@ -289,7 +279,6 @@ function validarFormulario(
             limpiarAlertElemnto(contraseña, contraseñaValidar);
         }
     }
-
     // Validar confirmación de contraseña
     if (!confirmarContVal.trim()) {
         // Caso específico cuando no se ingresa nada en la confirmación
@@ -303,18 +292,7 @@ function validarFormulario(
         limpiarAlertElemnto(confirmarCont, confirmarContValidar);
     }
 
-    //Validar dirección
-    const direccionRegex = /[A-Za-zÁÉÍÓÚáéíóúÑñ]+.*\d+/;
-    if (!direccionRegex.test(direccionVal)) {
-        errores.push("Ingresa una dirección válida que contenga una palabra y un número");
-        alertElemento(direccion, direccionValidar, "Ingresa una dirección válida que contenga una palabra y un número");
-    } else {
-        limpiarAlertElemnto(direccion, direccionValidar);
-    }//fin validar dirección
-
     return errores;
-
-  return errores;
 }
 
 const limpiarValidacionesTotal = () => {
