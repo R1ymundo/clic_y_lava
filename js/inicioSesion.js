@@ -27,7 +27,7 @@ const limpiarAlertElemnto = (elementoInput, elementoValidar) => {
 
 email.addEventListener("input", () => {
   const emailVal = email.value.trim();
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
 
   if (!emailRegex.test(emailVal)) {
     alertElemento(email, correoValidar, "Ingresa un correo electrónico válido");
@@ -41,8 +41,8 @@ password.addEventListener("input", () => {
 
   if (!contraseñaVal) {
     alertElemento(password, contraseñaValidar, "La contraseña no puede estar vacía");
-  } else if (contraseñaVal.length < 6) {
-    alertElemento(password, contraseñaValidar, "La contraseña debe tener al menos 6 caracteres");
+  } else if (contraseñaVal.length < 8) {
+    alertElemento(password, contraseñaValidar, "La contraseña debe tener al menos 8 caracteres");
   } else {
     limpiarAlertElemnto(password, contraseñaValidar);
   }
@@ -53,7 +53,7 @@ function validarFormulario(emailVal, contraseñaVal) {
   let errores = [];
 
   // Validar formato email
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
   if (!emailRegex.test(emailVal)) {
     errores.push("Ingresa un correo electrónico válido");
     alertElemento(email, correoValidar, "Ingresa un correo electrónico válido");
@@ -81,6 +81,7 @@ btnInicioSesion.addEventListener("click", function (event) {
   let erroresVal = validarFormulario(emailVal, contraseñaVal);
 
   if (erroresVal.length > 0) {
+    email.focus();
     Swal.fire({
       title: "Llena correctamente el formulario",
       html: erroresVal.join("<br>"),
@@ -95,8 +96,15 @@ btnInicioSesion.addEventListener("click", function (event) {
   );
 
   if (!usuarioExistente) {
-    alertElemento(email, correoValidar, "Usuario no registrado");
-    alertElemento(password, contraseñaValidar, "Contraseña no valida");
+    email.focus();
+    // Limpiar datos
+    email.value = "";
+    password.value = "";
+    limpiarAlertElemnto(email, correoValidar);
+    limpiarAlertElemnto(password, contraseñaValidar);
+
+    alertElemento(email, correoValidar, "Confirme su correo y/o contraseña");
+    alertElemento(password, contraseñaValidar, "Confirme su correo y/o contraseña");
     Swal.fire({
       title: "Error",
       text: "Usuario no encontrado",
@@ -106,10 +114,18 @@ btnInicioSesion.addEventListener("click", function (event) {
   }
 
    if (usuarioExistente.contraseña !== contraseñaVal) {
-    alertElemento(password, contraseñaValidar, "Contraseña incorrecta");
+    email.focus();
+    // Limpiar datos
+    email.value = "";
+    password.value = "";
+    limpiarAlertElemnto(email, correoValidar);
+    limpiarAlertElemnto(password, contraseñaValidar);
+
+    alertElemento(email, correoValidar, "Confirme su correo y/o contraseña");
+    alertElemento(password, contraseñaValidar, "Confirme su correo y/o contraseña");
     Swal.fire({
       title: "Error",
-      text: "Contraseña incorrecta",
+      text: "Usuario no encontrado",
       icon: "error",
     });
     return;
