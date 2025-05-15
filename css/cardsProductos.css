@@ -1,40 +1,37 @@
 /* Espaciado general del contenedor */
-#cardsProduct {
-    margin-top: 30px;
+  #cardsProduct {
+    margin-top: 10px;
   }
   
   
   .card-title.principal {
     font-family: 'Grandstander', cursive;
-    font-size: 20px;
-    font-weight: 500;
-    color: #1d3557;
+    font-size: 18px;
+    color: #00375e;
     margin-bottom: 10px;
   }
   
   .card-title.detalle {
-    font-size: 15px;
-    color: #343a40;
-    margin-bottom: 6px;
-    font-weight: 500;
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    color: #00375e;
+    margin-bottom: 10px;
   }
   
   .card-precio {
+    font-family: 'Inter', sans-serif;
     font-size: 16px;
     color: #2a9d8f;
-    font-weight: bold;
-    margin-bottom: 12px;
-    font-family: 'Inter', sans-serif;
+    margin-bottom: 10px;
   }
   
   /* Estilo base para cada tarjeta */
   .card {
-    border: none;
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 4px 12px #9132321a;
+    box-shadow: 0 2px 10px #9132321a;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
-    background-color: #ffffffbd;
+    padding: 1px;
   }
   
   /* Efecto al pasar el mouse */
@@ -44,12 +41,21 @@
   }
   
   /* Imágenes iguales en todas las tarjetas */
+  .image-container {
+    background-color: #e6f9f5;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+  }
+
   .card-img-top {
-    height: 230px;
-    object-fit: center;
-    width: 100%;
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
+    max-height: 90%;
+    max-width: 90%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
   }
   
   /* Contenido de la tarjeta */
@@ -58,21 +64,19 @@
     background-color: #BDDDF4;
     text-align: center;
   }
-  
-  /* Estilos generales para texto dentro de card */
-  .card-title {
-    font-size: 0.95rem;
-    color: #333;
-    margin-bottom: 8px;
-    font-family: 'Inter', sans-serif;
-  }
-  
+   
   /* Botón personalizado */
-  .card .btn-primary {
+  .btn-primary {
+    font-family: 'Inter', sans-serif;
+    color: #00375e;
     background-color: #FD8F3E;
     border: none;
     font-size: 0.9rem;
     padding: 6px 14px;
-    font-weight: 500;
     transition: background-color
   }  
+
+  .btn-primary:hover {
+    background-color: #ffc107;
+    color: #00375e;
+  }

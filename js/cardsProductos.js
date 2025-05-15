@@ -34,7 +34,7 @@ let productData = {
         precioDia: 95,
         precioSemana: 170,
       },
-      modelo: "Lavasecadora electrónica 12 kg WD12VVC4S6S",
+      modelo: "Lavasecadora electrónica 12 kg",
       imagenes: {
         imagenPricipal:
           "../assets/img/ImagenesProductos/ImagenesLavadoras/lavadora1/lavadora1.webp",
@@ -66,7 +66,7 @@ let productData = {
         precioDia: 89,
         precioSemana: 155,
       },
-      modelo: "Lavadora 20 kg automática carga superior WA20A3341GW/AX",
+      modelo: "Lavadora 20 kg automática",
       imagenes: {
         imagenPricipal:
           "../assets/img/ImagenesProductos/ImagenesLavadoras/lavadora2/lavadora2.webp",
@@ -98,7 +98,7 @@ let productData = {
         precioDia: 90,
         precioSemana: 165,
       },
-      modelo: "Lavasecadora eléctrica 16 kg 10 kg WD5S1645BT",
+      modelo: "Lavasecadora eléctrica 16 kg",
       imagenes: {
         imagenPricipal:
           "../assets/img/ImagenesProductos/ImagenesLavadoras/lavadora3/lavadora3.webp",
@@ -130,7 +130,7 @@ let productData = {
         precioDia: 75,
         precioSemana: 130,
       },
-      modelo: "Lavadora 19 kg automática carga superior lwm-19iir Frankfurt",
+      modelo: "Lavadora 19 kg automática",
       imagenes: {
         imagenPricipal:
           "../assets/img/ImagenesProductos/ImagenesLavadoras/lavadora4/lavadora4.webp",
@@ -163,7 +163,7 @@ let productData = {
         precioSemana: 125,
       },
       modelo:
-        "Lavadora doble tina 18 KG semiautomática doble carga WP18MAR.DBMELAT",
+        "Lavadora doble tina 18 KG doble carga",
       imagenes: {
         imagenPricipal:
           "../assets/img/ImagenesProductos/ImagenesLavadoras/lavadora5/lavadora5.webp",
@@ -195,7 +195,7 @@ let productData = {
         precioDia: 98,
         precioSemana: 180,
       },
-      modelo: "Lavasecadora electrónico 12.5 kg WD12TP04DBE/AX",
+      modelo: "Lavasecadora electrónico 12.5 kg",
       imagenes: {
         imagenPricipal:
           "../assets/img/ImagenesProductos/ImagenesLavadoras/lavadora6/lavadora6.webp",
@@ -227,7 +227,7 @@ let productData = {
         precioDia: 88,
         precioSemana: 150,
       },
-      modelo: "Lavadora 22 kg automática carga superior LMA72215WBAB1",
+      modelo: "Lavadora 22 kg automática",
       imagenes: {
         imagenPricipal:
           "../assets/img/ImagenesProductos/ImagenesLavadoras/lavadora7/lavadora7.webp",
@@ -259,7 +259,7 @@ let productData = {
         precioDia: 60,
         precioSemana: 100,
       },
-      modelo: "Lavadora doble tina 18 kg manual doble carga WSA1803P",
+      modelo: "Lavadora doble tina 18 kg",
       imagenes: {
         imagenPricipal:
           "../assets/img/ImagenesProductos/ImagenesLavadoras/lavadora8/lavadora8.webp",
@@ -291,7 +291,7 @@ let productData = {
         precioDia: 93,
         precioSemana: 160,
       },
-      modelo: "Lavadora 22 kg automática carga superior 8MWTWLA31WJG",
+      modelo: "Lavadora 22 kg automática",
       imagenes: {
         imagenPricipal:
           "../assets/img/ImagenesProductos/ImagenesLavadoras/lavadora9/lavadora9.webp",
@@ -323,7 +323,7 @@ let productData = {
         precioDia: 85,
         precioSemana: 145,
       },
-      modelo: "Lavadora 22 kg automática carga superior Lmh72211wbab0",
+      modelo: "Lavadora 22 kg automática",
       imagenes: {
         imagenPricipal:
           "../assets/img/ImagenesProductos/ImagenesLavadoras/lavadora10/lavadora10.webp",
@@ -417,21 +417,23 @@ window.fetchingProducts = async () => {
     }
 
     const showCard = products
-      .map((product) => {
-        return `
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                  <div class="card h-100">
-                    <img src="${product.imagenes.imagenPricipal}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <p class="card-title principal">${product.modelo}</p>
-                      <p class="card-title detalle">Marca: ${product.marca}</p>
-                      <p class="card-precio">Renta/hora: $${product.precios.precioHora}</p>
-                      <a href="../paginas/detalleProducto.html?id=${product.id}" class="btn btn-primary">Ver más detalles..</a>
-                    </div>
-                  </div> 
-                </div>
-              `;
-      })
+    .map((product) => {
+      return `
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+          <div class="card h-100">
+            <div class="image-container">
+              <img src="${product.imagenes.imagenPricipal}" class="card-img-top" alt="${product.modelo}">
+            </div>
+            <div class="card-body p-2">
+              <p class="card-title principal mb-1">${product.modelo}</p>
+              <p class="card-title detalle mb-1">${product.marca}</p>
+              <p class="card-precio mb-2">$${product.precios.precioHora}/hora</p>
+              <a href="../paginas/detalleProducto.html?id=${product.id}" class="btn btn-primary btn-sm">Ver más detalles</a>
+            </div>
+          </div>
+        </div>
+      `;
+    })
       .join("");
     cardsProduct.innerHTML = showCard;
   } catch (error) {

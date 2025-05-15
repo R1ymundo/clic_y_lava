@@ -109,35 +109,35 @@ const validarFormContacto = (nombre, email, telefono, mensaje, asunto) => {
 
   if (!regexNombre.test(nombre)) {
     alertElemento(exampleName, nombreValidar, "Nombre válido.");
-    error.push("Nombre inválido.");
+    error.push("Nombre");
   } else {
     limpiarAlertElemnto(exampleName, nombreValidar);
   }
 
   if (!regexAsunto.test(asunto)) {
     alertElemento(exampleAsunto, asuntoValidar, "Asunto válido.");
-    error.push("Asunto inválido.");
+    error.push("Asunto");
   } else {
     limpiarAlertElemnto(exampleAsunto, asuntoValidar);
   }
 
   if (!regexEmail.test(email)) {
     alertElemento(exampleMail, emailValidar, "Email válido.");
-    error.push("Email inválido");
+    error.push("Email");
   } else {
     limpiarAlertElemnto(exampleMail, emailValidar);
   }
 
   if (!regexTelefono.test(telefono)) {
     alertElemento(exampleTelephone, telefonoValidar, "Telefono válido.");
-    error.push("Telefono inválido.");
+    error.push("Telefono");
   } else {
     limpiarAlertElemnto(exampleTelephone, telefonoValidar);
   }
 
   if (!regexMensaje.test(mensaje)) {
     alertElemento(exampleText, mensajeValidar, "mensaje válido,debe contener al menos 15 caracteres.");
-    error.push("El mensaje debe contener al menos 15 caracteres.");
+    error.push("Mensaje con al menos 15 caracteres.");
   } else {
     limpiarAlertElemnto(exampleText, mensajeValidar);
   }
@@ -193,29 +193,34 @@ btnEnviar.addEventListener("click", (event) => {
 
   let error = validarFormContacto(nombre, email, telefono, mensaje, asunto);
 
-  if (!terminosAceptados.checked) {
+  const terminosNoAceptados = !terminosAceptados.checked;
+
+  if (error.length > 0 || terminosNoAceptados) {
+    if (terminosNoAceptados) {
+      error.push("Aceptar los términos y condiciones");
+    }
+    
     Swal.fire({
-      title: "Debes aceptar los términos y condiciones",
-      icon: "warning",
+      title: "¡Campos Incompletos!",
+      html: `
+        <p>Por favor completa los siguientes campos obligatorios:</p>
+        <ul style="text-align: left; margin-left: 20px;">
+          ${error.map(error => `<li>${error}</li>`).join("")}
+        </ul>
+      `,
+      icon: "error",
+      confirmButtonText: "Entendido",
     });
     return;
-  }
-
-  if (error.length > 0) {
-    Swal.fire({
-      title: "Llena correctamente el formulario",
-      html: error.join("<br>"),
-      icon: "error",
-    });
-  } else {
-    enviarFormContacto(nombre, email, telefono, mensaje, asunto);
-    exampleName.value = "";
-    exampleAsunto.value = "";
-    exampleMail.value = "";
-    exampleTelephone.value = "";
-    exampleText.value = "";
-    terminosAceptados.checked = false;
-  }
+  } 
+  
+  enviarFormContacto(nombre, email, telefono, mensaje, asunto);
+  exampleName.value = "";
+  exampleAsunto.value = "";
+  exampleMail.value = "";
+  exampleTelephone.value = "";
+  exampleText.value = "";
+  terminosAceptados.checked = false;
 });
 
 ////limpia alerts
