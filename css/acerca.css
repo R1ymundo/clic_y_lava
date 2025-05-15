@@ -2,21 +2,15 @@
     background-color: transparent !important;
     border: none !important;
     color: var(--lt-color);
-    text-align: center;
     font-family: "Grandstander", cursive;
     border-radius: 1rem;
-    padding: 0.5rem; 
-    height: auto;
+    text-align: center;
 }
 
-.card-body img {
+.card img {
     display: block;
-    margin: 0 auto; 
-    max-width: 100%; 
-}
-
-.front img {
-    width: 150px;
+    margin: 0 auto;
+    max-width: 100%;
 }
 
 .card-title {
@@ -27,10 +21,32 @@
 .card-text{
     font-family: "Inter", sans-serif;
     font-size: 18px;
+    text-align: justify;
 }
 
 h3 {
     color: var(--lt-color);
     font-family: "Grandstander", cursive;
     font-size: 24px;
+}
+
+.card-img-top {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.img-fluid {
+    width: 600px;
+    height: 250px;
+    object-fit: cover;
+}
+
+.nombreEquipo {
+    font-size: 18px;
+}
+
+.resumen {
+    font-size: 16px;
+    text-align: center;
 }
