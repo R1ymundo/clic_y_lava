@@ -1,93 +1,93 @@
-const exampleName = document.getElementById("exampleName");
-const exampleAsunto = document.getElementById("asunto");
-const exampleMail = document.getElementById("exampleMail");
-const exampleTelephone = document.getElementById("exampleTelephone");
-const exampleText = document.getElementById("exampleText");
+// Se obtiene los elementos de entrada
+const Name = document.getElementById("exampleName");
+const Asunto = document.getElementById("asunto");
+const Mail = document.getElementById("exampleMail");
+const Telephone = document.getElementById("exampleTelephone");
+const Text = document.getElementById("exampleText");
 const terminosAceptados = document.getElementById("btnRadio");
 const btnEnviar = document.getElementById("btnEnviar");
 const formmulario = document.getElementById("formularioContacto");
+
+// Obtener elementos de validación
 const nombreValidar = document.getElementById("nombreValidar");
 const asuntoValidar = document.getElementById("asuntoValidar");
 const emailValidar = document.getElementById("emailValidar");
 const telefonoValidar = document.getElementById("telefonoValidar");
 const mensajeValidar = document.getElementById("mensajeValidar");
 
-const limpiarAlertElemnto = (elementoInput, elementoValidar) => {
-  elementoInput.classList.remove("is-invalid");
-  elementoValidar.classList.remove("invalid-feedback");
-  elementoValidar.classList.add("valid-feedback");
-  elementoValidar.innerText = " ";
-}
-
+// Función para mostrar mensaje de error
 const alertElemento = (elementoInput, elementoValidar, msg) => {
   elementoInput.classList.remove("is-valid");
   elementoInput.classList.add("is-invalid");
   elementoValidar.classList.remove("valid-feedback");
   elementoValidar.classList.add("invalid-feedback");
   elementoValidar.innerText = " ";
-  elementoValidar.innerText = `Por favor ingresa un ${msg}`;
+  elementoValidar.innerText = msg;
 }
 
+// Función para limpiar mensaje de error
+const limpiarAlertElemnto = (elementoInput, elementoValidar) => {
+  elementoInput.classList.remove("is-invalid");
+  elementoInput.classList.add("is-valid");
+  elementoValidar.classList.remove("invalid-feedback");
+  elementoValidar.classList.add("valid-feedback");
+  elementoValidar.innerText = " ";
+}
 
 ///////////////////////VALIDACIONES para limpiar las alertas////////////////////////////////////
 
-exampleName.addEventListener("input", () =>{
-  const nameVal = exampleName.value.trim();
-  const regexNombre = new RegExp("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]{3,}$");
-
-  if (!regexNombre.test(nameVal)) {
-    alertElemento(exampleName, nombreValidar, "Nombre válido.");
-    error.push("Nombre inválido.");
-  } else {
-    limpiarAlertElemnto(exampleName, nombreValidar);
-  }
+Name.addEventListener("input",() =>{
+  let errores = [];
+const nombreVal= Nombre.value.trim();
+ const nombreRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,}$/;
+     if (!nombreRegex.test(nombreVal)) {
+        errores.push("Solo acepta letras y mínimo dos caracteres");
+        alertElemento(Nombre, nombreValidar, "Solo acepta letras y mínimo dos caracteres");
+    } else {
+        limpiarAlertElemnto(Nombre, nombreValidar);
+    }   
 });
 
-exampleAsunto.addEventListener("input", () =>{
-  const asuntoVal = exampleAsunto.value.trim();
+Asunto.addEventListener("input", () =>{
+  const asuntoVal = Asunto.value.trim();
   const regexAsunto = new RegExp("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]{3,}$");
 
   if (!regexAsunto.test(asuntoVal)) {
-    alertElemento(exampleAsunto, asuntoValidar, "Asunto válido.");
-    error.push("Asunto inválido.");
+    alertElemento(Asunto, asuntoValidar, "Solo acepta letras y mínimo dos caracteres");
   } else {
-    limpiarAlertElemnto(exampleAsunto, asuntoValidar);
+    limpiarAlertElemnto(Asunto, asuntoValidar);
   } 
 });
 
-exampleMail.addEventListener("input", () => {
-  const email= exampleMail.value.trim();
+Mail.addEventListener("input", () => {
+  const email= Mail.value.trim();
   const regexEmail = new RegExp("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$");
 
 if (!regexEmail.test(email)) {
-    alertElemento(exampleMail, emailValidar, "Email válido.");
-    error.push("Email inválido");
+    alertElemento(Mail, emailValidar, "Ingresa un correo electrónico válido");
   } else {
-    limpiarAlertElemnto(exampleMail, emailValidar);
+    limpiarAlertElemnto(Mail, emailValidar);
   }
 });
 
-exampleTelephone.addEventListener("input", ()=>{
-  const telefono= exampleTelephone.value.trim();
+Telephone.addEventListener("input", ()=>{
+  const telefono= Telephone.value.trim();
    const regexTelefono = new RegExp("^[0-9\\-\\+\\s\\(\\)]{7,15}$");
      if (!regexTelefono.test(telefono)) {
-    alertElemento(exampleTelephone, telefonoValidar, "Telefono válido.");
-    error.push("Telefono inválido.");
+    alertElemento(Telephone, telefonoValidar, "Ingresa un número de teléfono válido");
   } else {
-    limpiarAlertElemnto(exampleTelephone, telefonoValidar);
+    limpiarAlertElemnto(Telephone, telefonoValidar);
   }
 });
 
-exampleText.addEventListener("input", ()=>{
-const mensaje = exampleText.value.trim();
+Text.addEventListener("input", ()=>{
+const mensaje = Text.value.trim();
 const regexMensaje = new RegExp("^.{15,50}$");
 if (!regexMensaje.test(mensaje)) {
-    alertElemento(exampleText, mensajeValidar, "mensaje válido,debe contener al menos 15 caracteres.");
-    error.push("El mensaje debe contener al menos 15 caracteres.");
+    alertElemento(Text, mensajeValidar, "Ingrese un mensaje con al menos 15 caracteres");
   } else {
-    limpiarAlertElemnto(exampleText, mensajeValidar);
-  }return error;
-
+    limpiarAlertElemnto(Text, mensajeValidar);
+  }
 });
 
 const validarFormContacto = (nombre, email, telefono, mensaje, asunto) => {
@@ -102,44 +102,39 @@ const validarFormContacto = (nombre, email, telefono, mensaje, asunto) => {
   let error = [];
 
   // Validacion si son correctos los campos ->
-  // regexNombre.test(nombre) ? nombre : error.push("Nombre invalido");
-  // regexEmail.test(email) ? email : error.push("Email invalido");
-  // regexTelefono.test(telefono) ? telefono : error.push("Telefono invalido");
-  // regexMensaje.test(mensaje) ? mensaje : error.push("Mensaje incorrecto");
-
   if (!regexNombre.test(nombre)) {
-    alertElemento(exampleName, nombreValidar, "Nombre válido.");
+    alertElemento(Name, nombreValidar, "Solo acepta letras y mínimo dos caracteres");
     error.push("Nombre");
   } else {
-    limpiarAlertElemnto(exampleName, nombreValidar);
+    limpiarAlertElemnto(Name, nombreValidar);
   }
 
   if (!regexAsunto.test(asunto)) {
-    alertElemento(exampleAsunto, asuntoValidar, "Asunto válido.");
+    alertElemento(Asunto, asuntoValidar, "Solo acepta letras y mínimo tres caracteres");
     error.push("Asunto");
   } else {
-    limpiarAlertElemnto(exampleAsunto, asuntoValidar);
+    limpiarAlertElemnto(Asunto, asuntoValidar);
   }
 
   if (!regexEmail.test(email)) {
-    alertElemento(exampleMail, emailValidar, "Email válido.");
+    alertElemento(Mail, emailValidar, "Ingresa un correo electrónico válido");
     error.push("Email");
   } else {
-    limpiarAlertElemnto(exampleMail, emailValidar);
+    limpiarAlertElemnto(Mail, emailValidar);
   }
 
   if (!regexTelefono.test(telefono)) {
-    alertElemento(exampleTelephone, telefonoValidar, "Telefono válido.");
+    alertElemento(Telephone, telefonoValidar, "Ingresa un número de teléfono válido");
     error.push("Telefono");
   } else {
-    limpiarAlertElemnto(exampleTelephone, telefonoValidar);
+    limpiarAlertElemnto(Telephone, telefonoValidar);
   }
 
   if (!regexMensaje.test(mensaje)) {
-    alertElemento(exampleText, mensajeValidar, "mensaje válido,debe contener al menos 15 caracteres.");
+    alertElemento(Text, mensajeValidar, "Ingrese un mensaje con al menos 15 caracteres");
     error.push("Mensaje con al menos 15 caracteres.");
   } else {
-    limpiarAlertElemnto(exampleText, mensajeValidar);
+    limpiarAlertElemnto(Text, mensajeValidar);
   }
 
   return error;
@@ -160,7 +155,6 @@ const enviarFormContacto = (nombre, email, telefono, mensaje, asunto) => {
     phone: telefono,
     message: mensaje
   }
-
 
   // Envio del email
   emailjs.send(servicioID, plantillaID, plantillaParametros)
@@ -185,11 +179,11 @@ const enviarFormContacto = (nombre, email, telefono, mensaje, asunto) => {
 btnEnviar.addEventListener("click", (event) => {
   event.preventDefault();
 
-  const nombre = exampleName.value.trim();
-  const asunto = exampleAsunto.value.trim();
-  const email = exampleMail.value.trim();
-  const telefono = exampleTelephone.value.trim();
-  const mensaje = exampleText.value.trim();
+  const nombre = Name.value.trim();
+  const asunto = Asunto.value.trim();
+  const email = Mail.value.trim();
+  const telefono = Telephone.value.trim();
+  const mensaje = Text.value.trim();
 
   let error = validarFormContacto(nombre, email, telefono, mensaje, asunto);
 
@@ -215,20 +209,10 @@ btnEnviar.addEventListener("click", (event) => {
   } 
   
   enviarFormContacto(nombre, email, telefono, mensaje, asunto);
-  exampleName.value = "";
-  exampleAsunto.value = "";
-  exampleMail.value = "";
-  exampleTelephone.value = "";
-  exampleText.value = "";
+  Name.value = "";
+  Asunto.value = "";
+  Mail.value = "";
+  Telephone.value = "";
+  Text.value = "";
   terminosAceptados.checked = false;
 });
-
-////limpia alerts
-exampleName.addEventListener('input',() =>{
- let error = validarFormContacto(nombre);
-  if (!error) enviarFormContacto.classList.add('is-valid');
-});
-
-
-
-

@@ -6,21 +6,21 @@
   
   .card-title.principal {
     font-family: 'Grandstander', cursive;
-    font-size: 18px;
+    font-size: 16px;
     color: #00375e;
     margin-bottom: 10px;
   }
   
   .card-title.detalle {
     font-family: "Inter", sans-serif;
-    font-size: 16px;
+    font-size: 15px;
     color: #00375e;
     margin-bottom: 10px;
   }
   
   .card-precio {
     font-family: 'Inter', sans-serif;
-    font-size: 16px;
+    font-size: 15px;
     color: #2a9d8f;
     margin-bottom: 10px;
   }
@@ -73,10 +73,14 @@
     border: none;
     font-size: 0.9rem;
     padding: 6px 14px;
-    transition: background-color
+    transition: background-color;
   }  
 
   .btn-primary:hover {
-    background-color: #ffc107;
+    background-color: #ffd700;
     color: #00375e;
+  }
+
+  .btn-warning button:hover {
+    background-color: #ffd700;
   }

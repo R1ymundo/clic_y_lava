@@ -5,7 +5,6 @@ const email = document.getElementById("email");
 const telefono = document.getElementById("telefono");
 const contraseña = document.getElementById("contraseña");
 const confirmarCont = document.getElementById("confirmarCont");
-const direccion = document.getElementById("direccion");
 
 // Obtener elementos de validación
 const nombreValidar = document.getElementById("nombreValidar");
@@ -14,7 +13,6 @@ const correoValidar = document.getElementById("correoValidar");
 const telefonoValidar = document.getElementById("telefonoValidar");
 const contraseñaValidar = document.getElementById("contraseñaValidar");
 const confirmarContValidar = document.getElementById("confirmarContValidar");
-const direccionValidar = document.getElementById("direccionValidar");
 
 const btnEnviar = document.getElementById("btnEnviar");
 
@@ -87,19 +85,6 @@ const telefonoRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$
 });
 
 
-direccion.addEventListener("input", ()=>{
-  let errores = [];
-    const direccionVal = direccion.value.trim();
-const direccionRegex = /[A-Za-zÁÉÍÓÚáéíóúÑñ]+.*\d+/;
-    if (!direccionRegex.test(direccionVal)) {
-        errores.push("Ingresa una dirección válida que contenga una palabra y un número");
-        alertElemento(direccion, direccionValidar, "Ingresa una dirección válida que contenga una palabra y un número");
-    } else {
-        limpiarAlertElemnto(direccion, direccionValidar);
-    }
-
-});
-
 contraseña.addEventListener("input", () => {
   let errores = [];
   const contraseñaVal = contraseña.value.trim();
@@ -140,7 +125,6 @@ function validarFormulario(
   telefonoVal,
   contraseñaVal,
   confirmarContVal,
-  direccionVal
 ) {
   let errores = [];
 
@@ -246,19 +230,6 @@ function validarFormulario(
     limpiarAlertElemnto(confirmarCont, confirmarContValidar);
   }
 
-  //Validar dirección
-  const direccionRegex = /[A-Za-zÁÉÍÓÚáéíóúÑñ]+.*\d+/;
-  if (!direccionRegex.test(direccionVal)) {
-    errores.push("Dirección");
-    alertElemento(
-      direccion,
-      direccionValidar,
-      "Ingresa una dirección válida que contenga una palabra y un número"
-    );
-  } else {
-    limpiarAlertElemnto(direccion, direccionValidar);
-  } //fin validar dirección
-
     return errores;
 }
 
@@ -270,7 +241,6 @@ const limpiarValidacionesTotal = () => {
     { input: telefono, feedback: telefonoValidar },
     { input: contraseña, feedback: contraseñaValidar },
     { input: confirmarCont, feedback: confirmarContValidar },
-    { input: direccion, feedback: direccionValidar },
   ];
 
   campos.forEach(({ input, feedback }) => {
@@ -296,7 +266,6 @@ btnEnviar.addEventListener("click", function (event) {
   const telefonoVal = telefono.value.trim();
   const contraseñaVal = contraseña.value.trim();
   const confirmarContVal = confirmarCont.value.trim();
-  const direccionVal = direccion.value.trim();
 
   let erroresVal = validarFormulario(
     nombreVal,
@@ -305,7 +274,6 @@ btnEnviar.addEventListener("click", function (event) {
     telefonoVal,
     contraseñaVal,
     confirmarContVal,
-    direccionVal
   );
 
   if (erroresVal.length > 0) {
@@ -329,7 +297,6 @@ btnEnviar.addEventListener("click", function (event) {
       telefono: telefonoVal,
       contraseña: contraseñaVal,
       confirmarCont: confirmarContVal,
-      direccion: direccionVal,
     };
 
     // obtenemos usuarios almacenado, si es que los hay ->
@@ -402,7 +369,6 @@ btnEnviar.addEventListener("click", function (event) {
       telefono.value = "";
       contraseña.value = "";
       confirmarCont.value = "";
-      direccion.value = "";
 
       limpiarValidacionesTotal();
 
