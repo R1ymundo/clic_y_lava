@@ -6,7 +6,6 @@ agregarFooter.insertAdjacentHTML(
   <div class="row g-0 m-0 p-0" style="background-color: #FFB36D; text-align: center; align-items: center; margin: 0 !important; padding: 0 !important;">
   <div class="col-sm-6 p-0 d-flex flex-column justify-content-center align-items-center">
     <div class="container p-0">
-      <img src="../assets/icons/logo_clic_lava.png" style="width:5rem; display:block; margin: 0 auto;">
       <div style="margin: 0; display: flex; justify-content: center; gap: 1.5rem;">
         <a href="mailto:cliclava@gmail.com">
           <img src="../assets/icons/correo.webp" style="width:2rem; margin: 0;">

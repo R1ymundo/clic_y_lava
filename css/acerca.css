@@ -38,7 +38,7 @@ h3 {
 
 .img-fluid {
     width: 600px;
-    height: 250px;
+    height: 300px;
     object-fit: cover;
 }
 
@@ -50,3 +50,10 @@ h3 {
     font-size: 16px;
     text-align: center;
 }
+
+.backTitle{
+    background-color:#bdddf4;
+    color: #00375e;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
