@@ -258,19 +258,6 @@ descripcion.addEventListener('input', () => {
   if (!error) descripcion.classList.add('is-valid');
 });
 
-caracteristica1.addEventListener('input', () => {
-  const error = validarTexto(caracteristica1, 'caracteristica');
-  mostrarError(caracteristica1, error);
-  if (!error) caracteristica1.classList.add('is-valid');
-});
-
-caracteristica2.addEventListener('input', () => {
-  const error = validarTexto(caracteristica2, 'caracteristica');
-  mostrarError(caracteristica2, error);
-  if (!error) caracteristica2.classList.add('is-valid');
-});
-
-
 btnEnviar.addEventListener("click", async (event) => {
   event.preventDefault();
 
