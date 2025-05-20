@@ -450,8 +450,7 @@ window.fetchingProducts = async () => {
             <div class="descripcion-producto">${product.descripcion}</div>
 
             <div class="d-flex justify-content-center gap-2 mt-3">
-              <a href="../paginas/detalleProducto.html?id=${product.id}" class="btn btn-primary btn-sm">Ver más detalles</a>
-              <button class="btn btn-carrito btn-sm">🛒</button>
+              <button class="btn btn-carrito btn-sm">Agregar al Carrito 🛒</button>
             </div>
           </div>
         </div>
