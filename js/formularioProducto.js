@@ -6,15 +6,12 @@ const precio = document.getElementById("precio");
 const listaCategoria = document.getElementById("listaCategoria");
 const listaMarca = document.getElementById("listaMarca");
 const descripcion = document.getElementById("descripcion");
-const caracteristica1 = document.getElementById("caracteristica1");
-const caracteristica2 = document.getElementById("caracteristica2");
 const btnEnviar = document.getElementById("btnEnviar");
 
 // Expresiones regulares para validaciones
 const regex = {
   nombre: /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s\-\.]{5,50}$/,
   descripcion: /^[\w\sáéíóúÁÉÍÓÚñÑ.,;:¡!¿?()\-'"]{20,500}$/,
-  caracteristica: /^[\w\sáéíóúÁÉÍÓÚñÑ.,;:¡!¿?()\-'"]{3,100}$/,
   imagen: /\.(jpg|jpeg|png|gif|webp)$/i,
 };
 
@@ -28,7 +25,7 @@ let widget_cloudinary = cloudinary.createUploadWidget(
       console.log("Imagen subida con éxito", result.info);
       imgProduct.src = result.info.secure_url;
       imgProduct.style.display = "block";
-      
+
       // Limpiar error de imagen si existe
       const grupo = btnArchivo.closest(".mb-3") || btnArchivo.parentElement;
       const errorExistente = grupo.querySelector(".text-danger");
@@ -54,10 +51,10 @@ function mostrarError(elemento, mensaje) {
     grupo.appendChild(errorElement);
 
     elemento.classList.add("is-invalid");
-  
+
   } else {
     elemento.classList.remove("is-invalid");
-    
+
   }
 }
 
@@ -78,7 +75,7 @@ function validarNumero(num, esStock = false) {
     if (!/^\d+(\.\d{1,2})?$/.test(valor)) {
       return "El precio debe tener máximo 2 decimales";
     }
-    
+
   }
 
   return null;
@@ -105,10 +102,6 @@ function validarTexto(texto, tipo) {
       if (!regex.descripcion.test(valor))
         return "La descripción debe tener entre 20-500 caracteres";
       break;
-    case "caracteristica":
-      if (!regex.caracteristica.test(valor))
-        return "La característica debe tener entre 3-100 caracteres";
-      break;
   }
 
   return null;
@@ -120,14 +113,6 @@ function validarFormularioCompleto() {
 
   mostrarError(nombreProducto, validarTexto(nombreProducto, "nombre"));
   mostrarError(descripcion, validarTexto(descripcion, "descripcion"));
-  mostrarError(
-    caracteristica1,
-    validarTexto(caracteristica1, "caracteristica")
-  );
-  mostrarError(
-    caracteristica2,
-    validarTexto(caracteristica2, "caracteristica")
-  );
 
   mostrarError(stock, validarNumero(stock, true));
   mostrarError(precio, validarNumero(precio));
@@ -205,10 +190,6 @@ function guardarProducto() {
     stock: Number(stock.value.trim()),
     descripcion: descripcion.value.trim(),
     categoria: categoriaSeleccionada,
-    caracteristicas: {
-      caracteristica1: caracteristica1.value.trim(),
-      caracteristica2: caracteristica2.value.trim(),
-    },
   };
 
   // Agregar el producto y guardar
@@ -258,19 +239,6 @@ descripcion.addEventListener('input', () => {
   if (!error) descripcion.classList.add('is-valid');
 });
 
-caracteristica1.addEventListener('input', () => {
-  const error = validarTexto(caracteristica1, 'caracteristica');
-  mostrarError(caracteristica1, error);
-  if (!error) caracteristica1.classList.add('is-valid');
-});
-
-caracteristica2.addEventListener('input', () => {
-  const error = validarTexto(caracteristica2, 'caracteristica');
-  mostrarError(caracteristica2, error);
-  if (!error) caracteristica2.classList.add('is-valid');
-});
-
-
 btnEnviar.addEventListener("click", async (event) => {
   event.preventDefault();
 
@@ -286,8 +254,6 @@ btnEnviar.addEventListener("click", async (event) => {
     { element: listaCategoria, name: "Categoría" },
     { element: listaMarca, name: "Marca" },
     { element: descripcion, name: "Descripción" },
-    { element: caracteristica1, name: "Característica Principal" },
-    { element: caracteristica2, name: "Característica Secundaria" },
   ];
 
   let camposFaltantes = [];
@@ -321,8 +287,8 @@ btnEnviar.addEventListener("click", async (event) => {
                     <p>Por favor completa los siguientes campos obligatorios:</p>
                     <ul style="margin-left: 20px;">
                         ${mensajesError
-                          .map((mensaje) => `<li>${mensaje}</li>`)
-                          .join("")}
+          .map((mensaje) => `<li>${mensaje}</li>`)
+          .join("")}
                     </ul>
                 </div>
             `,
@@ -361,38 +327,41 @@ btnEnviar.addEventListener("click", async (event) => {
         text: "El producto se ha registrado correctamente",
         icon: "success",
         confirmButtonText: "Aceptar",
+      }).then(() => {
+        // Redireccionar a la página de productos
+        window.location.href = "productos.html";
       });
+
     }
   } else {
-    await Swal.fire({
-      title: "Error de validación",
-      html: `
+  await Swal.fire({
+    title: "Error de validación",
+    html: `
                 <div style="text-align: left;">
                     <p>Por favor corrige los siguientes errores:</p>
                     <ul style="margin-left: 20px;">
                         ${Array.from(document.querySelectorAll(".is-invalid"))
-                          .map((el) => {
-                            const label = document.querySelector(
-                              `label[for="${el.id}"]`
-                            );
-                            const fieldName = label
-                              ? label.textContent.replace(":", "")
-                              : "Campo";
-                            const errorMsg =
-                              el.parentElement.querySelector(".text-danger");
-                            return `<li><strong>${fieldName}:</strong> ${
-                              errorMsg?.textContent || "Dato inválido"
-                            }</li>`;
-                          })
-                          .join("")}
+        .map((el) => {
+          const label = document.querySelector(
+            `label[for="${el.id}"]`
+          );
+          const fieldName = label
+            ? label.textContent.replace(":", "")
+            : "Campo";
+          const errorMsg =
+            el.parentElement.querySelector(".text-danger");
+          return `<li><strong>${fieldName}:</strong> ${errorMsg?.textContent || "Dato inválido"
+            }</li>`;
+        })
+        .join("")}
                     </ul>
                 </div>
             `,
-      icon: "error",
-      confirmButtonText: "Entendido",
-      customClass: { popup: "swal-wide" },
-    });
-  }
+    icon: "error",
+    confirmButtonText: "Entendido",
+    customClass: { popup: "swal-wide" },
+  });
+}
 });
 
 btnArchivo.addEventListener("click", () => {
