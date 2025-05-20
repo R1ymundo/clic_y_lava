@@ -1,6 +1,7 @@
 const cardsProduct = document.getElementById("cardsProduct");
 const alertData = document.getElementById("alertData");
 
+
 // Array de objetos (Nuestros productos iniciales con sus categorias) ->
 let productData = {
   categorias: [
@@ -366,6 +367,22 @@ if (!localStoredData) {
 } else {
   const newDataProduct = JSON.parse(localStoredData);
 
+const listaCategorias = document.getElementById("listaCategorias");
+
+//Button Categorias 
+
+// Agrega opción "Todos los productos"
+const itemTodos = document.createElement("li");
+itemTodos.innerHTML = `<a class="dropdown-item" href="#" data-slug="todos">Todos los productos</a>`;
+listaCategorias.appendChild(itemTodos);
+
+// Crea el resto de las categorías dinámicamente
+productData.categorias.forEach((cat) => {
+  const li = document.createElement("li");
+  li.innerHTML = `<a class="dropdown-item" href="#" data-slug="${cat.slug}">${cat.nombre}</a>`;
+  listaCategorias.appendChild(li);
+});
+
   if (newDataProduct.productos.length !== productData.productos.length) {
     const addProducts = [
       ...productData.productos,
@@ -417,25 +434,33 @@ window.fetchingProducts = async () => {
     }
 
     const showCard = products
-    .map((product) => {
-      return `
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-          <div class="card h-100">
-            <div class="image-container">
-              <img src="${product.imagenes.imagenPricipal}" class="card-img-top" alt="${product.modelo}">
-            </div>
-            <div class="card-body p-2">
-              <p class="card-title principal mb-1">${product.modelo}</p>
-              <p class="card-title detalle mb-1">${product.marca}</p>
-              <p class="card-precio mb-2">$${product.precios.precioHora}/hora</p>
+  .map((product) => {
+    return `
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+        <div class="card h-100">
+          <div class="image-container">
+            <img src="${product.imagenes.imagenPricipal}" class="card-img-top" alt="${product.modelo}">
+          </div>
+          <div class="card-body p-2">
+            <p class="card-title principal mb-1">${product.modelo}</p>
+            <p class="card-title detalle mb-1">${product.marca}</p>
+            <p class="card-precio mb-2">$${product.precios.precioHora}/hora</p>
+
+            <!-- Descripción oculta que aparece al pasar el mouse -->
+            <div class="descripcion-producto">${product.descripcion}</div>
+
+            <div class="d-flex justify-content-center gap-2 mt-3">
               <a href="../paginas/detalleProducto.html?id=${product.id}" class="btn btn-primary btn-sm">Ver más detalles</a>
+              <button class="btn btn-carrito btn-sm">🛒</button>
             </div>
           </div>
         </div>
-      `;
-    })
-      .join("");
-    cardsProduct.innerHTML = showCard;
+      </div>
+    `;
+  })
+  .join("");
+cardsProduct.innerHTML = showCard;
+
   } catch (error) {
     alertData.insertAdjacentHTML(
       "beforeend",
@@ -453,3 +478,45 @@ window.fetchingProducts = async () => {
   }
 };
 fetchingProducts();
+
+document.addEventListener("click", (e) => {
+  if (e.target.matches(".dropdown-item")) {
+    e.preventDefault();
+    const slug = e.target.dataset.slug;
+
+    if (slug === "todos") {
+      fetchingProducts();
+    } else {
+      filtrarPorCategoria(slug);
+    }
+  }
+});
+
+function filtrarPorCategoria(slug) {
+  const data = JSON.parse(localStorage.getItem("productData"));
+  const productosFiltrados = data.productos.filter(
+    (prod) => prod.categoria.slug === slug
+  );
+
+  const showCard = productosFiltrados
+    .map((product) => {
+      return `
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+          <div class="card h-100">
+            <div class="image-container">
+              <img src="${product.imagenes.imagenPricipal}" class="card-img-top" alt="${product.modelo}">
+            </div>
+            <div class="card-body p-2">
+              <p class="card-title principal mb-1">${product.modelo}</p>
+              <p class="card-title detalle mb-1">${product.marca}</p>
+              <p class="card-precio mb-2">$${product.precios.precioHora}/hora</p>
+              <a href="../paginas/detalleProducto.html?id=${product.id}" class="btn btn-primary btn-sm">Ver más detalles</a>
+            </div>
+          </div>
+        </div>
+      `;
+    })
+    .join("");
+
+  cardsProduct.innerHTML = showCard;
+}

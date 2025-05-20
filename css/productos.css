@@ -9,3 +9,42 @@
 #btnEnviar:hover {
     background-color: #ffd700;
 }
+
+.btn-categorias {
+  background-color: #feb36d; 
+  color: #00375e;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  transition: background-color 0.3s ease;
+  font-family: "Inter", sans-serif;
+}
+
+.btn-categorias:hover {
+  background-color: #BDDDF4; 
+}
+
+.btn-categorias:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Fondo del menú */
+.dropdown-menu {
+  background-color: #BDDDF4; 
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 4px 10px #00375e;
+}
+
+/* Estilo para los ítems */
+.dropdown-item {
+  color: #00375e; 
+  font-weight: 500;
+}
+
+/* Hover sobre ítems */
+.dropdown-item:hover {
+  background-color: #feb36d; 
+  color: #11a79a;
+}
