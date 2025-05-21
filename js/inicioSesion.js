@@ -98,16 +98,16 @@ btnInicioSesion.addEventListener("click", function (event) {
   if (!usuarioExistente) {
     email.focus();
     // Limpiar datos
-    email.value = "";
+    //email.value = "";
     password.value = "";
-    limpiarAlertElemnto(email, correoValidar);
+    //limpiarAlertElemnto(email, correoValidar);
     limpiarAlertElemnto(password, contraseñaValidar);
 
     alertElemento(email, correoValidar, "Confirme su correo y/o contraseña");
     alertElemento(password, contraseñaValidar, "Confirme su correo y/o contraseña");
     Swal.fire({
       title: "Error",
-      text: "Usuario no encontrado",
+      text: "Datos incorrectos",
       icon: "error",
     });
     return;
@@ -116,16 +116,16 @@ btnInicioSesion.addEventListener("click", function (event) {
    if (usuarioExistente.contraseña !== contraseñaVal) {
     email.focus();
     // Limpiar datos
-    email.value = "";
+    //email.value = "";
     password.value = "";
-    limpiarAlertElemnto(email, correoValidar);
+    //limpiarAlertElemnto(email, correoValidar);
     limpiarAlertElemnto(password, contraseñaValidar);
 
-    alertElemento(email, correoValidar, "Confirme su correo y/o contraseña");
+    //alertElemento(email, correoValidar, "Confirme su correo y/o contraseña");
     alertElemento(password, contraseñaValidar, "Confirme su correo y/o contraseña");
     Swal.fire({
       title: "Error",
-      text: "Usuario no encontrado",
+      text: "Datos incorrectos",
       icon: "error",
     });
     return;
