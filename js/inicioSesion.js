@@ -107,7 +107,7 @@ btnInicioSesion.addEventListener("click", function (event) {
     alertElemento(password, contraseñaValidar, "Confirme su correo y/o contraseña");
     Swal.fire({
       title: "Error",
-      text: "Datos incorrectos",
+      text: "Los Datos que ingresaste son incorrectos",
       icon: "error",
     });
     return;
@@ -118,14 +118,14 @@ btnInicioSesion.addEventListener("click", function (event) {
     // Limpiar datos
     //email.value = "";
     password.value = "";
-    //limpiarAlertElemnto(email, correoValidar);
+    limpiarAlertElemnto(email, correoValidar);
     limpiarAlertElemnto(password, contraseñaValidar);
 
     //alertElemento(email, correoValidar, "Confirme su correo y/o contraseña");
     alertElemento(password, contraseñaValidar, "Confirme su correo y/o contraseña");
     Swal.fire({
       title: "Error",
-      text: "Datos incorrectos",
+      text: "Los Datos que ingresaste son incorrectos",
       icon: "error",
     });
     return;
