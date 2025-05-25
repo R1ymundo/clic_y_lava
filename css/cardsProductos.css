@@ -151,3 +151,28 @@
   background-color: #ffd700;
   color: white;
 }
+
+@media (max-width: 600px) {
+  .card {
+    position: relative;
+    padding-bottom: 25px;
+  }
+  
+  .card::after {
+    content: "👆 Toca para ver mas detalles";
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    right: 0;
+    font-size: 12px;
+    color: #FD8F3E;
+    font-weight: bold;
+    text-align: center;
+    transition: all 0.3s;
+  }
+    
+  .descripcion-producto {
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+}
