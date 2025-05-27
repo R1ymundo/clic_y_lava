@@ -1,79 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="img/jpg" href="../assets/icons/logo_clic_lava.png" />
-    <title>Productos</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="../css/acerca.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="icon" type="img/jpg" href="../assets/icons/favicon.jpg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Grandstander:ital,wght@0,100..900;1,100..900&display=swap"rel="stylesheet"/>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="../css/cardsProductos.css" />
-    <link rel="stylesheet" href="../css/productos.css">
 
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="img/jpg" href="../assets/icons/logo_clic_lava.png" />
+  <title>Productos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../css/acerca.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="img/jpg" href="../assets/icons/favicon.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Grandstander:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../css/cardsProductos.css" />
+  <link rel="stylesheet" href="../css/productos.css">
 
-  <body>
-    <!-- Inicio navar -->
-    <nav id="navegacion" class="navbar navbar-expand-lg bg-body-tertiary"></nav>
-    <!-- Fin navar -->                              
-    <main class="container-fluid">
+</head>
 
-      <div class="my-3">
-        <a href="../paginas/formularioProducto.html">
-      <button type="button" id="btnEnviar" class="btn btn-warning button">
-        Agregar nuevo producto
-      </button>
-        </a>
-      </div>
+<body>
+  <!-- Inicio navar -->
+  <nav id="navegacion" class="navbar navbar-expand-lg bg-body-tertiary"></nav>
+  <!-- Fin navar -->
+  <main class="container-fluid">
+
+    <div class="my-3">
+  <a href="../paginas/formularioProducto.html" class="btn btn-carrito" id="btnEnviar">
+    Agregar nuevo producto
+  </a>
+</div>
+
 
     <!--Button Categoria-->
     <div class="dropdown my-3">
-    <button class="btn btn-categorias dropdown-toggle" type="button" id="dropdownCategorias" data-bs-toggle="dropdown" aria-expanded="false">
-    Categorías
-    </button>
-    <ul class="dropdown-menu" id="listaCategorias" aria-labelledby="dropdownCategorias"></ul>
+      <button class="btn btn-carrito dropdown-toggle" type="button" id="dropdownCategorias" data-bs-toggle="dropdown"
+        aria-expanded="false">
+        Categorías
+      </button>
+      <ul class="dropdown-menu" id="listaCategorias" aria-labelledby="dropdownCategorias"></ul>
     </div>
 
 
-      <!-- Aquí empiezan las cards de productos y alert de error de obtencion de datos -->
-      <div id="alertData"></div>
-        <div class="row g-4" id="cardsProduct"></div>
-        <div class="text-center">
-          
-      </div>
-      <!-- Aquí terminan las cards de  y alert de error -->
-    </main>
+    <!-- Aquí empiezan las cards de productos y alert de error de obtencion de datos -->
+    <div id="alertData"></div>
+    <div class="row g-4" id="cardsProduct"></div>
+    <div class="text-center">
 
-    <!-- Inicio Footer -->
-    <footer class="site-footer mt-5">
-      <div id="agregarFooter"></div>
-    </footer>
-    <!-- Fin Footer -->
+    </div>
+    <!-- Aquí terminan las cards de  y alert de error -->
+  </main>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
-      crossorigin="anonymous"
-    ></script>
-    <script src="../js/cardsProductos.js"></script>
-    <script src="../js/nav.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../js/scriptFooter.js"></script>
-  </body>
+  <!-- Inicio Footer -->
+  <footer class="site-footer mt-5">
+    <div id="agregarFooter"></div>
+  </footer>
+  <!-- Fin Footer -->
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+    crossorigin="anonymous"></script>
+  <script src="../js/cardsProductos.js"></script>
+  <script src="../js/nav.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="../js/scriptFooter.js"></script>
+</body>
+
 </html>
