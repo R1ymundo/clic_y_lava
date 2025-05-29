@@ -256,73 +256,61 @@ const limpiarValidacionCampo = (input, feedback) => {
   feedback.innerText = "";
 };
 
-// Evento para el botón de enviar
-btnEnviar.addEventListener("click", function (event) {
-  event.preventDefault();
+/////////////////CAMBIOS DE CONEXION/////////////////////////
+document.getElementById('btnEnviar').addEventListener('click', async () => {
+  const nombre = document.getElementById('Nombre').value;
+  const apellidos = document.getElementById('apellidos').value;
+  const correo = document.getElementById('email').value;
+  const telefono = document.getElementById('telefono').value;
+  const contraseña = document.getElementById('contraseña').value;
+  const confirmar = document.getElementById('confirmarCont').value;
 
-  const nombreVal = Nombre.value.trim();
-  const apellidosVal = apellidos.value.trim();
-  const emailVal = email.value.trim();
-  const telefonoVal = telefono.value.trim();
-  const contraseñaVal = contraseña.value.trim();
-  const confirmarContVal = confirmarCont.value.trim();
+  if (contraseña !== confirmar) {
+    Swal.fire('Error', 'Las contraseñas no coinciden', 'error');
+    return;
+  }
 
-  let erroresVal = validarFormulario(
-    nombreVal,
-    apellidosVal,
-    emailVal,
-    telefonoVal,
-    contraseñaVal,
-    confirmarContVal,
-  );
+  const registroUsuario = async () => {
+    try {
+      const response = await fetch("http://13.58.208.54/api/usuarios/", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          nombre,
+          apellidos,
+          email: correo,
+          telefono,
+          password: contraseña,
+          fechaRegistro: new Date().toISOString().slice(0, 10),
+          rol: {
+            idRol: 1
+          }
+        })
+      });
 
-  if (erroresVal.length > 0) {
-    Swal.fire({
-      title: "¡Campos incompletos!",
-      html: `
-        <p>Por favor completa los siguientes campos obligatorios:</p>
-        <ul style="text-align: left; margin-left: 20px;">
-          ${erroresVal.map(error => `<li>${error}</li>`).join("")}
-        </ul>
-      `,
-      icon: "error",
-      confirmButtonText: "Entendido",
-    });
-  } else {
-    // objeto de nuevo usuario ->
-    const usuarioNuevo = {
-      nombre: nombreVal,
-      apellidos: apellidosVal,
-      email: emailVal,
-      telefono: telefonoVal,
-      contraseña: contraseñaVal,
-      confirmarCont: confirmarContVal,
-    };
+      if (response.ok) {
+        await response.json();
+        Swal.fire('Éxito', 'Usuario registrado correctamente', 'success');
+        // window.location.href = 'inicioSesion.html';
+      } else {
+        const errorData = await response.json();
+        Swal.fire('Error', errorData.message || 'Hubo un problema en el registro', 'error');
+      }
+    } catch (error) {
+      console.error(error);
+      Swal.fire('Error', 'No se pudo conectar al servidor', 'error');
+    }
+  };
+  registroUsuario();
+});
 
-    // obtenemos usuarios almacenado, si es que los hay ->
-    const usuariosAlmacenados =
-      JSON.parse(localStorage.getItem("usuarios")) || [];
-
-    // Verificamos si ya existe tanto el correo como el telefono ->
-    const usuarioDuplicado = usuariosAlmacenados.find(
-      (usuario) =>
-        usuario.email === usuarioNuevo.email &&
-        usuario.telefono === usuarioNuevo.telefono
-    );
-
-    // Verifica si ya existe solo el correo ->
-    const correoDuplicado = usuariosAlmacenados.find(
-      (usuario) => usuario.email === usuarioNuevo.email
-    );
-
-    // Verifica si ya existe solo el teléfono ->
-    const telefonoDuplicado = usuariosAlmacenados.find(
-      (usuario) => usuario.telefono === usuarioNuevo.telefono
-    );
+///////////////////AQUI TERMINAN LOS CAMBIOS/////////////////7
 
     // condiciones si existe correo y telefono, solo el correo o solo el telefono  ->
 
-    if (usuarioDuplicado) {
+   /* if (usuarioDuplicado) {
       Swal.fire({
         title: "Este usuario ya se encuentra registrado",
         text: "Usuario registrado con este correo y telefono",
@@ -373,6 +361,6 @@ btnEnviar.addEventListener("click", function (event) {
       limpiarValidacionesTotal();
 
       window.location.href = "inicioSesion.html";
-    });
-  }
-});
+    }); */
+
+
