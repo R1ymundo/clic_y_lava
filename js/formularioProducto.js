@@ -1,3 +1,35 @@
+const btnEnviar = document.getElementById("btnEnviar");
+  btnEnviar.addEventListener("click", (evento) => {
+    evento.preventDefault()
+  registrarProducto();
+});
+
+
+let registrarProducto = async() => {
+let campos={};
+
+campos.nombreProducto = document.getElementById("nombreProducto").value;
+campos.stock= document.getElementById("stock").value;
+campos.precio = document.getElementById("precio").value;
+campos.listaCategoria = document.getElementById("listaCategoria").value;
+campos.listaMarca = document.getElementById("listaMarca").value;
+campos.descripcion = document.getElementById("descripcion").value;
+
+const petición = await fetch("http://localhost:8080/api/productos/", {
+    method: "POST",
+    headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify(campos)
+});
+}
+
+// Ya está conectado con el backend, solo que el campo de seleccionar imagen está en el código comentado,
+//Revisar que el botón seleccionar imagen esté activo para que el producto se agregue correctamente.
+
+
+/* CÓDIGO ORIGINAL DE LA PÁGINA FORMULARIO PRODUCTO
 const btnArchivo = document.querySelector("#btn-archivo");
 const imgProduct = document.querySelector("#img-product");
 const nombreProducto = document.getElementById("nombreProducto");
@@ -367,3 +399,4 @@ btnEnviar.addEventListener("click", async (event) => {
 btnArchivo.addEventListener("click", () => {
   widget_cloudinary.open();
 });
+*/
