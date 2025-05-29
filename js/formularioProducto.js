@@ -51,10 +51,8 @@ function mostrarError(elemento, mensaje) {
     grupo.appendChild(errorElement);
 
     elemento.classList.add("is-invalid");
-
   } else {
     elemento.classList.remove("is-invalid");
-
   }
 }
 
@@ -75,7 +73,6 @@ function validarNumero(num, esStock = false) {
     if (!/^\d+(\.\d{1,2})?$/.test(valor)) {
       return "El precio debe tener máximo 2 decimales";
     }
-
   }
 
   return null;
@@ -140,103 +137,87 @@ function validarFormularioCompleto() {
   return valido;
 }
 
-// Guardar producto
-function guardarProducto() {
-  // Obtener los datos existentes
-  let data = JSON.parse(localStorage.getItem("productData"));
-  if (!data) {
-    data = {
-      categorias: [
-        { id: 1, nombre: "Lavadora", slug: "lavadora" },
-        { id: 2, nombre: "Secadora", slug: "secadora" },
-        { id: 3, nombre: "Centro de lavado", slug: "centro-de-lavado" },
-      ],
-      productos: [],
-    };
+//////////////////<-- Inicio agregar producto -->//////////////////
+
+async function guardarProducto() {
+  // Obtener datos del formulario ->
+  const nombre = nombreProducto.value.trim();
+  const descripcionTexto = descripcion.value.trim();
+  const precioUnitario = Number(precio.value.trim());
+  const stockDisponible = Number(stock.value.trim());
+  const imagenPrincipal = imgProduct.src;
+
+  // Crear el objeto que se espera en el backend Java ->
+  const producto = {
+    nombre: nombre,
+    descripcion: descripcionTexto,
+    precio: precioUnitario,
+    stock: stockDisponible,
+    imagen: imagenPrincipal,
+  };
+
+  try {
+    const response = await fetch("/api/productos/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(producto),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error del servidor: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log("Producto guardado en backend:", data);
+    alert("Producto guardado correctamente");
+    return true;
+  } catch (error) {
+    console.error("Error al guardar producto:", error);
+    alert("Error al guardar el producto");
+    return false;
   }
-
-  // Obtener la categoría seleccionada
-  const categoriaId = parseInt(listaCategoria.value);
-  const categoriaSeleccionada = data.categorias.find(
-    (cat) => cat.id === categoriaId
-  ) || {
-    id: categoriaId,
-    nombre: listaCategoria.options[listaCategoria.selectedIndex].text,
-    slug: listaCategoria.options[listaCategoria.selectedIndex].text
-      .toLowerCase()
-      .replace(/\s+/g, "-"),
-  };
-
-  // Crear el nuevo producto con todos los campos
-  const nuevoProducto = {
-    id:
-      data.productos.length > 0
-        ? Math.max(...data.productos.map((p) => p.id)) + 1
-        : 1,
-    marca: listaMarca.options[listaMarca.selectedIndex].text,
-    precios: {
-      precioHora: Number(precio.value.trim()),
-      precioDia: Number(precio.value.trim()) * 2.2,
-      precioSemana: Number(precio.value.trim()) * 3.8,
-    },
-    modelo: nombreProducto.value.trim(),
-    imagenes: {
-      imagenPricipal: imgProduct.src,
-      // descomentar cuando sea necesario **
-      // imagenAdicional1: "",
-      // imagenAdicional2: "",
-      // imagenAdicional3: ""
-    },
-    stock: Number(stock.value.trim()),
-    descripcion: descripcion.value.trim(),
-    categoria: categoriaSeleccionada,
-  };
-
-  // Agregar el producto y guardar
-  data.productos.push(nuevoProducto);
-  localStorage.setItem("productData", JSON.stringify(data));
-
-  console.log("Producto guardado:", nuevoProducto);
-
-  return true;
 }
+
+//////////////////<-- Fin agregar producto -->//////////////////
 
 //Validaciones
 
-nombreProducto.addEventListener('input', () => {
-  const error = validarTexto(nombreProducto, 'nombre');
+nombreProducto.addEventListener("input", () => {
+  const error = validarTexto(nombreProducto, "nombre");
   mostrarError(nombreProducto, error);
-  if (!error) nombreProducto.classList.add('is-valid');
+  if (!error) nombreProducto.classList.add("is-valid");
 });
 
-stock.addEventListener('input', () => {
+stock.addEventListener("input", () => {
   const error = validarNumero(stock, true);
   mostrarError(stock, error);
-  if (!error) stock.classList.add('is-valid');
+  if (!error) stock.classList.add("is-valid");
 });
 
-precio.addEventListener('input', () => {
+precio.addEventListener("input", () => {
   const error = validarNumero(precio);
   mostrarError(precio, error);
-  if (!error) precio.classList.add('is-valid');
+  if (!error) precio.classList.add("is-valid");
 });
 
-listaCategoria.addEventListener('change', () => {
+listaCategoria.addEventListener("change", () => {
   const error = validarSelect(listaCategoria);
   mostrarError(listaCategoria, error);
-  if (!error) listaCategoria.classList.add('is-valid');
+  if (!error) listaCategoria.classList.add("is-valid");
 });
 
-listaMarca.addEventListener('change', () => {
+listaMarca.addEventListener("change", () => {
   const error = validarSelect(listaMarca);
   mostrarError(listaMarca, error);
-  if (!error) listaMarca.classList.add('is-valid');
+  if (!error) listaMarca.classList.add("is-valid");
 });
 
-descripcion.addEventListener('input', () => {
-  const error = validarTexto(descripcion, 'descripcion');
+descripcion.addEventListener("input", () => {
+  const error = validarTexto(descripcion, "descripcion");
   mostrarError(descripcion, error);
-  if (!error) descripcion.classList.add('is-valid');
+  if (!error) descripcion.classList.add("is-valid");
 });
 
 btnEnviar.addEventListener("click", async (event) => {
@@ -287,8 +268,8 @@ btnEnviar.addEventListener("click", async (event) => {
                     <p>Por favor completa los siguientes campos obligatorios:</p>
                     <ul style="margin-left: 20px;">
                         ${mensajesError
-          .map((mensaje) => `<li>${mensaje}</li>`)
-          .join("")}
+                          .map((mensaje) => `<li>${mensaje}</li>`)
+                          .join("")}
                     </ul>
                 </div>
             `,
@@ -331,37 +312,37 @@ btnEnviar.addEventListener("click", async (event) => {
         // Redireccionar a la página de productos
         window.location.href = "productos.html";
       });
-
     }
   } else {
-  await Swal.fire({
-    title: "Error de validación",
-    html: `
+    await Swal.fire({
+      title: "Error de validación",
+      html: `
                 <div style="text-align: left;">
                     <p>Por favor corrige los siguientes errores:</p>
                     <ul style="margin-left: 20px;">
                         ${Array.from(document.querySelectorAll(".is-invalid"))
-        .map((el) => {
-          const label = document.querySelector(
-            `label[for="${el.id}"]`
-          );
-          const fieldName = label
-            ? label.textContent.replace(":", "")
-            : "Campo";
-          const errorMsg =
-            el.parentElement.querySelector(".text-danger");
-          return `<li><strong>${fieldName}:</strong> ${errorMsg?.textContent || "Dato inválido"
-            }</li>`;
-        })
-        .join("")}
+                          .map((el) => {
+                            const label = document.querySelector(
+                              `label[for="${el.id}"]`
+                            );
+                            const fieldName = label
+                              ? label.textContent.replace(":", "")
+                              : "Campo";
+                            const errorMsg =
+                              el.parentElement.querySelector(".text-danger");
+                            return `<li><strong>${fieldName}:</strong> ${
+                              errorMsg?.textContent || "Dato inválido"
+                            }</li>`;
+                          })
+                          .join("")}
                     </ul>
                 </div>
             `,
-    icon: "error",
-    confirmButtonText: "Entendido",
-    customClass: { popup: "swal-wide" },
-  });
-}
+      icon: "error",
+      confirmButtonText: "Entendido",
+      customClass: { popup: "swal-wide" },
+    });
+  }
 });
 
 btnArchivo.addEventListener("click", () => {
