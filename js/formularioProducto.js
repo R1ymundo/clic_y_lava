@@ -15,7 +15,7 @@ campos.listaCategoria = document.getElementById("listaCategoria").value;
 campos.listaMarca = document.getElementById("listaMarca").value;
 campos.descripcion = document.getElementById("descripcion").value;
 
-const petición = await fetch("http://localhost:8080/api/productos/", {
+const petición = await fetch("http://13.58.208.54/api/productos/", {
     method: "POST",
     headers: {
         "Accept": "application/json",
