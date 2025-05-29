@@ -1,17 +1,19 @@
 const cardsProduct = document.getElementById("cardsProduct");
 const alertData = document.getElementById("alertData");
 
-const traerProductos = () -> {
+const traerProductos = () => {
 
   try {
     const response = await fetch("http://13.58.208.54/api/productos/");
     if (!response.ok) {
-      throw new Error("No se pudo obtener la lista de productos desde el servidor.");
+      throw new Error(
+        "No se pudo obtener la lista de productos desde el servidor."
+      );
     }
     const data = await response.json();
     const products = data.productos || data;
 
-    if (!productos|| productos.length === 0 ){
+    if (!productos || productos.length === 0) {
       alertData.insertAdjacentHTML("beforeend", alertError);
       return;
     }
@@ -40,7 +42,6 @@ const traerProductos = () -> {
       })
       .join("");
     cardsProduct.innerHTML = showCard;
-
   } catch (error) {
     alertData.insertAdjacentHTML(
       "beforeend",
@@ -61,31 +62,29 @@ const traerProductos = () -> {
 }
 
 
-// Array de objetos (Nuestros productos iniciales con sus categorias) ->
-
-
-/*const localStoredData = localStorage.getItem("productData");
+//Código original, tomar cuando sea necesario
+const localStoredData = localStorage.getItem("productData");
 
 if (!localStoredData) {
   localStorage.setItem("productData", JSON.stringify(productData));
 } else {
   const newDataProduct = JSON.parse(localStoredData);
 
-const listaCategorias = document.getElementById("listaCategorias");
+  const listaCategorias = document.getElementById("listaCategorias");
 
-//Button Categorias 
+  //Button Categorias
 
-// Agrega opción "Todos los productos"
-const itemTodos = document.createElement("li");
-itemTodos.innerHTML = `<a class="dropdown-item" href="#" data-slug="todos">Todos los productos</a>`;
-listaCategorias.appendChild(itemTodos);
+  // Agrega opción "Todos los productos"
+  const itemTodos = document.createElement("li");
+  itemTodos.innerHTML = `<a class="dropdown-item" href="#" data-slug="todos">Todos los productos</a>`;
+  listaCategorias.appendChild(itemTodos);
 
-// Crea el resto de las categorías dinámicamente
-productData.categorias.forEach((cat) => {
-  const li = document.createElement("li");
-  li.innerHTML = `<a class="dropdown-item" href="#" data-slug="${cat.slug}">${cat.nombre}</a>`;
-  listaCategorias.appendChild(li);
-});
+  // Crea el resto de las categorías dinámicamente
+  productData.categorias.forEach((cat) => {
+    const li = document.createElement("li");
+    li.innerHTML = `<a class="dropdown-item" href="#" data-slug="${cat.slug}">${cat.nombre}</a>`;
+    listaCategorias.appendChild(li);
+  });
 
   if (newDataProduct.productos.length !== productData.productos.length) {
     const addProducts = [
@@ -138,8 +137,8 @@ window.fetchingProducts = async () => {
     }
 
     const showCard = products
-  .map((product) => {
-    return `
+      .map((product) => {
+        return `
       <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
         <div class="card h-100">
           <div class="image-container">
@@ -160,10 +159,9 @@ window.fetchingProducts = async () => {
         </div>
       </div>
     `;
-  })
-  .join("");
-cardsProduct.innerHTML = showCard;
-
+      })
+      .join("");
+    cardsProduct.innerHTML = showCard;
   } catch (error) {
     alertData.insertAdjacentHTML(
       "beforeend",
