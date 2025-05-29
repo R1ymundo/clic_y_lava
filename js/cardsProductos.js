@@ -13,7 +13,7 @@ const traerProductos = async () => {
     </div>`;
 
   try {
-    const response = await fetch("/api/productos/");
+    const response = await fetch("http://13.58.208.54/api/productos/");
     if (!response.ok) {
       throw new Error("No se pudo obtener la lista de productos desde el servidor.");
     }
