@@ -1,8 +1,7 @@
 const cardsProduct = document.getElementById("cardsProduct");
 const alertData = document.getElementById("alertData");
 
-const traerProductos = () => {
-
+const traerProductos = async () => {
   try {
     const response = await fetch("http://13.58.208.54/api/productos/");
     if (!response.ok) {
@@ -56,12 +55,10 @@ const traerProductos = () => {
       </div>
     `
     );
-
   }
+};
 
-}
-
-
+/*
 //Código original, tomar cuando sea necesario
 const localStoredData = localStorage.getItem("productData");
 
@@ -220,4 +217,4 @@ function filtrarPorCategoria(slug) {
     .join("");
 
   cardsProduct.innerHTML = showCard;
-}*/
+} */
