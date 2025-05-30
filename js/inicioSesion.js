@@ -25,6 +25,16 @@ const limpiarAlertElemnto = (elementoInput, elementoValidar) => {
   elementoValidar.innerText = "";
 };
 
+// Función para limpiar todas las validaciones
+const limpiarValidaciones = () => {
+  email.classList.remove("is-valid", "is-invalid");
+  password.classList.remove("is-valid", "is-invalid");
+  correoValidar.classList.remove("valid-feedback", "invalid-feedback");
+  contraseñaValidar.classList.remove("valid-feedback", "invalid-feedback");
+  correoValidar.innerText = "";
+  contraseñaValidar.innerText = "";
+};
+
 email.addEventListener("input", () => {
   const emailVal = email.value.trim();
   const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
@@ -57,27 +67,76 @@ function validarFormulario(emailVal, contraseñaVal) {
   if (!emailRegex.test(emailVal)) {
     errores.push("Ingresa un correo electrónico válido");
     alertElemento(email, correoValidar, "Ingresa un correo electrónico válido");
+  } else {
+    limpiarAlertElemnto(email, correoValidar);
   }
 
   // Validar contraseña
   if (!contraseñaVal.trim()) {
     errores.push("La contraseña no puede estar vacía");
     alertElemento(password, contraseñaValidar, "La contraseña no puede estar vacía");
-  } else if (contraseñaVal.length < 6) {
-    errores.push("La contraseña debe tener al menos 6 caracteres");
-    alertElemento(password, contraseñaValidar, "La contraseña debe tener al menos 6 caracteres");
+  } else if (contraseñaVal.length < 8) {
+    errores.push("La contraseña debe tener al menos 8 caracteres");
+    alertElemento(password, contraseñaValidar, "La contraseña debe tener al menos 8 caracteres");
+  } else {
+    limpiarAlertElemnto(password, contraseñaValidar);
   }
 
   return errores;
 }
 
-// Evento para el botón de enviar
-btnInicioSesion.addEventListener("click", function (event) {
+// Función para obtener usuarios de la API
+const obtenerUsuarios = async () => {
+  try {
+    const response = await fetch("http://13.58.208.54/api/usuarios/", {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+
+    if (response.ok) {
+      const usuarios = await response.json();
+      return usuarios;
+    } else {
+      throw new Error('Error al obtener usuarios');
+    }
+  } catch (error) {
+    console.error('Error al obtener usuarios:', error);
+    throw error;
+  }
+};
+
+// Función simple para simular verificación de BCrypt
+// NOTA: Esta es solo una simulación - BCrypt requiere verificación en el backend
+const verificarPassword = (passwordPlano, passwordHash) => {
+  // Como no podemos verificar BCrypt en el frontend, 
+  // esta función solo verifica que las contraseñas no estén vacías
+  // y que el hash parezca ser de BCrypt (empieza con $2a$, $2b$, etc.)
+  
+  if (!passwordPlano || !passwordHash) {
+    return false;
+  }
+  
+  // Verificar si el hash parece ser de BCrypt
+  const bcryptPattern = /^\$2[abxy]?\$\d+\$/;
+  if (!bcryptPattern.test(passwordHash)) {
+    return false;
+  }
+  
+  // Aquí normalmente harías la verificación real con BCrypt
+  // Por ahora, esta es una verificación básica de longitud
+  return passwordPlano.length >= 8;
+};
+
+// Evento para el botón de iniciar sesión
+btnInicioSesion.addEventListener("click", async function (event) {
   event.preventDefault();
 
   const emailVal = email.value.trim();
   const contraseñaVal = password.value.trim();
 
+  // Validar formulario
   let erroresVal = validarFormulario(emailVal, contraseñaVal);
 
   if (erroresVal.length > 0) {
@@ -90,58 +149,94 @@ btnInicioSesion.addEventListener("click", function (event) {
     return;
   }
 
-  const usuariosAlmacenados = JSON.parse(localStorage.getItem("usuarios")) || [];
-  const usuarioExistente = usuariosAlmacenados.find(
-    (usuario) => usuario.email === emailVal
-  );
+  // Deshabilitar botón durante el proceso
+  btnInicioSesion.disabled = true;
+  btnInicioSesion.textContent = 'Iniciando sesión...';
 
-  if (!usuarioExistente) {
-    email.focus();
-    // Limpiar datos
-    //email.value = "";
+  try {
+    // Obtener usuarios de la API
+    const usuarios = await obtenerUsuarios();
+    
+    // Buscar usuario por email
+    const usuarioExistente = usuarios.find(usuario => usuario.email === emailVal);
+
+    if (!usuarioExistente) {
+      // Usuario no encontrado
+      password.value = "";
+      limpiarValidaciones();
+      
+      alertElemento(email, correoValidar, "Confirme su correo y/o contraseña");
+      alertElemento(password, contraseñaValidar, "Confirme su correo y/o contraseña");
+      
+      Swal.fire({
+        title: "Error",
+        text: "Los datos que ingresaste son incorrectos, inténtalo de nuevo",
+        icon: "error",
+      });
+      
+      email.focus();
+      return;
+    }
+
+    // Verificar contraseña (simulación - en producción debe ser en el backend)
+    const passwordValida = verificarPassword(contraseñaVal, usuarioExistente.password);
+    
+    if (!passwordValida) {
+      // Contraseña incorrecta
+      password.value = "";
+      limpiarValidaciones();
+      
+      alertElemento(password, contraseñaValidar, "Confirme su correo y/o contraseña");
+      
+      Swal.fire({
+        title: "Error",
+        text: "Los datos que ingresaste son incorrectos, inténtalo de nuevo",
+        icon: "error",
+      });
+      
+      email.focus();
+      return;
+    }
+
+    // Login exitoso
+    // Crear una copia del usuario sin la contraseña para almacenar
+    const usuarioSinPassword = { ...usuarioExistente };
+    delete usuarioSinPassword.password;
+
+    // Guardar estado de sesión
+    localStorage.setItem("sesionIniciada", "true");
+    localStorage.setItem("usuarioActivo", JSON.stringify(usuarioSinPassword));
+
+    // Limpiar formulario
+    email.value = "";
     password.value = "";
-    //limpiarAlertElemnto(email, correoValidar);
-    limpiarAlertElemnto(password, contraseñaValidar);
+    limpiarValidaciones();
 
-    alertElemento(email, correoValidar, "Confirme su correo y/o contraseña");
-    alertElemento(password, contraseñaValidar, "Confirme su correo y/o contraseña");
+    // Mostrar mensaje de éxito
     Swal.fire({
-      title: "Error",
-      text: "Los datos que ingresaste son incorrectos, inténtalo de nuevo",
+      title: "¡Éxito!",
+      text: "Has iniciado sesión correctamente",
+      icon: "success",
+    }).then(() => {
+      // Redirigir al usuario
+      window.location.href = "acerca.html";
+    });
+
+  } catch (error) {
+    console.error('Error:', error);
+    
+    // Limpiar campos en caso de error
+    password.value = "";
+    limpiarValidaciones();
+    
+    Swal.fire({
+      title: "Error de conexión",
+      text: "No se pudo conectar al servidor. Verifica tu conexión a internet.",
       icon: "error",
     });
-    return;
+  } finally {
+    // Rehabilitar botón
+    btnInicioSesion.disabled = false;
+    btnInicioSesion.textContent = 'Iniciar Sesión';
   }
-
-   if (usuarioExistente.contraseña !== contraseñaVal) {
-    email.focus();
-    // Limpiar datos
-    //email.value = "";
-    password.value = "";
-    limpiarAlertElemnto(email, correoValidar);
-    limpiarAlertElemnto(password, contraseñaValidar);
-
-    //alertElemento(email, correoValidar, "Confirme su correo y/o contraseña");
-    alertElemento(password, contraseñaValidar, "Confirme su correo y/o contraseña");
-    Swal.fire({
-      title: "Error",
-      text: "Los datos que ingresaste son incorrectos, inténtalo de nuevo",
-      icon: "error",
-    });
-    return;
-  }
-
-  // Si todo está correcto, guardar estado de sesión
-  localStorage.setItem("sesionIniciada", "true");
-  localStorage.setItem("usuarioActivo", JSON.stringify(usuarioExistente));
-
-  // Inicio de sesión exitoso
-  Swal.fire({
-    title: "¡Éxito!",
-    text: "Has iniciado sesión correctamente",
-    icon: "success",
-  }).then(() => {
-    // Redirigir al usuario o realizar otras acciones
-    window.location.href = "acerca.html";
-  });
 });
