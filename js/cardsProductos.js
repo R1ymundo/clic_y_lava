@@ -1,11 +1,10 @@
 const cardsProduct = document.getElementById("cardsProduct");
 const alertData = document.getElementById("alertData");
-const listaCategorias = document.getElementById("listaCategorias");
 
-// --- Global variable to hold all products fetched from the API ---
+
 let allProducts = [];
 
-// --- Helper function to render product cards ---
+
 const renderProductCards = (productsToRender) => {
     if (!productsToRender || productsToRender.length === 0) {
         cardsProduct.innerHTML = '<p class="text-center w-100">No se encontraron productos.</p>';
@@ -14,13 +13,12 @@ const renderProductCards = (productsToRender) => {
 
     const showCard = productsToRender
         .map((product) => {
-            // Ajustado a la estructura de tu API
+            
             const imageUrl = product.imagen || 'https://via.placeholder.com/400x300?text=No+Image'; 
             const nombre = product.nombre || 'N/A';
             const descripcion = product.descripcion || 'No description available.';
             const precio = product.precio !== undefined ? product.precio : 'N/A';
             const stock = product.stock !== undefined ? product.stock : 0;
-            const productId = product.id || '#';
 
             return `
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
@@ -35,11 +33,10 @@ const renderProductCards = (productsToRender) => {
 
                             <div class="descripcion-producto">${descripcion}</div>
 
-                            <div class="d-flex justify-content-center gap-2 mt-3">
+                            <div class="d-flex justify-content-center mt-3">
                                 <button class="btn btn-carrito btn-sm" ${stock <= 0 ? 'disabled' : ''}>
                                     ${stock <= 0 ? 'Sin Stock' : 'Agregar al Carrito 🛒'}
                                 </button>
-                                <a href="../paginas/detalleProducto.html?id=${productId}" class="btn btn-primary btn-sm">Ver más detalles</a>
                             </div>
                         </div>
                     </div>
@@ -50,9 +47,9 @@ const renderProductCards = (productsToRender) => {
     cardsProduct.innerHTML = showCard;
 };
 
-// --- Function to fetch all products from the API ---
+
 const fetchProductsFromAPI = async () => {
-    const API_URL = "http://13.58.208.54/api/productos/"; // Your API endpoint
+    const API_URL = "http://13.58.208.54/api/productos/";
 
     try {
         const response = await fetch(API_URL);
@@ -60,63 +57,22 @@ const fetchProductsFromAPI = async () => {
             throw new Error(`Error de red: ${response.status} - ${response.statusText}`);
         }
         const data = await response.json();
-        return data; // La API devuelve directamente un array de productos
+        return data; 
     } catch (error) {
         console.error("Error al obtener productos:", error);
         throw new Error(`No se pudo cargar la información de los productos: ${error.message}`);
     }
 };
 
-// --- Function to populate category filters dynamically ---
-// Como tus productos no tienen categorías en la respuesta actual, 
-// esta función se simplifica o puedes omitirla
-const populateCategories = (products) => {
-    listaCategorias.innerHTML = ''; // Clear existing categories
 
-    // Add "All Products" option
-    const itemTodos = document.createElement("li");
-    itemTodos.innerHTML = `<a class="dropdown-item" href="#" data-slug="todos">Todos los productos</a>`;
-    listaCategorias.appendChild(itemTodos);
-
-    // Puedes agregar categorías basadas en el nombre o tipo de producto
-    // Por ejemplo, categorizar por tipo (Lavadora, Secadora, etc.)
-    const uniqueCategories = new Set();
-    products.forEach(product => {
-        // Puedes crear categorías basadas en el nombre del producto
-        const productType = product.nombre.toLowerCase();
-        if (productType.includes('lavadora')) {
-            uniqueCategories.add('electrodomesticos-lavado');
-        } else if (productType.includes('secadora')) {
-            uniqueCategories.add('electrodomesticos-secado');
-        } else if (productType.includes('jabon') || productType.includes('detergente')) {
-            uniqueCategories.add('productos-limpieza');
-        }
-    });
-
-    // Crear elementos de categoría
-    const categoryNames = {
-        'electrodomesticos-lavado': 'Electrodomésticos de Lavado',
-        'electrodomesticos-secado': 'Electrodomésticos de Secado',
-        'productos-limpieza': 'Productos de Limpieza'
-    };
-
-    Array.from(uniqueCategories).forEach(catSlug => {
-        const li = document.createElement("li");
-        li.innerHTML = `<a class="dropdown-item" href="#" data-slug="${catSlug}">${categoryNames[catSlug]}</a>`;
-        listaCategorias.appendChild(li);
-    });
-};
-
-// --- Main function to fetch and display products ---
 window.fetchingProducts = async () => {
-    alertData.innerHTML = ''; // Clear previous alerts
+    alertData.innerHTML = ''; 
 
     try {
-        allProducts = await fetchProductsFromAPI(); // Fetch and store all products
-        populateCategories(allProducts); // Populate categories based on fetched products
-        renderProductCards(allProducts); // Display all products initially
+        allProducts = await fetchProductsFromAPI(); 
+        renderProductCards(allProducts); 
     } catch (error) {
-        // Display error message to the user
+        
         alertData.innerHTML = `
             <div class="alert alert-danger d-flex w-50 m-auto mt-5" role="alert">
                 <svg xmlns="http://www.w3.org/2000/svg" class="bi flex-shrink-0 me-2" width="50px" viewBox="0 0 16 16" role="img" aria-label="Warning:">
@@ -126,37 +82,8 @@ window.fetchingProducts = async () => {
                     <strong>Error:</strong> ${error.message}
                 </div>
             </div>`;
-        cardsProduct.innerHTML = ''; // Clear product cards on error
+        cardsProduct.innerHTML = ''; 
     }
 };
 
-// --- Event listener for category filtering ---
-document.addEventListener("click", (e) => {
-    if (e.target.matches(".dropdown-item")) {
-        e.preventDefault();
-        const slug = e.target.dataset.slug;
-
-        if (slug === "todos") {
-            renderProductCards(allProducts); // Show all products from the stored array
-        } else {
-            // Filtrar productos basado en el tipo/categoría
-            const filteredProducts = allProducts.filter((product) => {
-                const productType = product.nombre.toLowerCase();
-                switch(slug) {
-                    case 'electrodomesticos-lavado':
-                        return productType.includes('lavadora');
-                    case 'electrodomesticos-secado':
-                        return productType.includes('secadora');
-                    case 'productos-limpieza':
-                        return productType.includes('jabon') || productType.includes('detergente');
-                    default:
-                        return false;
-                }
-            });
-            renderProductCards(filteredProducts);
-        }
-    }
-});
-
-// --- Initial call to fetch and display products when the page loads ---
 document.addEventListener("DOMContentLoaded", fetchingProducts);
