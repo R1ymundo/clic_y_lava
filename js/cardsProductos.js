@@ -1,10 +1,10 @@
 const cardsProduct = document.getElementById("cardsProduct");
 const alertData = document.getElementById("alertData");
 
-
+// --- Global variable to hold all products fetched from the API ---
 let allProducts = [];
 
-
+// --- Helper function to render product cards ---
 const renderProductCards = (productsToRender) => {
     if (!productsToRender || productsToRender.length === 0) {
         cardsProduct.innerHTML = '<p class="text-center w-100">No se encontraron productos.</p>';
@@ -13,7 +13,7 @@ const renderProductCards = (productsToRender) => {
 
     const showCard = productsToRender
         .map((product) => {
-            
+            // Ajustado a la estructura de tu API
             const imageUrl = product.imagen || 'https://via.placeholder.com/400x300?text=No+Image'; 
             const nombre = product.nombre || 'N/A';
             const descripcion = product.descripcion || 'No description available.';
@@ -47,9 +47,9 @@ const renderProductCards = (productsToRender) => {
     cardsProduct.innerHTML = showCard;
 };
 
-
+// --- Function to fetch all products from the API ---
 const fetchProductsFromAPI = async () => {
-    const API_URL = "http://13.58.208.54/api/productos/";
+    const API_URL = "http://13.58.208.54/api/productos/"; // Your API endpoint
 
     try {
         const response = await fetch(API_URL);
@@ -57,22 +57,22 @@ const fetchProductsFromAPI = async () => {
             throw new Error(`Error de red: ${response.status} - ${response.statusText}`);
         }
         const data = await response.json();
-        return data; 
+        return data; // La API devuelve directamente un array de productos
     } catch (error) {
         console.error("Error al obtener productos:", error);
         throw new Error(`No se pudo cargar la información de los productos: ${error.message}`);
     }
 };
 
-
+// --- Main function to fetch and display products ---
 window.fetchingProducts = async () => {
-    alertData.innerHTML = ''; 
+    alertData.innerHTML = ''; // Clear previous alerts
 
     try {
-        allProducts = await fetchProductsFromAPI(); 
-        renderProductCards(allProducts); 
+        allProducts = await fetchProductsFromAPI(); // Fetch and store all products
+        renderProductCards(allProducts); // Display all products initially
     } catch (error) {
-        
+        // Display error message to the user
         alertData.innerHTML = `
             <div class="alert alert-danger d-flex w-50 m-auto mt-5" role="alert">
                 <svg xmlns="http://www.w3.org/2000/svg" class="bi flex-shrink-0 me-2" width="50px" viewBox="0 0 16 16" role="img" aria-label="Warning:">
@@ -82,8 +82,9 @@ window.fetchingProducts = async () => {
                     <strong>Error:</strong> ${error.message}
                 </div>
             </div>`;
-        cardsProduct.innerHTML = ''; 
+        cardsProduct.innerHTML = ''; // Clear product cards on error
     }
 };
 
+// --- Initial call to fetch and display products when the page loads ---
 document.addEventListener("DOMContentLoaded", fetchingProducts);

@@ -84,11 +84,10 @@ const telefonoRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$
     }
 });
 
-
 contraseña.addEventListener("input", () => {
   let errores = [];
   const contraseñaVal = contraseña.value.trim();
-  const contraseñaRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/;
+  const contraseñaRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$ %^&*-]).{8,}$/;
   
   if (!contraseñaVal) {
     alertElemento(contraseña, contraseñaValidar, "La contraseña no puede estar vacía");
@@ -97,7 +96,7 @@ contraseña.addEventListener("input", () => {
   } else if (!contraseñaRegex.test(contraseñaVal)) {
     alertElemento(contraseña, contraseñaValidar, "Debe incluir mayúsculas, minúsculas, números y un carácter especial");
   } else {
-    limpiarAlertElemnto(contraseña, contraseñaValidar); // Muestra la palomita
+    limpiarAlertElemnto(contraseña, contraseñaValidar);
   }
 });
 
@@ -161,7 +160,7 @@ function validarFormulario(
     alertElemento(email, correoValidar, "Ingresa un correo electrónico válido");
   } else {
     limpiarAlertElemnto(email, correoValidar);
-  } //fin validar email   
+  }
 
   //Validar telefono
   const telefonoRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
@@ -175,11 +174,9 @@ function validarFormulario(
   } else {
     limpiarAlertElemnto(telefono, telefonoValidar);
   }
-  //fin validar telefono
 
   // Validar contraseña
   if (!contraseñaVal.trim()) {
-    // Caso específico cuando no se ingresa nada
     errores.push("Contraseña");
     alertElemento(
       contraseña,
@@ -187,7 +184,6 @@ function validarFormulario(
       "La contraseña no puede estar vacía"
     );
   } else if (contraseñaVal.length < 8) {
-    // Caso específico para cuando la contraseña es demasiado corta
     errores.push("La contraseña debe tener al menos 8 caracteres");
     alertElemento(
       contraseña,
@@ -195,8 +191,7 @@ function validarFormulario(
       "La contraseña debe tener al menos 8 caracteres"
     );
   } else {
-    // Validación completa con regex para contraseñas con la longitud adecuada
-    const contraseñaRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/;
+    const contraseñaRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$ %^&*-]).{8,}$/;
     if (!contraseñaRegex.test(contraseñaVal)) {
       errores.push("La contraseña debe incluir mayúsculas, minúsculas, números y un carácter especial");
       alertElemento(
@@ -211,7 +206,6 @@ function validarFormulario(
 
   // Validar confirmación de contraseña
   if (!confirmarContVal.trim()) {
-    // Caso específico cuando no se ingresa nada en la confirmación
     errores.push("Confirmar tu contraseña");
     alertElemento(
       confirmarCont,
@@ -219,7 +213,6 @@ function validarFormulario(
       "Debes confirmar tu contraseña"
     );
   } else if (contraseñaVal !== confirmarContVal) {
-    // Las contraseñas no coinciden
     errores.push("Las contraseñas no coinciden");
     alertElemento(
       confirmarCont,
@@ -256,123 +249,120 @@ const limpiarValidacionCampo = (input, feedback) => {
   feedback.innerText = "";
 };
 
-// Evento para el botón de enviar
-btnEnviar.addEventListener("click", function (event) {
-  event.preventDefault();
+// Función para limpiar formulario
+const limpiarFormulario = () => {
+  Nombre.value = "";
+  apellidos.value = "";
+  email.value = "";
+  telefono.value = "";
+  contraseña.value = "";
+  confirmarCont.value = "";
+  limpiarValidacionesTotal();
+};
 
-  const nombreVal = Nombre.value.trim();
+/////////////////CONEXIÓN A LA API/////////////////////////
+document.getElementById('btnEnviar').addEventListener('click', async (e) => {
+  e.preventDefault(); // Prevenir envío del formulario por defecto
+  
+  // Obtener valores de los campos
+  const nombre = Nombre.value.trim();
   const apellidosVal = apellidos.value.trim();
-  const emailVal = email.value.trim();
+  const correo = email.value.trim();
   const telefonoVal = telefono.value.trim();
   const contraseñaVal = contraseña.value.trim();
-  const confirmarContVal = confirmarCont.value.trim();
+  const confirmar = confirmarCont.value.trim();
 
-  let erroresVal = validarFormulario(
-    nombreVal,
-    apellidosVal,
-    emailVal,
-    telefonoVal,
-    contraseñaVal,
-    confirmarContVal,
-  );
-
-  if (erroresVal.length > 0) {
+  // Validar formulario antes de enviar
+  const errores = validarFormulario(nombre, apellidosVal, correo, telefonoVal, contraseñaVal, confirmar);
+  
+  if (errores.length > 0) {
     Swal.fire({
-      title: "¡Campos incompletos!",
-      html: `
-        <p>Por favor completa los siguientes campos obligatorios:</p>
-        <ul style="text-align: left; margin-left: 20px;">
-          ${erroresVal.map(error => `<li>${error}</li>`).join("")}
-        </ul>
-      `,
-      icon: "error",
-      confirmButtonText: "Entendido",
+      title: 'Error de validación',
+      text: 'Por favor corrige los errores en el formulario',
+      icon: 'error'
     });
-  } else {
-    // objeto de nuevo usuario ->
-    const usuarioNuevo = {
-      nombre: nombreVal,
-      apellidos: apellidosVal,
-      email: emailVal,
-      telefono: telefonoVal,
-      contraseña: contraseñaVal,
-      confirmarCont: confirmarContVal,
-    };
-
-    // obtenemos usuarios almacenado, si es que los hay ->
-    const usuariosAlmacenados =
-      JSON.parse(localStorage.getItem("usuarios")) || [];
-
-    // Verificamos si ya existe tanto el correo como el telefono ->
-    const usuarioDuplicado = usuariosAlmacenados.find(
-      (usuario) =>
-        usuario.email === usuarioNuevo.email &&
-        usuario.telefono === usuarioNuevo.telefono
-    );
-
-    // Verifica si ya existe solo el correo ->
-    const correoDuplicado = usuariosAlmacenados.find(
-      (usuario) => usuario.email === usuarioNuevo.email
-    );
-
-    // Verifica si ya existe solo el teléfono ->
-    const telefonoDuplicado = usuariosAlmacenados.find(
-      (usuario) => usuario.telefono === usuarioNuevo.telefono
-    );
-
-    // condiciones si existe correo y telefono, solo el correo o solo el telefono  ->
-
-    if (usuarioDuplicado) {
-      Swal.fire({
-        title: "Este usuario ya se encuentra registrado",
-        text: "Usuario registrado con este correo y telefono",
-        icon: "warning",
-      });
-      email.value = "";
-      telefono.value = "";
-      limpiarValidacionCampo(email, correoValidar);
-      limpiarValidacionCampo(telefono, telefonoValidar);
-      return;
-    }
-
-    if (correoDuplicado) {
-      Swal.fire({
-        title: "Usuario registrado con este correo, cambialo por favor",
-        icon: "warning",
-      });
-      email.value = "";
-      limpiarValidacionCampo(email, correoValidar);
-      return;
-    }
-
-    if (telefonoDuplicado) {
-      Swal.fire({
-        title: "Usuario registrado con este telefono, cambialo por favor",
-        icon: "warning",
-      });
-      telefono.value = "";
-      limpiarValidacionCampo(telefono, telefonoValidar);
-      return;
-    }
-
-    usuariosAlmacenados.push(usuarioNuevo);
-    localStorage.setItem("usuarios", JSON.stringify(usuariosAlmacenados));
-
-    Swal.fire({
-      title: "¡Éxito!",
-      text: "Se ha registrado correctamente",
-      icon: "success",
-    }).then(() => {
-      Nombre.value = "";
-      apellidos.value = "";
-      email.value = "";
-      telefono.value = "";
-      contraseña.value = "";
-      confirmarCont.value = "";
-
-      limpiarValidacionesTotal();
-
-      window.location.href = "inicioSesion.html";
-    });
+    return;
   }
+
+  // Validación adicional de contraseñas
+  if (contraseñaVal !== confirmar) {
+    Swal.fire('Error', 'Las contraseñas no coinciden', 'error');
+    return;
+  }
+
+  // Deshabilitar botón mientras se procesa
+  btnEnviar.disabled = true;
+  btnEnviar.textContent = 'Registrando...';
+
+  const registroUsuario = async () => {
+    try {
+      // Obtener fecha actual en formato requerido por la API
+      const fechaActual = new Date();
+      const fechaRegistro = fechaActual.toISOString().slice(0, 19).replace('T', ' ');
+
+      const response = await fetch("http://13.58.208.54/api/usuarios/", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          nombre: nombre,
+          apellidos: apellidosVal,
+          email: correo,
+          password: contraseñaVal, // La API se encargará del hash
+          telefono: telefonoVal,
+          fechaRegistro: fechaRegistro,
+          rol: {
+            id: 2 // Cambiado de idRol a id según tu estructura
+          }
+        })
+      });
+
+      const responseData = await response.json();
+
+      if (response.ok) {
+        Swal.fire({
+          title: '¡Éxito!',
+          text: 'Usuario registrado correctamente',
+          icon: 'success',
+          confirmButtonText: 'Continuar'
+        }).then(() => {
+          limpiarFormulario();
+          // Descomentar la siguiente línea si quieres redirigir
+          // window.location.href = 'inicioSesion.html';
+        });
+      } else {
+        // Manejar diferentes tipos de errores
+        let mensajeError = 'Hubo un problema en el registro';
+        
+        if (response.status === 400) {
+          mensajeError = responseData.message || 'Datos inválidos. Verifica la información ingresada.';
+        } else if (response.status === 409) {
+          mensajeError = 'El usuario ya existe. Verifica tu email o teléfono.';
+        } else if (response.status === 500) {
+          mensajeError = 'Error del servidor. Intenta nuevamente más tarde.';
+        }
+
+        Swal.fire({
+          title: 'Error',
+          text: mensajeError,
+          icon: 'error'
+        });
+      }
+    } catch (error) {
+      console.error('Error de conexión:', error);
+      Swal.fire({
+        title: 'Error de conexión',
+        text: 'No se pudo conectar al servidor. Verifica tu conexión a internet.',
+        icon: 'error'
+      });
+    } finally {
+      // Rehabilitar botón
+      btnEnviar.disabled = false;
+      btnEnviar.textContent = 'Registrar';
+    }
+  };
+
+  await registroUsuario();
 });
