@@ -8,6 +8,9 @@ const listaMarca = document.getElementById("listaMarca");
 const descripcion = document.getElementById("descripcion");
 const btnEnviar = document.getElementById("btnEnviar");
 
+// URL de tu API
+const API_BASE_URL = "http://13.58.208.54";
+
 // Expresiones regulares para validaciones
 const regex = {
   nombre: /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s\-\.]{5,50}$/,
@@ -51,10 +54,8 @@ function mostrarError(elemento, mensaje) {
     grupo.appendChild(errorElement);
 
     elemento.classList.add("is-invalid");
-
   } else {
     elemento.classList.remove("is-invalid");
-
   }
 }
 
@@ -75,7 +76,6 @@ function validarNumero(num, esStock = false) {
     if (!/^\d+(\.\d{1,2})?$/.test(valor)) {
       return "El precio debe tener máximo 2 decimales";
     }
-
   }
 
   return null;
@@ -117,10 +117,12 @@ function validarFormularioCompleto() {
   mostrarError(stock, validarNumero(stock, true));
   mostrarError(precio, validarNumero(precio));
 
-  mostrarError(listaCategoria, validarSelect(listaCategoria));
-  mostrarError(listaMarca, validarSelect(listaMarca));
+  // Comentamos las validaciones de categoría y marca por ahora
+  // ya que tu API no las maneja actualmente
+  // mostrarError(listaCategoria, validarSelect(listaCategoria));
+  // mostrarError(listaMarca, validarSelect(listaMarca));
 
-  if (!imgProduct.src) {
+  if (!imgProduct.src || imgProduct.src === "") {
     const grupo = btnArchivo.closest(".mb-3") || btnArchivo.parentElement;
     const errorExistente = grupo.querySelector(".text-danger");
     if (errorExistente) errorExistente.remove();
@@ -140,103 +142,119 @@ function validarFormularioCompleto() {
   return valido;
 }
 
-// Guardar producto
-function guardarProducto() {
-  // Obtener los datos existentes
-  let data = JSON.parse(localStorage.getItem("productData"));
-  if (!data) {
-    data = {
-      categorias: [
-        { id: 1, nombre: "Lavadora", slug: "lavadora" },
-        { id: 2, nombre: "Secadora", slug: "secadora" },
-        { id: 3, nombre: "Centro de lavado", slug: "centro-de-lavado" },
-      ],
-      productos: [],
-    };
+//////////////////<-- Inicio agregar producto -->//////////////////
+
+async function guardarProducto() {
+  // Obtener datos del formulario ->
+  const nombre = nombreProducto.value.trim();
+  const descripcionTexto = descripcion.value.trim();
+  const precioUnitario = Number(precio.value.trim());
+  const stockDisponible = Number(stock.value.trim());
+  const imagenPrincipal = imgProduct.src;
+
+  // Crear el objeto que se espera en el backend Java ->
+  const producto = {
+    nombre: nombre,
+    descripcion: descripcionTexto,
+    precio: precioUnitario,
+    stock: stockDisponible,
+    imagen: imagenPrincipal,
+  };
+
+  console.log("Enviando producto:", producto);
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/productos/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(producto),
+    });
+
+    console.log("Response status:", response.status);
+    console.log("Response headers:", response.headers);
+
+    if (!response.ok) {
+      // Intentar obtener mensaje de error del servidor
+      let errorMessage = `Error del servidor: ${response.status} - ${response.statusText}`;
+      try {
+        const errorData = await response.text();
+        if (errorData) {
+          errorMessage += ` - ${errorData}`;
+        }
+      } catch (e) {
+        console.log("No se pudo obtener mensaje de error detallado");
+      }
+      throw new Error(errorMessage);
+    }
+
+    const data = await response.json();
+    console.log("Producto guardado en backend:", data);
+    
+    // Mostrar mensaje de éxito
+    await Swal.fire({
+      title: "¡Éxito!",
+      text: "El producto se ha registrado correctamente",
+      icon: "success",
+      confirmButtonText: "Aceptar",
+    });
+
+    return true;
+  } catch (error) {
+    console.error("Error al guardar producto:", error);
+    
+    // Mostrar mensaje de error más detallado
+    await Swal.fire({
+      title: "Error al guardar",
+      text: `No se pudo guardar el producto: ${error.message}`,
+      icon: "error",
+      confirmButtonText: "Entendido",
+    });
+    
+    return false;
   }
-
-  // Obtener la categoría seleccionada
-  const categoriaId = parseInt(listaCategoria.value);
-  const categoriaSeleccionada = data.categorias.find(
-    (cat) => cat.id === categoriaId
-  ) || {
-    id: categoriaId,
-    nombre: listaCategoria.options[listaCategoria.selectedIndex].text,
-    slug: listaCategoria.options[listaCategoria.selectedIndex].text
-      .toLowerCase()
-      .replace(/\s+/g, "-"),
-  };
-
-  // Crear el nuevo producto con todos los campos
-  const nuevoProducto = {
-    id:
-      data.productos.length > 0
-        ? Math.max(...data.productos.map((p) => p.id)) + 1
-        : 1,
-    marca: listaMarca.options[listaMarca.selectedIndex].text,
-    precios: {
-      precioHora: Number(precio.value.trim()),
-      precioDia: Number(precio.value.trim()) * 2.2,
-      precioSemana: Number(precio.value.trim()) * 3.8,
-    },
-    modelo: nombreProducto.value.trim(),
-    imagenes: {
-      imagenPricipal: imgProduct.src,
-      // descomentar cuando sea necesario **
-      // imagenAdicional1: "",
-      // imagenAdicional2: "",
-      // imagenAdicional3: ""
-    },
-    stock: Number(stock.value.trim()),
-    descripcion: descripcion.value.trim(),
-    categoria: categoriaSeleccionada,
-  };
-
-  // Agregar el producto y guardar
-  data.productos.push(nuevoProducto);
-  localStorage.setItem("productData", JSON.stringify(data));
-
-  console.log("Producto guardado:", nuevoProducto);
-
-  return true;
 }
+
+//////////////////<-- Fin agregar producto -->//////////////////
 
 //Validaciones
 
-nombreProducto.addEventListener('input', () => {
-  const error = validarTexto(nombreProducto, 'nombre');
+nombreProducto.addEventListener("input", () => {
+  const error = validarTexto(nombreProducto, "nombre");
   mostrarError(nombreProducto, error);
-  if (!error) nombreProducto.classList.add('is-valid');
+  if (!error) nombreProducto.classList.add("is-valid");
 });
 
-stock.addEventListener('input', () => {
+stock.addEventListener("input", () => {
   const error = validarNumero(stock, true);
   mostrarError(stock, error);
-  if (!error) stock.classList.add('is-valid');
+  if (!error) stock.classList.add("is-valid");
 });
 
-precio.addEventListener('input', () => {
+precio.addEventListener("input", () => {
   const error = validarNumero(precio);
   mostrarError(precio, error);
-  if (!error) precio.classList.add('is-valid');
+  if (!error) precio.classList.add("is-valid");
 });
 
-listaCategoria.addEventListener('change', () => {
-  const error = validarSelect(listaCategoria);
-  mostrarError(listaCategoria, error);
-  if (!error) listaCategoria.classList.add('is-valid');
-});
+// Comentamos las validaciones de categoría y marca temporalmente
+// listaCategoria.addEventListener("change", () => {
+//   const error = validarSelect(listaCategoria);
+//   mostrarError(listaCategoria, error);
+//   if (!error) listaCategoria.classList.add("is-valid");
+// });
 
-listaMarca.addEventListener('change', () => {
-  const error = validarSelect(listaMarca);
-  mostrarError(listaMarca, error);
-  if (!error) listaMarca.classList.add('is-valid');
-});
+// listaMarca.addEventListener("change", () => {
+//   const error = validarSelect(listaMarca);
+//   mostrarError(listaMarca, error);
+//   if (!error) listaMarca.classList.add("is-valid");
+// });
 
-descripcion.addEventListener('input', () => {
-  const error = validarTexto(descripcion, 'descripcion');
+descripcion.addEventListener("input", () => {
+  const error = validarTexto(descripcion, "descripcion");
   mostrarError(descripcion, error);
-  if (!error) descripcion.classList.add('is-valid');
+  if (!error) descripcion.classList.add("is-valid");
 });
 
 btnEnviar.addEventListener("click", async (event) => {
@@ -251,8 +269,9 @@ btnEnviar.addEventListener("click", async (event) => {
     { element: nombreProducto, name: "Nombre del producto" },
     { element: stock, name: "Stock" },
     { element: precio, name: "Precio" },
-    { element: listaCategoria, name: "Categoría" },
-    { element: listaMarca, name: "Marca" },
+    // Comentamos categoría y marca temporalmente
+    // { element: listaCategoria, name: "Categoría" },
+    // { element: listaMarca, name: "Marca" },
     { element: descripcion, name: "Descripción" },
   ];
 
@@ -268,7 +287,7 @@ btnEnviar.addEventListener("click", async (event) => {
     }
   });
 
-  if (!imgProduct.src) {
+  if (!imgProduct.src || imgProduct.src === "") {
     mensajesError.push("Imagen principal");
     camposFaltantes.push(btnArchivo);
   }
@@ -287,8 +306,8 @@ btnEnviar.addEventListener("click", async (event) => {
                     <p>Por favor completa los siguientes campos obligatorios:</p>
                     <ul style="margin-left: 20px;">
                         ${mensajesError
-          .map((mensaje) => `<li>${mensaje}</li>`)
-          .join("")}
+                          .map((mensaje) => `<li>${mensaje}</li>`)
+                          .join("")}
                     </ul>
                 </div>
             `,
@@ -302,7 +321,9 @@ btnEnviar.addEventListener("click", async (event) => {
   // Validación completa de formato
   if (validarFormularioCompleto()) {
     // Guardamos el producto
-    if (guardarProducto()) {
+    const guardado = await guardarProducto();
+    
+    if (guardado) {
       // Limpiamos el formulario
       document.querySelector("form").reset();
       imgProduct.src = "";
@@ -316,52 +337,47 @@ btnEnviar.addEventListener("click", async (event) => {
       // Actualizamos las cards si estamos en la página de productos
       if (typeof window.fetchingProducts === "function") {
         try {
-          window.fetchingProducts();
+          await window.fetchingProducts();
         } catch (error) {
           console.error("Error al actualizar productos:", error);
         }
       }
 
-      await Swal.fire({
-        title: "¡Éxito!",
-        text: "El producto se ha registrado correctamente",
-        icon: "success",
-        confirmButtonText: "Aceptar",
-      }).then(() => {
-        // Redireccionar a la página de productos
-        window.location.href = "productos.html";
-      });
-
+      // Opcional: Redireccionar a la página de productos
+      // setTimeout(() => {
+      //   window.location.href = "productos.html";
+      // }, 1500);
     }
   } else {
-  await Swal.fire({
-    title: "Error de validación",
-    html: `
+    await Swal.fire({
+      title: "Error de validación",
+      html: `
                 <div style="text-align: left;">
                     <p>Por favor corrige los siguientes errores:</p>
                     <ul style="margin-left: 20px;">
                         ${Array.from(document.querySelectorAll(".is-invalid"))
-        .map((el) => {
-          const label = document.querySelector(
-            `label[for="${el.id}"]`
-          );
-          const fieldName = label
-            ? label.textContent.replace(":", "")
-            : "Campo";
-          const errorMsg =
-            el.parentElement.querySelector(".text-danger");
-          return `<li><strong>${fieldName}:</strong> ${errorMsg?.textContent || "Dato inválido"
-            }</li>`;
-        })
-        .join("")}
+                          .map((el) => {
+                            const label = document.querySelector(
+                              `label[for="${el.id}"]`
+                            );
+                            const fieldName = label
+                              ? label.textContent.replace(":", "")
+                              : "Campo";
+                            const errorMsg =
+                              el.parentElement.querySelector(".text-danger");
+                            return `<li><strong>${fieldName}:</strong> ${
+                              errorMsg?.textContent || "Dato inválido"
+                            }</li>`;
+                          })
+                          .join("")}
                     </ul>
                 </div>
             `,
-    icon: "error",
-    confirmButtonText: "Entendido",
-    customClass: { popup: "swal-wide" },
-  });
-}
+      icon: "error",
+      confirmButtonText: "Entendido",
+      customClass: { popup: "swal-wide" },
+    });
+  }
 });
 
 btnArchivo.addEventListener("click", () => {
